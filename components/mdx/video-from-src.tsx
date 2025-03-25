@@ -13,7 +13,7 @@ export default function VideoFromSrc({
   className?: string;
 }) {
   const initial = {
-    width: "500px",
+    width: "200px",
     height: "200px",
   };
 
