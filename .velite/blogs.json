@@ -1,0 +1,126 @@
+[
+  {
+    "slug": "blogs/example",
+    "title": "Typography & Color System",
+    "description": "A complete MDX example showcasing typography and a theme-safe color system.",
+    "date": "2026-03-16T00:00:00.000Z",
+    "status": "published",
+    "tags": [
+      "typography",
+      "mdx",
+      "design-system",
+      "tailwind"
+    ],
+    "toc": [
+      {
+        "title": "Typography & Color System",
+        "url": "#typography--color-system",
+        "items": [
+          {
+            "title": "The rules (what “theme-safe” means here)",
+            "url": "#the-rules-what-theme-safe-means-here",
+            "items": []
+          },
+          {
+            "title": "Headings hierarchy",
+            "url": "#headings-hierarchy",
+            "items": [
+              {
+                "title": "H3 heading",
+                "url": "#h3-heading",
+                "items": [
+                  {
+                    "title": "H4 heading",
+                    "url": "#h4-heading",
+                    "items": [
+                      {
+                        "title": "H5 heading",
+                        "url": "#h5-heading",
+                        "items": [
+                          {
+                            "title": "H6 heading",
+                            "url": "#h6-heading",
+                            "items": []
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "title": "Paragraphs, emphasis, and links",
+            "url": "#paragraphs-emphasis-and-links",
+            "items": []
+          },
+          {
+            "title": "Lists",
+            "url": "#lists",
+            "items": [
+              {
+                "title": "Unordered",
+                "url": "#unordered",
+                "items": []
+              },
+              {
+                "title": "Ordered",
+                "url": "#ordered",
+                "items": []
+              }
+            ]
+          },
+          {
+            "title": "Blockquotes",
+            "url": "#blockquotes",
+            "items": []
+          },
+          {
+            "title": "Code blocks",
+            "url": "#code-blocks",
+            "items": [
+              {
+                "title": "TypeScript",
+                "url": "#typescript",
+                "items": []
+              },
+              {
+                "title": "Shell",
+                "url": "#shell",
+                "items": []
+              }
+            ]
+          },
+          {
+            "title": "Tables",
+            "url": "#tables",
+            "items": []
+          },
+          {
+            "title": "Media + figure",
+            "url": "#media--figure",
+            "items": []
+          },
+          {
+            "title": "Callouts (info / success / warning)",
+            "url": "#callouts-info--success--warning",
+            "items": []
+          },
+          {
+            "title": "Horizontal rule + spacing",
+            "url": "#horizontal-rule--spacing",
+            "items": []
+          },
+          {
+            "title": "Final sanity check",
+            "url": "#final-sanity-check",
+            "items": []
+          }
+        ]
+      }
+    ],
+    "content": "const{Fragment:e,jsx:n,jsxs:r}=arguments[0];function _createMdxContent(d){const l={a:\"a\",blockquote:\"blockquote\",code:\"code\",em:\"em\",h1:\"h1\",h2:\"h2\",h3:\"h3\",h4:\"h4\",h5:\"h5\",h6:\"h6\",hr:\"hr\",li:\"li\",ol:\"ol\",p:\"p\",pre:\"pre\",strong:\"strong\",table:\"table\",tbody:\"tbody\",td:\"td\",th:\"th\",thead:\"thead\",tr:\"tr\",ul:\"ul\",...d.components};return r(e,{children:[n(l.h1,{children:\"Typography & Color System\"}),\"\\n\",r(l.p,{children:[\"This post is an \",n(l.strong,{children:\"MDX playground\"}),\" for your blog styling. It’s designed to exercise the full Tailwind Typography (\",n(l.code,{children:\"prose\"}),\") surface area while staying \",n(l.strong,{children:\"theme-safe\"}),\" (light/dark) by using semantic colors and neutral tokens.\"]}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"The rules (what “theme-safe” means here)\"}),\"\\n\",r(l.ul,{children:[\"\\n\",n(l.li,{children:\"No hardcoded hex colors.\"}),\"\\n\",r(l.li,{children:[\"Prefer \",n(l.strong,{children:\"semantic\"}),\" tokens (e.g. foreground/background) and neutral scales.\"]}),\"\\n\",n(l.li,{children:\"Links should be obviously interactive.\"}),\"\\n\",n(l.li,{children:\"Code should be legible and wrap safely.\"}),\"\\n\"]}),\"\\n\",r(l.blockquote,{children:[\"\\n\",n(l.p,{children:\"If this page looks good, your system is in a great place.\"}),\"\\n\"]}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Headings hierarchy\"}),\"\\n\",n(l.h3,{children:\"H3 heading\"}),\"\\n\",n(l.h4,{children:\"H4 heading\"}),\"\\n\",n(l.h5,{children:\"H5 heading\"}),\"\\n\",n(l.h6,{children:\"H6 heading\"}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Paragraphs, emphasis, and links\"}),\"\\n\",r(l.p,{children:[\"Regular paragraph text should be readable at a comfortable line length. Here’s \",n(l.strong,{children:\"bold\"}),\", \",n(l.em,{children:\"italic\"}),\", and \",n(l.em,{children:n(l.strong,{children:\"bold italic\"})}),\". Here’s a link to the blog index: \",n(l.a,{href:\"/blogs\",children:\"Blog home\"}),\".\"]}),\"\\n\",r(l.p,{children:[\"You can also include inline code like \",n(l.code,{children:\"pnpm velite:dev\"}),\" and \",n(l.code,{children:\"app/blogs/[slug]/page.tsx\"}),\".\"]}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Lists\"}),\"\\n\",n(l.h3,{children:\"Unordered\"}),\"\\n\",r(l.ul,{children:[\"\\n\",n(l.li,{children:\"A short list item.\"}),\"\\n\",r(l.li,{children:[\"A longer list item that wraps onto the next line to test spacing and rhythm in the prose layout.\",\"\\n\",r(l.ul,{children:[\"\\n\",n(l.li,{children:\"Nested item A\"}),\"\\n\",n(l.li,{children:\"Nested item B\"}),\"\\n\"]}),\"\\n\"]}),\"\\n\",r(l.li,{children:[\"Another item with \",n(l.strong,{children:\"emphasis\"}),\" and \",n(l.code,{children:\"inline code\"}),\".\"]}),\"\\n\"]}),\"\\n\",n(l.h3,{children:\"Ordered\"}),\"\\n\",r(l.ol,{children:[\"\\n\",n(l.li,{children:\"First step\"}),\"\\n\",n(l.li,{children:\"Second step\"}),\"\\n\",r(l.li,{children:[\"Third step\",\"\\n\",r(l.ol,{children:[\"\\n\",n(l.li,{children:\"Nested step\"}),\"\\n\",n(l.li,{children:\"Nested step\"}),\"\\n\"]}),\"\\n\"]}),\"\\n\"]}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Blockquotes\"}),\"\\n\",r(l.blockquote,{children:[\"\\n\",n(l.p,{children:\"Great typography is not about making things “pretty” — it’s about making reading effortless.\"}),\"\\n\",n(l.p,{children:\"The best styles disappear.\"}),\"\\n\"]}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Code blocks\"}),\"\\n\",n(l.h3,{children:\"TypeScript\"}),\"\\n\",n(l.pre,{children:n(l.code,{className:\"language-ts\",children:'type ThemeTokens = {\\r\\n  background: \"bg-background\";\\r\\n  foreground: \"text-foreground\";\\r\\n  border: \"border-border\";\\r\\n};\\r\\n\\r\\nexport function formatDate(date: string) {\\r\\n  return new Date(date).toLocaleDateString(undefined, {\\r\\n    year: \"numeric\",\\r\\n    month: \"short\",\\r\\n    day: \"2-digit\",\\r\\n  });\\r\\n}\\n'})}),\"\\n\",n(l.h3,{children:\"Shell\"}),\"\\n\",n(l.pre,{children:n(l.code,{className:\"language-bash\",children:\"pnpm install\\r\\npnpm velite\\r\\npnpm dev\\n\"})}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Tables\"}),\"\\n\",r(l.table,{children:[n(l.thead,{children:r(l.tr,{children:[n(l.th,{children:\"Token\"}),n(l.th,{children:\"Purpose\"}),n(l.th,{children:\"Notes\"})]})}),r(l.tbody,{children:[r(l.tr,{children:[n(l.td,{children:n(l.code,{children:\"bg-background\"})}),n(l.td,{children:\"Page background\"}),n(l.td,{children:\"Changes with theme\"})]}),r(l.tr,{children:[n(l.td,{children:n(l.code,{children:\"text-foreground\"})}),n(l.td,{children:\"Primary text\"}),n(l.td,{children:\"High contrast\"})]}),r(l.tr,{children:[n(l.td,{children:n(l.code,{children:\"border-border\"})}),n(l.td,{children:\"Dividers\"}),n(l.td,{children:\"Subtle separators\"})]})]})]}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Media + figure\"}),\"\\n\",r(\"figure\",{children:[n(\"div\",{className:\"not-prose overflow-hidden rounded-xl border border-border bg-muted/40\",children:n(\"div\",{className:\"p-4\",children:n(\"p\",{className:\"m-0 text-sm text-muted-foreground\",children:r(l.p,{children:[\"This is a \",n(\"strong\",{children:\"theme-safe\"}),\" “card” inside MDX using semantic tokens:\\r\\n\",n(\"code\",{className:\"ml-1\",children:\"border-border\"}),\", \",n(\"code\",{className:\"ml-1\",children:\"bg-muted\"}),\",\\r\\n\",n(\"code\",{className:\"ml-1\",children:\"text-muted-foreground\"}),\".\"]})})})}),n(\"figcaption\",{className:\"mt-3\",children:n(l.p,{children:\"A custom MDX block using your color system (no hex values).\"})})]}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Callouts (info / success / warning)\"}),\"\\n\",r(\"div\",{className:\"not-prose grid gap-3\",children:[r(\"div\",{className:\"rounded-xl border border-border bg-muted/50 p-4\",children:[n(\"div\",{className:\"text-sm font-semibold text-foreground\",children:\"Info\"}),n(\"div\",{className:\"mt-1 text-sm text-muted-foreground\",children:n(l.p,{children:\"Use this style for neutral notes that shouldn’t dominate the page.\"})})]}),r(\"div\",{className:\"rounded-xl border border-border bg-emerald-500/10 p-4\",children:[n(\"div\",{className:\"text-sm font-semibold text-foreground\",children:\"Success\"}),n(\"div\",{className:\"mt-1 text-sm text-muted-foreground\",children:n(l.p,{children:\"Accent backgrounds should be subtle (use low alpha) and keep text on semantic foregrounds.\"})})]}),r(\"div\",{className:\"rounded-xl border border-border bg-amber-500/10 p-4\",children:[n(\"div\",{className:\"text-sm font-semibold text-foreground\",children:\"Warning\"}),n(\"div\",{className:\"mt-1 text-sm text-muted-foreground\",children:n(l.p,{children:\"Keep contrast high and avoid “pure” background colors that break dark mode.\"})})]})]}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Horizontal rule + spacing\"}),\"\\n\",n(l.p,{children:\"Typography should keep consistent vertical rhythm across sections.\"}),\"\\n\",n(l.hr,{}),\"\\n\",n(l.h2,{children:\"Final sanity check\"}),\"\\n\",r(l.ul,{children:[\"\\n\",r(l.li,{children:[\"Does the page feel good in \",n(l.strong,{children:\"light\"}),\" and \",n(l.strong,{children:\"dark\"}),\"?\"]}),\"\\n\",n(l.li,{children:\"Do headings and code blocks have the right weight?\"}),\"\\n\",n(l.li,{children:\"Do links look clickable?\"}),\"\\n\",n(l.li,{children:\"Do the “not-prose” blocks look consistent with the rest of the design?\"}),\"\\n\"]})]})}return{default:function(e={}){const{wrapper:r}=e.components||{};return r?n(r,{...e,children:n(_createMdxContent,{...e})}):_createMdxContent(e)}};",
+    "slugAsParams": "example"
+  }
+]

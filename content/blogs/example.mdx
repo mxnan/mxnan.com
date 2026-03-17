@@ -1,0 +1,172 @@
+---
+title: "Typography & Color System"
+description: "A complete MDX example showcasing typography and a theme-safe color system."
+date: "2026-03-16"
+status: "published"
+tags: ["typography", "mdx", "design-system", "tailwind"]
+---
+
+# Typography & Color System
+
+This post is an **MDX playground** for your blog styling. It’s designed to exercise the full Tailwind Typography (`prose`) surface area while staying **theme-safe** (light/dark) by using semantic colors and neutral tokens.
+
+---
+
+## The rules (what “theme-safe” means here)
+
+- No hardcoded hex colors.
+- Prefer **semantic** tokens (e.g. foreground/background) and neutral scales.
+- Links should be obviously interactive.
+- Code should be legible and wrap safely.
+
+> If this page looks good, your system is in a great place.
+
+---
+
+## Headings hierarchy
+
+### H3 heading
+
+#### H4 heading
+
+##### H5 heading
+
+###### H6 heading
+
+---
+
+## Paragraphs, emphasis, and links
+
+Regular paragraph text should be readable at a comfortable line length. Here’s **bold**, *italic*, and ***bold italic***. Here’s a link to the blog index: [Blog home](/blogs).
+
+You can also include inline code like `pnpm velite:dev` and `app/blogs/[slug]/page.tsx`.
+
+---
+
+## Lists
+
+### Unordered
+
+- A short list item.
+- A longer list item that wraps onto the next line to test spacing and rhythm in the prose layout.
+  - Nested item A
+  - Nested item B
+- Another item with **emphasis** and `inline code`.
+
+### Ordered
+
+1. First step
+2. Second step
+3. Third step
+   1. Nested step
+   2. Nested step
+
+---
+
+## Blockquotes
+
+> Great typography is not about making things “pretty” — it’s about making reading effortless.
+>
+> The best styles disappear.
+
+---
+
+## Code blocks
+
+### TypeScript
+
+```ts
+type ThemeTokens = {
+  background: "bg-background";
+  foreground: "text-foreground";
+  border: "border-border";
+};
+
+export function formatDate(date: string) {
+  return new Date(date).toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "short",
+    day: "2-digit",
+  });
+}
+```
+
+### Shell
+
+```bash
+pnpm install
+pnpm velite
+pnpm dev
+```
+
+---
+
+## Tables
+
+| Token | Purpose | Notes |
+| --- | --- | --- |
+| `bg-background` | Page background | Changes with theme |
+| `text-foreground` | Primary text | High contrast |
+| `border-border` | Dividers | Subtle separators |
+
+---
+
+## Media + figure
+
+<figure>
+  <div className="not-prose overflow-hidden rounded-xl border border-border bg-muted/40">
+    <div className="p-4">
+      <p className="m-0 text-sm text-muted-foreground">
+        This is a <strong>theme-safe</strong> “card” inside MDX using semantic tokens:
+        <code className="ml-1">border-border</code>, <code className="ml-1">bg-muted</code>,
+        <code className="ml-1">text-muted-foreground</code>.
+      </p>
+    </div>
+  </div>
+  <figcaption className="mt-3">
+    A custom MDX block using your color system (no hex values).
+  </figcaption>
+</figure>
+
+---
+
+## Callouts (info / success / warning)
+
+<div className="not-prose grid gap-3">
+  <div className="rounded-xl border border-border bg-muted/50 p-4">
+    <div className="text-sm font-semibold text-foreground">Info</div>
+    <div className="mt-1 text-sm text-muted-foreground">
+      Use this style for neutral notes that shouldn’t dominate the page.
+    </div>
+  </div>
+
+  <div className="rounded-xl border border-border bg-emerald-500/10 p-4">
+    <div className="text-sm font-semibold text-foreground">Success</div>
+    <div className="mt-1 text-sm text-muted-foreground">
+      Accent backgrounds should be subtle (use low alpha) and keep text on semantic foregrounds.
+    </div>
+  </div>
+
+  <div className="rounded-xl border border-border bg-amber-500/10 p-4">
+    <div className="text-sm font-semibold text-foreground">Warning</div>
+    <div className="mt-1 text-sm text-muted-foreground">
+      Keep contrast high and avoid “pure” background colors that break dark mode.
+    </div>
+  </div>
+</div>
+
+---
+
+## Horizontal rule + spacing
+
+Typography should keep consistent vertical rhythm across sections.
+
+---
+
+## Final sanity check
+
+- Does the page feel good in **light** and **dark**?
+- Do headings and code blocks have the right weight?
+- Do links look clickable?
+- Do the “not-prose” blocks look consistent with the rest of the design?
+
