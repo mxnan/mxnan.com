@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/content";
-import { Mdx } from "@/components/mdx/mdx";
+import { MDXContent } from "@/components/mdx/mdx";
+// import "@/styles/mdx.css";
 
 interface BlogPostPageProps {
   params: Promise<{
@@ -93,7 +94,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
         </header>
 
         <section className="prose prose-neutral max-w-none dark:prose-invert">
-          <Mdx code={post.body} />
+          <MDXContent code={post.body} />
         </section>
       </article>
     </main>

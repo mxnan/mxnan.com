@@ -1,18 +1,46 @@
 import * as runtime from "react/jsx-runtime";
+import { BaseComponents } from "./base-mdx"; // import for base components
+import { Button } from "../ui/button";
+import Link from "next/link";
+import MDXErrorBoundary from "./error-boundary";
+
+// ---------------------- Component maps by responsibility ---------------------
+
+// Core components shared across all MDX routes (blogs, generic pages)
+const coreComponents = {
+  ...BaseComponents,
+  Button,
+  // Image,
+};
+const extraComponent = {
+  a: Link,
+};
+
+// Component map for blog / generic MDX pages (no trip-specific components)
+const blogComponents = {
+  ...coreComponents,
+};
+
 
 // parse the Velite generated MDX code into a React component function
 const useMDXComponent = (code: string) => {
-  // eslint-disable-next-line no-new-func
-  const fn = new Function(code) as (rt: typeof runtime) => { default: unknown };
-  return fn({ ...runtime }).default as React.ComponentType;
+  const fn = new Function(code);
+  return fn({ ...runtime }).default;
 };
 
-export interface MDXProps {
+interface MDXProps {
   code: string;
 }
 
-export function Mdx({ code }: MDXProps) {
+
+export function MDXContent({ code }: MDXProps) {
   const Component = useMDXComponent(code);
-  return <Component />;
+  return (
+    <MDXErrorBoundary>
+      <section className="w-full h-full relative">
+        <Component components={blogComponents} />
+      </section>
+    </MDXErrorBoundary>
+  );
 }
 

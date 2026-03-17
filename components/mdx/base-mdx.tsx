@@ -37,7 +37,7 @@ export const BaseComponents = {
     return (
       <h2
         className={cn(
-          "mt-10 scroll-m-32 text-3xl font-extrabold font-sans uppercase text-primary tracking-tight first:mt-0",
+          "mt-10 mb-4 scroll-m-32 text-3xl font-extrabold font-sans uppercase text-primary tracking-tight first:mt-0",
           className
         )}
         id={id}
@@ -52,7 +52,7 @@ export const BaseComponents = {
     return (
       <h3
         className={cn(
-          "mt-8 scroll-m-32 text-2xl font-bold font-sans uppercase text-primary tracking-tight",
+          "mt-8 mb-2 scroll-m-32 text-2xl font-bold font-sans uppercase text-primary tracking-tight",
           className
         )}
         id={id}
@@ -140,16 +140,6 @@ export const BaseComponents = {
     />
   ),
   //////////////////////////////////////////////
-  //////////////////////////////////////////////
-  code: ({ className, ...props }: ComponentsProps) => (
-    <code
-      className={cn(
-        "relative rounded  px-[0.3rem] py-[0.2rem]  font-sans font-medium text-sm!",
-        className
-      )}
-      {...props}
-    />
-  ),
   ////////////////////// customLink
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
