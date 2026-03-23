@@ -1,5 +1,6 @@
 import { cn } from "@/lib/utils";
 import React, { HTMLAttributes } from "react";
+import Pre from "./pre-with-copy";
 
 
 // Function to convert heading text to URL-friendly slug
@@ -140,6 +141,18 @@ export const BaseComponents = {
     />
   ),
   //////////////////////////////////////////////
+  //////////////////////////////////////////////
+  pre: Pre, // using as pre-with-copy for copy button functions
+  //////////////////////////////////////////////
+  code: ({ className, ...props }: ComponentsProps) => (
+    <code
+      className={cn(
+        "relative rounded  px-[0.3rem] py-[0.2rem]  font-mono font-medium !text-sm",
+        className
+      )}
+      {...props}
+    />
+  ),
   ////////////////////// customLink
   a: ({ className, ...props }: React.HTMLAttributes<HTMLAnchorElement>) => (
     <a
