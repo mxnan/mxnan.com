@@ -63,7 +63,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             </h1>
           </div>
 
-          <div className="flex flex-wrap items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
+          <div className="flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
             <span>
               {new Date(post.date).toLocaleDateString(undefined, {
                 year: "numeric",
@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
               {post.tags.map((tag: string) => (
                 <span
                   key={tag}
-                  className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+                  className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
                 >
                   {tag}
                 </span>

@@ -71,6 +71,8 @@ body {
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
+  --paper: oklch(0.98 0 0);
+  --mid: oklch(0.5 0 0);
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
@@ -106,6 +108,8 @@ body {
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
   --ring: oklch(0.556 0 0);
+  --paper: oklch(0.15 0 0);
+  --mid: oklch(0.5 0 0);
   --chart-1: oklch(0.809 0.105 251.813);
   --chart-2: oklch(0.623 0.214 259.815);
   --chart-3: oklch(0.546 0.245 262.881);
@@ -132,6 +136,8 @@ body {
     @apply font-sans;
   }
 }
+
+/*****************************MDX CODEBLOCK CLASSES********************************/
 
 [data-rehype-pretty-code-figure] pre {
   @apply px-0;
@@ -168,3 +174,17 @@ body {
 [data-rehype-pretty-code-figure] [data-chars-id] {
   @apply border-b-2 p-1 shadow-none;
 }
+
+/*************************************************************/
+
+
+/*************************SCROLLBAR CLASSES************************************/
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  cursor: none !important;
+}
+html::-webkit-scrollbar {
+  display: none; /* Chrome, Safari and Opera */
+}
+/*************************************************************/

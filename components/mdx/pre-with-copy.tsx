@@ -3,6 +3,7 @@
 import { Check, Copy } from "lucide-react";
 import React, { useState, useEffect, useCallback } from "react";
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
 interface PreProps extends React.HTMLAttributes<HTMLPreElement> {
     className?: string;
@@ -56,13 +57,12 @@ const Pre: React.FC<PreProps> = ({ children, className, ...props }) => {
     return (
         <div className="group relative">
             <pre
-                className={`
-          mb-6 mt-6 overflow-x-auto text-sm rounded-xl border
-          bg-muted/40 backdrop-blur-sm
-          py-4 px-4
-          transition-colors duration-300
-          ${className || ""}
-        `}
+                className={cn(
+                    "mb-6 mt-6 overflow-x-auto text-sm rounded-xl border",
+                    "bg-muted/40 backdrop-blur-sm py-4 px-4",
+                    "transition-colors duration-300",
+                    className
+                )}
                 {...props}
             >
                 {children}
@@ -72,33 +72,26 @@ const Pre: React.FC<PreProps> = ({ children, className, ...props }) => {
                 onClick={copyToClipboard}
                 aria-label="Copy code"
                 aria-live="polite"
-                className={`
-          absolute top-3 right-3
-          flex items-center justify-center
-          h-9 w-9 rounded-lg border
-          bg-background/70 backdrop-blur
-          
-          opacity-0 group-hover:opacity-100
-          transition-all duration-200 ease-out
-          
-          hover:scale-105 active:scale-95
-          hover:bg-muted
-          
-          focus:outline-none focus:ring-2 focus:ring-ring
-        `}
+                className={cn(
+                    "absolute top-3 right-3 flex items-center justify-center",
+                    "h-9 w-9 rounded-lg border bg-background/70 backdrop-blur",
+                    "opacity-0 group-hover:opacity-100 transition-all duration-200 ease-out",
+                    "hover:scale-105 active:scale-95 hover:bg-muted",
+                    "focus:outline-none focus:ring-2 focus:ring-ring"
+                )}
             >
                 <span className="relative flex items-center justify-center">
                     <Copy
-                        className={`
-              h-4 w-4 absolute transition-all duration-200
-              ${copied ? "opacity-0 scale-75" : "opacity-100 scale-100"}
-            `}
+                        className={cn(
+                            "h-4 w-4 absolute transition-all duration-200",
+                            copied ? "opacity-0 scale-75" : "opacity-100 scale-100"
+                        )}
                     />
                     <Check
-                        className={`
-              h-4 w-4 absolute transition-all duration-200
-              ${copied ? "opacity-100 scale-100" : "opacity-0 scale-75"}
-            `}
+                        className={cn(
+                            "h-4 w-4 absolute transition-all duration-200",
+                            copied ? "opacity-100 scale-100" : "opacity-0 scale-75"
+                        )}
                     />
                 </span>
             </button>

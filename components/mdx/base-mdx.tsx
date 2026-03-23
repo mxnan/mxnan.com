@@ -86,7 +86,7 @@ export const BaseComponents = {
   ),
   strong: ({ className, ...props }: ComponentsProps) => (
     <strong
-      className={cn("font-bold text-muted-background", className)}
+      className={cn("font-bold text-foreground", className)}
       {...props}
     />
   ),

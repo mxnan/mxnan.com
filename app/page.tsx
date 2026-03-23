@@ -1,9 +1,17 @@
-import Image from "next/image";
+
 
 export default function Home() {
   return (
     <>
-      <div>home</div>
+      <div className="relative w-full h-[200vh]">
+        bdsdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsada
+        sdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsada
+        sdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsada
+        sdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsadasdsada
+        sdsadasdsadasdsadasdsadasdsadasdsada
+        sdsadasdsadasdsadasdsada
+        sdsadasdsada
+      </div>
     </>
   );
 }

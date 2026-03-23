@@ -20,7 +20,7 @@ export default function BlogPage() {
       <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-16">
         <section className="space-y-4">
           <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
-          <p className="text-sm text-neutral-500 dark:text-neutral-400">
+          <p className="text-sm text-muted-foreground">
             No posts have been published yet. Please check back soon.
           </p>
         </section>
@@ -32,7 +32,7 @@ export default function BlogPage() {
     <main className="mx-auto flex max-w-3xl flex-col gap-10 px-4 py-16">
       <section className="space-y-3">
         <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
-        <p className="text-sm text-neutral-500 dark:text-neutral-400">
+        <p className="text-sm text-muted-foreground">
           Long-form notes, experiments, and write-ups about building with Next.js,
           React, and the modern web.
         </p>
@@ -41,13 +41,13 @@ export default function BlogPage() {
       <section className="space-y-6">
         <ul className="space-y-6">
           {posts.map((post) => (
-            <li key={post.slug} className="group rounded-lg border border-neutral-200 bg-white/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-white hover:shadow-md dark:border-neutral-800 dark:bg-neutral-950/60 dark:hover:bg-neutral-900">
+            <li key={post.slug} className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md">
               <Link href={post.slug} className="block space-y-2">
                 <div className="flex flex-wrap items-center justify-between gap-2">
-                  <h2 className="text-lg font-semibold tracking-tight group-hover:text-neutral-900 dark:group-hover:text-neutral-50">
+                  <h2 className="text-lg font-semibold tracking-tight group-hover:text-foreground">
                     {post.title}
                   </h2>
-                  <div className="flex items-center gap-3 text-xs text-neutral-500 dark:text-neutral-400">
+                  <div className="flex items-center gap-3 text-xs text-muted-foreground">
                     <span>
                       {new Date(post.date).toLocaleDateString(undefined, {
                         year: "numeric",
@@ -63,7 +63,7 @@ export default function BlogPage() {
                     )}
                   </div>
                 </div>
-                <p className="text-sm text-neutral-600 dark:text-neutral-300">
+                <p className="text-sm text-muted-foreground">
                   {post.description}
                 </p>
                 {post.tags.length > 0 && (
@@ -71,7 +71,7 @@ export default function BlogPage() {
                     {post.tags.map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full bg-neutral-100 px-2 py-0.5 text-xs text-neutral-700 dark:bg-neutral-800 dark:text-neutral-300"
+                        className="rounded-full bg-muted px-2 py-0.5 text-xs text-muted-foreground"
                       >
                         {tag}
                       </span>
