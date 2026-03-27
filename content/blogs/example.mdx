@@ -130,6 +130,64 @@ pnpm dev
 
 ---
 
+## Cursor Effects
+
+<div className="grid gap-4 md:gap-6 not-prose">
+
+  {/* 1. Default */}
+  <div className="rounded-xl border border-border bg-muted/50 p-6">
+    <div className="text-sm font-semibold text-foreground mb-1">Default Dot</div>
+    <div className="text-sm text-muted-foreground">
+      A clean, minimal dot that follows the mouse smoothly. This is the default state when no <code>data-cursor</code> is present.
+    </div>
+    <div className="mt-4">
+      <span className="inline-flex items-center rounded-full bg-muted px-3 py-1 text-xs">Default (no data-cursor)</span>
+    </div>
+  </div>
+
+  {/* 2. Blend Dither */}
+  <div className="rounded-xl border border-border bg-zinc-950 p-6 text-white" data-cursor="blend">
+    <div className="text-sm font-semibold text-white mb-1">Blend Dither</div>
+    <div className="text-sm text-zinc-400">
+      Large cursor with <code>mix-blend-mode: difference</code> and minimal grain. 
+      Creates a beautiful inversion effect that looks premium on any background.
+    </div>
+    <div className="mt-4">
+      <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs">data-cursor="blend"</span>
+    </div>
+  </div>
+
+  {/* 3. Takeover */}
+  <div className="rounded-xl border border-border bg-violet-950/80 p-6 text-white" data-cursor="takeover">
+    <div className="text-sm font-semibold text-white mb-1">Takeover</div>
+    <div className="text-sm text-violet-300">
+      The cursor takes the shape and size of the element it's hovering over, 
+      with a subtle blend effect. Great for cards, buttons, and interactive sections.
+    </div>
+    <div className="mt-4">
+      <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs">data-cursor="takeover"</span>
+    </div>
+  </div>
+
+</div>
+
+### Usage Examples
+
+```html
+<!-- Blend Dither Effect -->
+<button data-cursor="blend">Hover for Blend Dither</button>
+
+<!-- Takeover Effect -->
+<div data-cursor="takeover" className="px-8 py-5 rounded-2xl border border-white/10">
+  Hover me — Cursor will take my shape
+</div>
+
+<!-- Regular elements will show default dot -->
+<a href="#">Normal Link</a>
+```
+
+---
+
 ## Callouts (info / success / warning)
 
 <div className="grid gap-3">

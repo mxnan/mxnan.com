@@ -1,5 +1,6 @@
 'use client'
 
+import { ChevronDown } from 'lucide-react'
 import { useEffect, useState } from 'react'
 
 export function ProgressBar() {
@@ -76,9 +77,9 @@ export function ProgressBar() {
                 }}
             >
                 {atTop ? (
-                    'X'
+                    <ChevronDown size={12} className="stroke-3" />
                 ) : atBottom ? (
-                    'Y'
+                    <ChevronDown size={12} className="rotate-180 stroke-3" />
                 ) : (
                     String(pct).padStart(2, '0')
                 )}

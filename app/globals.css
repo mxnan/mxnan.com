@@ -188,3 +188,48 @@ html::-webkit-scrollbar {
   display: none; /* Chrome, Safari and Opera */
 }
 /*************************************************************/
+
+/*************************CURSOR CLASSES************************************/
+
+/* Subtle animated grain for dither feel */
+.cursor-grain {
+  position: relative;
+  overflow: hidden;
+}
+
+.cursor-grain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(255, 255, 255, 0.12) 0.8px, transparent 1px);
+  background-size: 4px 4px;
+  border-radius: 50%;
+  animation: cursor-grain-shift 0.8s steps(10) infinite;
+  mix-blend-mode: difference;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+@keyframes cursor-grain-shift {
+  0%   { transform: translate(0px,  0px);  }
+  10%  { transform: translate(-1px, 1px);  }
+  20%  { transform: translate(1px, -1px);  }
+  30%  { transform: translate(-1px,-1px);  }
+  40%  { transform: translate(1px,  1px);  }
+  50%  { transform: translate(-1px, 0px);  }
+  60%  { transform: translate(0px,  1px);  }
+  70%  { transform: translate(1px, -1px);  }
+  80%  { transform: translate(-1px, 1px);  }
+  90%  { transform: translate(0px, -1px);  }
+  100% { transform: translate(0px,  0px);  }
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .cursor-grain::before {
+    animation: none;
+  }
+}
+
+/***************************************************************/

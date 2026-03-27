@@ -230,7 +230,7 @@ const ThemeToggle = () => {
             size={"icon"}
             aria-label="Toggle Dark Mode"
             type="button"
-            className="w-9 h-9 cursor-pointer"
+
             onClick={toggleTheme}
         >
             <SolarSwitch isDark={theme === "dark"} />

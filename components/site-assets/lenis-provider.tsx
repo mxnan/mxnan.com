@@ -1,43 +1,29 @@
-'use client'
+'use client';
 
-import type { ReactNode } from 'react'
-import { useEffect } from 'react'
-import Lenis from 'lenis'
-import { useReducedMotion } from '@/hooks/use-reduced-motion'
+import { ReactLenis } from 'lenis/react';
+import type { ReactNode } from 'react';
+import { useReducedMotion } from '@/hooks/use-reduced-motion';
 
-type LenisProviderProps = {
-    children: ReactNode
-}
+export function LenisProvider({ children }: { children: ReactNode }) {
+    const prefersReducedMotion = useReducedMotion();
 
-export function LenisProvider({ children }: LenisProviderProps) {
-    const prefersReducedMotion = useReducedMotion()
+    if (prefersReducedMotion) {
+        return <>{children}</>;
+    }
 
-    useEffect(() => {
-        if (prefersReducedMotion) {
-            return
-        }
-
-        const lenis = new Lenis({
-            lerp: 0.08,
-            smoothWheel: true,
-            // smoothTouch: false,
-            // normalizeWheel: true,
-        })
-
-        let frameId: number
-
-        const raf = (time: number) => {
-            lenis.raf(time)
-            frameId = requestAnimationFrame(raf)
-        }
-
-        frameId = requestAnimationFrame(raf)
-
-        return () => {
-            cancelAnimationFrame(frameId)
-            lenis.destroy()
-        }
-    }, [prefersReducedMotion])
-
-    return children
+    return (
+        <ReactLenis
+            root
+            options={{
+                duration: 1.2,
+                easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+                smoothWheel: true,
+                // smoothTouch: false,
+                lerp: 0.1,
+                autoRaf: true,
+            }}
+        >
+            {children}
+        </ReactLenis>
+    );
 }

@@ -1,105 +1,143 @@
-'use client'
+'use client';
 
-import { useEffect, useCallback } from 'react'
-import { useCursor } from '@/hooks/use-cursor'
+import { useEffect, useRef } from 'react';
+import { motionValue, animate } from 'motion';
+
+const BASE = 300;
+const DOT = 10 / BASE;
+const BLEND = 80 / BASE;
 
 export function Cursor() {
-    const { dotRef, ringRef } = useCursor()
+    const outerRef = useRef<HTMLDivElement>(null);
+    const innerRef = useRef<HTMLDivElement>(null);
 
-    const onEnter = useCallback((e: MouseEvent) => {
-        const el = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor]')
-        if (!el || !ringRef.current || !dotRef.current) return
+    const x = motionValue(-100);
+    const y = motionValue(-100);
+    const scale = motionValue(DOT);
 
-        const type = el.dataset.cursor
+    const mode = useRef<'default' | 'blend'>('default');
+    const updateCursorModeRef = useRef<((cx?: number, cy?: number) => void) | null>(null);
 
-        if (type === 'link') {
-            ringRef.current.style.width = '56px'
-            ringRef.current.style.height = '56px'
-            ringRef.current.style.borderColor = 'var(--accent)'
-            ringRef.current.style.opacity = '1'
-            dotRef.current.style.opacity = '0'
-        }
-
-        if (type === 'blend') {
-            ringRef.current.style.width = '72px'
-            ringRef.current.style.height = '72px'
-            ringRef.current.style.backgroundColor = 'var(--muted)'
-            ringRef.current.style.mixBlendMode = 'difference'
-            ringRef.current.style.borderColor = 'transparent'
-            dotRef.current.style.opacity = '0'
-        }
-
-        if (type === 'text') {
-            ringRef.current.style.width = '80px'
-            ringRef.current.style.height = '80px'
-            ringRef.current.style.borderColor = 'var(--ring)'
-            dotRef.current.style.opacity = '0'
-        }
-
-        if (type === 'cta') {
-            ringRef.current.style.width = '72px'
-            ringRef.current.style.height = '72px'
-            ringRef.current.style.backgroundColor = 'var(--accent)'
-            ringRef.current.style.borderColor = 'transparent'
-            ringRef.current.style.opacity = '0.9'
-            dotRef.current.style.opacity = '0'
-        }
-    }, [ringRef, dotRef])
-
-    const onLeave = useCallback((e: MouseEvent) => {
-        const el = (e.target as HTMLElement).closest<HTMLElement>('[data-cursor]')
-        if (!el || !ringRef.current || !dotRef.current) return
-        // reset to default
-        ringRef.current.style.width = '36px'
-        ringRef.current.style.height = '36px'
-        ringRef.current.style.borderColor = 'rgba(242,237,230,0.25)'
-        ringRef.current.style.backgroundColor = 'transparent'
-        ringRef.current.style.mixBlendMode = 'normal'
-        ringRef.current.style.opacity = '1'
-        dotRef.current.style.opacity = '1'
-    }, [ringRef, dotRef])
-
+    // ─── Apply transforms ─────────────────────────────────────────────────────
     useEffect(() => {
-        document.addEventListener('mouseover', onEnter)
-        document.addEventListener('mouseout', onLeave)
+        const outer = outerRef.current!;
+        const inner = innerRef.current!;
+
+        const unsubX = x.on('change', (lx) => {
+            outer.style.transform = `translate(${lx - BASE / 2}px, ${y.get() - BASE / 2}px)`;
+        });
+        const unsubY = y.on('change', (ly) => {
+            outer.style.transform = `translate(${x.get() - BASE / 2}px, ${ly - BASE / 2}px)`;
+        });
+        const unsubScale = scale.on('change', (s) => {
+            inner.style.transform = `scale(${s})`;
+        });
+
+        return () => { unsubX(); unsubY(); unsubScale(); };
+    }, []);
+
+    // ─── Mouse follow ─────────────────────────────────────────────────────────
+    useEffect(() => {
+        const springConfig = {
+            type: 'spring' as const,
+            stiffness: 120,    // Very high = extremely quick response
+            damping: 20,        // Strong damping = kills any overshoot fast
+            mass: 0.55,          // Very light = feels direct and instant
+            restDelta: 0.001,
+            restSpeed: 0.001,
+        };
+
+        const move = (e: MouseEvent) => {
+            animate(x, e.clientX, springConfig);
+            animate(y, e.clientY, springConfig);
+            updateCursorModeRef.current?.(e.clientX, e.clientY);
+        };
+
+        document.addEventListener('mousemove', move, { passive: true });
+        return () => document.removeEventListener('mousemove', move);
+    }, []);
+
+    // ─── Blend hover ──────────────────────────────────────────────────────────
+    useEffect(() => {
+        const inner = innerRef.current!;
+
+        const updateCursorMode = (cx?: number, cy?: number) => {
+            if (!inner) return;
+            const px = cx ?? x.get();
+            const py = cy ?? y.get();
+            const element = document.elementFromPoint(px, py);
+            const isBlend = !!element?.closest('[data-cursor="blend"]');
+
+            if (isBlend && mode.current !== 'blend') {
+                mode.current = 'blend';
+                inner.style.background = 'oklch(1 0 0)';
+                inner.style.mixBlendMode = 'difference';
+                inner.style.opacity = '1';
+                inner.style.borderColor = 'transparent';
+                animate(scale, BLEND, {
+                    type: 'spring',
+                    stiffness: 500,
+                    damping: 30
+                });
+            } else if (!isBlend && mode.current !== 'default') {
+                mode.current = 'default';
+                inner.style.background = 'var(--muted-foreground)';
+                inner.style.mixBlendMode = 'normal';
+                inner.style.opacity = '1';
+                animate(scale, DOT, {
+                    type: 'spring',
+                    stiffness: 500,
+                    damping: 30
+                });
+            }
+        };
+
+        updateCursorModeRef.current = updateCursorMode;
+
+        let ticking = false;
+        const handleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateCursorMode();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
         return () => {
-            document.removeEventListener('mouseover', onEnter)
-            document.removeEventListener('mouseout', onLeave)
-        }
-    }, [onEnter, onLeave])
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, []);
 
     return (
-        <>
-            {/* Dot — snaps instantly to mouse */}
+        <div
+            ref={outerRef}
+            className="pointer-events-none fixed inset-0 z-[9999] hidden md:block"
+            style={{
+                width: BASE,
+                height: BASE,
+                top: 0,
+                left: 0,
+                willChange: 'transform',
+                mixBlendMode: 'difference',
+                isolation: 'isolate',
+            }}
+        >
             <div
-                ref={dotRef}
-                className="pointer-events-none fixed z-[9999] hidden md:block"
+                ref={innerRef}
                 style={{
-                    width: '8px',
-                    height: '8px',
+                    width: '100%',
+                    height: '100%',
                     borderRadius: '50%',
-                    backgroundColor: 'var(--muted-foreground)',
-                    transform: 'translate(-50%, -50%)',
-                    transition: 'opacity 0.3s ease',
-                    willChange: 'left, top',
+                    background: 'oklch(1 0 0)',
+                    transform: `scale(${DOT})`,
+                    transformOrigin: 'center',
+                    willChange: 'transform',
+                    backfaceVisibility: 'hidden',
                 }}
             />
-
-            {/* Ring — spring-follows mouse */}
-            <div
-                ref={ringRef}
-                className="pointer-events-none fixed z-[9998] hidden md:block"
-                style={{
-                    width: '36px',
-                    height: '36px',
-                    borderRadius: '50%',
-                    border: '1px solid rgba(242,237,230,0.25)',
-                    backgroundColor: 'transparent',
-                    transform: 'translate(-50%, -50%)',
-                    transition: 'width 0.35s cubic-bezier(0.16,1,0.3,1), height 0.35s cubic-bezier(0.16,1,0.3,1), border-color 0.3s ease, background-color 0.3s ease, opacity 0.3s ease',
-                    willChange: 'left, top',
-                }}
-            />
-        </>
-    )
+        </div>
+    );
 }
