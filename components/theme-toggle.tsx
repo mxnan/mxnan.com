@@ -215,7 +215,7 @@ const ThemeToggle = () => {
             <Button
                 variant="default"
                 size="icon"
-                className="w-9 h-9 cursor-pointer"
+                className="w-9 h-9"
                 aria-label="Toggle theme"
                 disabled
             >
@@ -230,11 +230,11 @@ const ThemeToggle = () => {
             size={"icon"}
             aria-label="Toggle Dark Mode"
             type="button"
-
+            className="hover:bg-muted-foreground cursor-none"
             onClick={toggleTheme}
         >
             <SolarSwitch isDark={theme === "dark"} />
-            {/*  using solor switch now */}
+            {/*  using solor switch now , below is a previous svg implementation */}
             {/* {theme === "light" ? (
         <svg
           className="h-9 w-9"

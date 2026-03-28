@@ -39,10 +39,10 @@ export default function BlogPage() {
       </section>
 
       <section className="space-y-6">
-        <ul className="space-y-6">
+        <div className="space-y-6">
           {posts.map((post) => (
-            <li key={post.slug} className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md">
-              <Link href={post.slug} className="block space-y-2">
+            <div data-cursor="blend" key={post.slug} className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md">
+              <Link href={post.slug} className="block space-y-2 cursor-none">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="text-lg font-semibold tracking-tight group-hover:text-foreground">
                     {post.title}
@@ -79,9 +79,9 @@ export default function BlogPage() {
                   </div>
                 )}
               </Link>
-            </li>
+            </div>
           ))}
-        </ul>
+        </div>
       </section>
     </main>
   );

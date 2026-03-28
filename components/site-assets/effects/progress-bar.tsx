@@ -40,7 +40,7 @@ export function ProgressBar() {
             } else if (atBottom) {
                 window.scrollTo({ top: 0, behavior: 'smooth' })
             }
-        }} className="z-50 flex select-none items-center justify-center cursor-pointer">
+        }} className="z-50 flex select-none items-center justify-center cursor-none">
             <svg
                 width="42"
                 height="42"
@@ -70,16 +70,21 @@ export function ProgressBar() {
             </svg>
 
             <span
-                className="absolute font-sans text-[11px] font-medium tabular-nums tracking-wider"
+                className="absolute group font-sans text-[11px] font-medium tabular-nums tracking-wider"
                 style={{
                     color: 'var(--foreground)',
                     transition: 'opacity 0.2s ease',
                 }}
             >
                 {atTop ? (
-                    <ChevronDown size={12} className="stroke-3" />
+                    <ChevronDown
+                        size={16}
+                        className="stroke-3 chevron-down group-hover:animate-chevron-gentle"
+                    />
                 ) : atBottom ? (
-                    <ChevronDown size={12} className="rotate-180 stroke-3" />
+                    <ChevronDown
+                        size={16}
+                        className="rotate-180 stroke-3 chevron-down group-hover:animate-chevron-gentle" />
                 ) : (
                     String(pct).padStart(2, '0')
                 )}

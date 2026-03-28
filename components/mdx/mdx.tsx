@@ -3,6 +3,7 @@ import { BaseComponents } from "./base-mdx"; // import for base components
 import { Button } from "../ui/button";
 import Link from "next/link";
 import MDXErrorBoundary from "./error-boundary";
+import { FigCard } from "./mdx-ui/figcard";
 
 // ---------------------- Component maps by responsibility ---------------------
 
@@ -10,6 +11,7 @@ import MDXErrorBoundary from "./error-boundary";
 const coreComponents = {
   ...BaseComponents,
   Button,
+  FigCard,
   // Image,
 };
 const extraComponent = {
