@@ -17,10 +17,10 @@ export default function BlogPage() {
 
   if (posts.length === 0) {
     return (
-      <main className="mx-auto flex max-w-3xl flex-col gap-8 px-4 py-16">
+      <main className="flex flex-col gap-8">
         <section className="space-y-4">
-          <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
-          <p className="text-sm text-muted-foreground">
+          <h1>Blog</h1>
+          <p>
             No posts have been published yet. Please check back soon.
           </p>
         </section>
@@ -29,10 +29,10 @@ export default function BlogPage() {
   }
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-10 px-4 py-16">
+    <main className="flex flex-col gap-10">
       <section className="space-y-3">
-        <h1 className="text-3xl font-semibold tracking-tight">Blog</h1>
-        <p className="text-sm text-muted-foreground">
+        <h1>Blog</h1>
+        <p>
           Long-form notes, experiments, and write-ups about building with Next.js,
           React, and the modern web.
         </p>

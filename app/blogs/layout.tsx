@@ -7,8 +7,8 @@ export default function BlogsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div>
-      <div className="relative flex-1">
+    <div className="relative flex-1">
+      <div className="max-w-3xl mx-auto">
         {children}
       </div>
     </div>

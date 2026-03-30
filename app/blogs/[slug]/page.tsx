@@ -51,7 +51,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <main className="mx-auto max-w-3xl px-4 py-16">
+    <main className="px-4 py-16">
 
       <section className="max-w-none">
         <MDXContent code={post.body} />

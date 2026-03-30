@@ -210,37 +210,84 @@
     line-height: 1.625;
   }
 
+  /* ─── MDX Styles ───────────────────────────────────────────── */
+  /* Default styles applied globally */
 
-  /* Heading defaults — use heading font for headings */
-  h1, h2, h3, h4, h5, h6 {
-    font-family:     var(--font-mono);
-    font-weight:     400;
-    letter-spacing:  -0.02em;
-    line-height:     1.15;
-    text-transform:  uppercase;
+  h1 {
+    @apply font-mono font-bold text-4xl tracking-tight leading-[1.12] mt-14 mb-4 scroll-m-32;
+  }
+
+  h1:first-child {
+    @apply mt-0;
+  }
+
+  h2 {
+    @apply font-mono font-bold text-[1.65rem] tracking-tight leading-[1.18] mt-12 mb-3 scroll-m-32;
+  }
+
+  h2:first-child {
+    @apply mt-0;
+  }
+
+  h3 {
+    @apply font-mono font-bold text-[1.3rem] tracking-tight leading-[1.22] mt-10 mb-2 scroll-m-32;
+  }
+
+  h4 {
+    @apply font-mono font-bold text-base tracking-tight mt-8 mb-2 scroll-m-16;
+  }
+
+  /* Paragraph */
+  p:not(:first-of-type) {
+    @apply mt-6;
+  }
+
+  p {
+    @apply leading-7 text-sm md:text-base;
+  }
+
+  /* Inline elements */
+  strong {
+    @apply font-semibold text-foreground;
+  }
+
+  em {
+    @apply italic text-muted-foreground;
+  }
+
+ 
+  /* Blockquote */
+  blockquote {
+    @apply my-7 border-l-2 border-border pl-6 not-italic text-base text-muted-foreground;
+  }
+
+  blockquote > p {
+    @apply mt-0 leading-relaxed;
+  }
+
+  /* Divider */
+  hr {
+    @apply my-10 border-none h-px bg-gradient-to-r from-transparent via-border to-transparent;
   }
 
   /* Focus ring */
   :focus-visible {
-    outline:        2px solid var(--ring);
-    outline-offset: 3px;
-    border-radius:  var(--radius-sm);
+    @apply outline-2 outline-offset-[3px] rounded-sm;
+    outline-color: var(--ring);
   }
 
   /* Selection */
   ::selection {
-    background-color: oklch(0.14 0 0 / 12%);
-    color:            inherit;
+    @apply bg-[oklch(0.14_0_0_/_12%)];
+    color: inherit;
   }
 
   .dark ::selection {
-    background-color: oklch(0.96 0 0 / 15%);
+    @apply bg-[oklch(0.96_0_0_/_15%)];
   }
 }
 
 /* ─── MDX / Rehype Pretty Code ──────────────────────────────── */
-
-
 
 [data-rehype-pretty-code-figure] pre {
   @apply px-0;
@@ -252,11 +299,8 @@
 }
 
 [data-rehype-pretty-code-figure] code[data-line-numbers] {
-
-
   counter-reset: line;
 }
-
 
 [data-rehype-pretty-code-figure] code[data-line-numbers] > [data-line]::before {
   counter-increment: line;
@@ -280,8 +324,6 @@
 
 [data-rehype-pretty-code-figure] [data-chars-id] {
   @apply border-b-2 p-1 shadow-none;
-
-
 }
 
 /* ─── Cursor ────────────────────────────────────────────────── */
