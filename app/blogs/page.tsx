@@ -29,8 +29,8 @@ export default function BlogPage() {
   }
 
   return (
-    <main className="flex flex-col gap-10">
-      <section className="space-y-3">
+    <main className="flex flex-col gap-10 py-16">
+      <section className="space-y-3 text-center">
         <h1>Blog</h1>
         <p>
           Long-form notes, experiments, and write-ups about building with Next.js,

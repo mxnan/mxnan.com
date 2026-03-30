@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getAllPosts, getPostBySlug } from "@/lib/content";
 import { MDXContent } from "@/components/mdx/mdx";
+import { TableOfContents } from "@/components/mdx/toc/toc";
 // import "@/styles/mdx.css";
 
 interface BlogPostPageProps {
@@ -53,8 +54,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
     <main className="px-4 py-16">
 
-      <section className="max-w-none">
+      <section className="max-w-none flex gap-8">
         <MDXContent code={post.body} />
+        <TableOfContents toc={post.toc} />
       </section>
 
     </main>

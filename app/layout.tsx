@@ -39,9 +39,9 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${tektur.variable} antialiased`}
       >
         <Providers>
-          <main className="relative flex-1">
+          <main className="relative bg-background text-foreground">
             <Header />
-            <div className="py-24">
+            <div className="max-w-none mx-auto px-4 py-24">
               {children}
             </div>
             <Toaster />
