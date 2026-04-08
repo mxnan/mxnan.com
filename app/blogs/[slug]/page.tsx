@@ -1,0 +1,65 @@
+import type { Metadata } from "next";
+import { notFound } from "next/navigation";
+import { getAllPosts, getPostBySlug } from "@/lib/content";
+import { MDXContent } from "@/components/mdx/mdx";
+import { TableOfContents } from "@/components/mdx/toc/toc";
+// import "@/styles/mdx.css";
+
+interface BlogPostPageProps {
+  params: Promise<{
+    slug: string;
+  }>;
+}
+
+export async function generateStaticParams() {
+  const posts = getAllPosts();
+
+  return posts.map((post) => ({
+    slug: post.slugAsParams,
+  }));
+}
+
+export async function generateMetadata(
+  { params }: BlogPostPageProps,
+): Promise<Metadata> {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) {
+    return {};
+  }
+
+  const title = `${post.title} | mxnan`;
+  const description = post.description;
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      type: "article",
+    },
+  };
+}
+
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) {
+    notFound();
+  }
+
+  return (
+    <main className="mx-auto w-full min-h-screen">
+
+      <section className="max-w-min mx-auto flex gap-8">
+        <MDXContent code={post.body} />
+        <TableOfContents toc={post.toc} />
+      </section>
+
+    </main>
+  );
+}
+
