@@ -40,8 +40,8 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# velite
-.velite
 
-# agents
-.agents
+/.velite/
+
+/.agents/
+/.velite

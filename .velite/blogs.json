@@ -5,6 +5,7 @@
     "description": "A complete MDX example showcasing typography and a theme-safe color system.",
     "date": "2026-03-16T00:00:00.000Z",
     "status": "published",
+    "image": "/og/blog-1.png",
     "tags": [
       "typography",
       "mdx",
