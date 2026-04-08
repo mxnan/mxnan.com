@@ -7,7 +7,7 @@ import { BookText, Home, MailPlus, MonitorSmartphone } from 'lucide-react'
 export default function Header() {
     return (
         <header
-            className="z-1000 fixed top-2 left-1/2 -translate-x-1/2
+            className="z-1000 fixed top-6 left-1/2 -translate-x-1/2
      "
         >
             <nav className="p-4 w-min rounded-lg border 

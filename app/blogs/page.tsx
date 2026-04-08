@@ -29,8 +29,8 @@ export default function BlogPage() {
   }
 
   return (
-    <main className="flex flex-col gap-10 py-16">
-      <section className="space-y-3 text-center">
+    <main className="relative w-full space-y-8 min-h-screen">
+      <section className="space-y-3 max-w-3xl mx-auto text-center">
         <h1>Blog</h1>
         <p>
           Long-form notes, experiments, and write-ups about building with Next.js,
@@ -38,7 +38,7 @@ export default function BlogPage() {
         </p>
       </section>
 
-      <section className="space-y-6">
+      <section className="space-y-6 max-w-3xl mx-auto">
         <div className="space-y-6">
           {posts.map((post) => (
             <div data-cursor="blend" key={post.slug} className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md">

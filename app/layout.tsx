@@ -41,7 +41,7 @@ export default function RootLayout({
         <Providers>
           <main className="relative bg-background text-foreground">
             <Header />
-            <div className="max-w-none mx-auto px-4 py-24">
+            <div className="max-w-none mx-auto">
               {children}
             </div>
             <Toaster />

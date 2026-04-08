@@ -52,9 +52,9 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   return (
-    <main className="px-4 py-16">
+    <main className="mx-auto w-full min-h-screen">
 
-      <section className="max-w-none flex gap-8">
+      <section className="max-w-min mx-auto flex gap-8">
         <MDXContent code={post.body} />
         <TableOfContents toc={post.toc} />
       </section>

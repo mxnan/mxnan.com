@@ -120,13 +120,14 @@ const TreeClient = React.memo(function TreeClient({
             {tree.map((item, index) => {
                 const isActive = item.url === `#${activeItem}`;
                 return (
-                    <li key={index} className="mt-0 pt-2">
+                    <li key={index} data-cursor="blend" className="mt-0 pt-2">
                         <a
                             href={item.url}
                             onClick={(e) => {
                                 e.preventDefault();
                                 onLinkClick(item.url);
                             }}
+
                             className={cn(
                                 "inline-block relative text-sm pl-3 transition-colors duration-300 ease-in-out truncate w-full",
                                 isActive
@@ -205,7 +206,7 @@ export function TableOfContentsClient({ toc, className }: TocClientProps) {
                             <ChevronRight className="size-5" />
                             On This Page
                         </p>
-                        <hr className="mb-4" />
+                        <hr className="my-2" />
                         <TreeClient
                             tree={toc}
                             activeItem={activeHeading}
