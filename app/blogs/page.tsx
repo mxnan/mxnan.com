@@ -3,13 +3,9 @@ import Link from "next/link";
 import { getAllPosts } from "@/lib/content";
 
 export const metadata: Metadata = {
-  title: "Blogs | mxnan",
+  title: "Blogs",
   description: "Thoughts, notes, and articles powered by Velite and MDX.",
-  openGraph: {
-    title: "Blogs | mxnan",
-    description: "Thoughts, notes, and articles powered by Velite and MDX.",
-    type: "website",
-  },
+
 };
 
 export default function BlogPage() {
@@ -19,7 +15,7 @@ export default function BlogPage() {
     return (
       <main className="flex flex-col gap-8">
         <section className="space-y-4">
-          <h1>Blog</h1>
+          <h1>Blogs</h1>
           <p>
             No posts have been published yet. Please check back soon.
           </p>
@@ -31,7 +27,7 @@ export default function BlogPage() {
   return (
     <main className="relative w-full space-y-8 min-h-screen">
       <section className="space-y-3 max-w-3xl mx-auto text-center">
-        <h1>Blog</h1>
+        <h1>Blogs</h1>
         <p>
           Long-form notes, experiments, and write-ups about building with Next.js,
           React, and the modern web.
