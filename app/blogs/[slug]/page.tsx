@@ -54,19 +54,23 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   if (!post) notFound();
 
   return (
-    <main className="mx-auto w-full min-h-screen">
-      <section className="max-w-min mx-auto flex flex-col gap-8">
-        <Image
-          src={post.image ?? "/og/default.png"}
-          alt={post.title}
-          width={1200}
-          height={630}
-          className="w-full h-auto rounded-lg mb-8"
-          priority
-        />
-        <MDXContent code={post.body} />
+
+    <div className="relative min-h-screen w-full">
+      <div className="relative w-full h-full flex gap-8">
+        <div className="flex flex-col gap-8">
+          <Image
+            src={post.image ?? "/og/default.png"}
+            alt={post.title}
+            width={1200}
+            height={630}
+            className="w-full h-auto rounded-lg mb-8"
+            priority
+          />
+          <MDXContent code={post.body} type="blog" />
+        </div>
         <TableOfContents toc={post.toc} />
-      </section>
-    </main>
+      </div>
+    </div>
+
   );
 }

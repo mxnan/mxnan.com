@@ -34,7 +34,7 @@ export default function Header() {
                             <BookText size={16} className="stroke-3" />
                         </Button>
                     </Link>
-                    <Link href="/blogs" className="group">
+                    <Link href="/showcase" className="group">
                         <Button
                             variant="default"
                             size={"icon"}

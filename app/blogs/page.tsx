@@ -25,8 +25,8 @@ export default function BlogPage() {
   }
 
   return (
-    <main className="relative w-full space-y-8 min-h-screen">
-      <section className="space-y-3 max-w-3xl mx-auto text-center">
+    <div className="relative w-full space-y-8 min-h-screen">
+      <section className="space-y-3 text-center">
         <h1>Blogs</h1>
         <p>
           Long-form notes, experiments, and write-ups about building with Next.js,
@@ -79,7 +79,7 @@ export default function BlogPage() {
           ))}
         </div>
       </section>
-    </main>
+    </div>
   );
 }
 

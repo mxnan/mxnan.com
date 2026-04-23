@@ -50,9 +50,9 @@ export default function RootLayout({
         className={`${spaceGrotesk.variable} ${tektur.variable} antialiased`}
       >
         <Providers>
-          <main className="relative bg-background text-foreground">
+          <main className="relative w-full bg-background text-foreground">
             <Header />
-            <div className="max-w-none mx-auto">{children}</div>
+            <div className="relative w-full h-full">{children}</div>
             <Toaster />
           </main>
         </Providers>

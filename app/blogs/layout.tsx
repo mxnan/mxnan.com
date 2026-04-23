@@ -8,7 +8,7 @@ export default function BlogsLayout({
 }>) {
   return (
 
-    <div className="max-w-none mx-auto pt-32 px-4 lg:px-6">
+    <div className="max-w-3xl mx-auto pt-32 px-4 lg:px-6">
       {children}
     </div>
 

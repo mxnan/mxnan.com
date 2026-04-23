@@ -23,6 +23,23 @@ const blogs = defineCollection({
     })
     .transform(computedFields),
 });
+const components = defineCollection({
+  name: "Components",
+  pattern: "components/**/*.mdx",
+  schema: s
+    .object({
+      slug: s.path(),
+      title: s.string().max(50),
+      description: s.string().max(200),
+      tags: s.string().array().optional(),
+      toc: s.toc(),
+      content: s.mdx(),
+    })
+       .transform((data) => ({
+      ...computedFields(data),
+      category: data.slug.split("/")[1], // Extract category from the slug
+    })),
+});
 export default defineConfig({
   root: "content",
   output: {
@@ -34,6 +51,7 @@ export default defineConfig({
   },
   collections: {
     blogs,
+    components,
   },
   mdx: {
     rehypePlugins: [rehypePrettyCode],

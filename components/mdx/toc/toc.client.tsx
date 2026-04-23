@@ -116,11 +116,11 @@ const TreeClient = React.memo(function TreeClient({
     if (!tree.length || level >= 3) return null;
 
     return (
-        <ul className={cn("m-0 list-none", level !== 1 && "pl-3")}>
+        <ul className={cn("m-0 list-none", level !== 1 && "pl-2 sm:pl-3")}>
             {tree.map((item, index) => {
                 const isActive = item.url === `#${activeItem}`;
                 return (
-                    <li key={index} data-cursor="blend" className="mt-0 pt-2">
+                    <li key={index} data-cursor="blend" className="mt-0 pt-1 sm:pt-2">
                         <a
                             href={item.url}
                             onClick={(e) => {
@@ -129,7 +129,7 @@ const TreeClient = React.memo(function TreeClient({
                             }}
 
                             className={cn(
-                                "inline-block relative text-sm pl-3 transition-colors duration-300 ease-in-out truncate w-full",
+                                "inline-block relative text-xs sm:text-sm pl-2 sm:pl-3 transition-colors duration-300 ease-in-out truncate w-full",
                                 isActive
                                     ? "text-primary font-medium"
                                     : "text-muted-foreground hover:text-primary"
@@ -141,7 +141,7 @@ const TreeClient = React.memo(function TreeClient({
                                     <motion.span
                                         key="indicator"
                                         layoutId="toc-active-indicator"
-                                        className="absolute left-0 top-0 rounded-xl h-4 w-1 bg-primary"
+                                        className="absolute left-0 top-0 rounded-xl h-3 sm:h-4 w-1 bg-primary"
                                         initial={{ opacity: 0.3 }}
                                         animate={{ opacity: 1 }}
                                         exit={{ opacity: 0.3 }}
@@ -200,10 +200,10 @@ export function TableOfContentsClient({ toc, className }: TocClientProps) {
         <>
             {/* Desktop TOC */}
             {isLargeScreen && (
-                <div className={cn("w-64 shrink-0", className)}>
-                    <div className="sticky top-24">
-                        <p className="font-bold text-lg py-2 flex items-center gap-2">
-                            <ChevronRight className="size-5" />
+                <div className={cn("w-56 sm:w-64 shrink-0", className)}>
+                    <div className="sticky top-24 self-start rounded-lg border border-border bg-muted/40 p-4">
+                        <p className="font-bold text-sm sm:text-lg py-2 flex items-center gap-2">
+                            <ChevronRight className="size-4 sm:size-5" />
                             On This Page
                         </p>
                         <hr className="my-2" />
@@ -218,20 +218,20 @@ export function TableOfContentsClient({ toc, className }: TocClientProps) {
 
             {/* Mobile: empty slot — add a sheet/drawer here if needed */}
             {!isLargeScreen && (
-                <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-30">
+                <div className="fixed bottom-4 left-1/2 -translate-x-1/2 z-1000">
                     <Dialog>
                         <DialogTrigger asChild>
-                            <Button variant="default" size="icon">
-                                <TableOfContents className="h-5 w-5" />
+                            <Button variant="default" size="icon" className="h-9 w-9 sm:h-10 sm:w-10">
+                                <TableOfContents className="h-4 w-4 sm:h-5 sm:w-5" />
                                 <span className="sr-only">Table of Contents</span>
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="w-[354px] max-w-[calc(100vw-2rem)]">
+                        <DialogContent className="w-[calc(100vw-2rem)] max-w-sm">
                             <DialogHeader>
-                                <DialogTitle className="flex items-center gap-2">
-                                    <ChevronRight className="size-5" /> On This Page
+                                <DialogTitle className="flex items-center gap-2 text-sm sm:text-base">
+                                    <ChevronRight className="size-4 sm:size-5" /> On This Page
                                 </DialogTitle>
-                                <DialogDescription>
+                                <DialogDescription className="text-xs sm:text-sm">
                                     Navigate to sections of this page quickly
                                 </DialogDescription>
                             </DialogHeader>
