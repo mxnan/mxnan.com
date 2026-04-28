@@ -7,6 +7,8 @@ import Link from "next/link";
 import MDXErrorBoundary from "./error-boundary";
 import { FigCard } from "./mdx-ui/figcard";
 import { ComponentPreview } from "./component-preview";
+import { CollapsibleCodeBlock } from "./mdx-ui/collapsible-codeblock";
+
 
 
 // ---------------------- Component maps ---------------------
@@ -25,6 +27,7 @@ const blogComponents = {
 const componentComponents = {
   ...coreComponents,
   ComponentPreview,
+  CollapsibleCodeBlock,
 };
 
 // ---------------------- MDX Runtime ---------------------
