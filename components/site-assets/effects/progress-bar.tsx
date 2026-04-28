@@ -1,47 +1,87 @@
-'use client'
+"use client";
 
-import { ChevronDown } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from "react";
 
 export function ProgressBar() {
-    const [pct, setPct] = useState(0)
+    const svgRef = useRef<SVGSVGElement>(null);
+    const percentRef = useRef(0);
+    const [displayText, setDisplayText] = useState("00");
 
     useEffect(() => {
-        const update = () => {
-            const scrolled = window.scrollY
+        const r = 20;
+        const circ = 2 * Math.PI * r;
+
+        const updateProgressBar = () => {
+            const scrolled = window.scrollY;
             const total =
-                document.documentElement.scrollHeight - window.innerHeight
+                document.documentElement.scrollHeight - window.innerHeight;
 
-            const percentage =
-                total > 0 ? Math.round((scrolled / total) * 100) : 0
+            const pct = total > 0 ? Math.round((scrolled / total) * 100) : 0;
+            percentRef.current = pct;
 
-            setPct(percentage)
+            // Update display text
+            if (pct <= 0) {
+                setDisplayText("↓");
+            } else if (pct >= 100) {
+                setDisplayText("↑");
+            } else {
+                setDisplayText(String(pct).padStart(2, "0"));
+            }
+
+            const svg = svgRef.current;
+            if (!svg) return;
+
+            // Update SVG stroke-dasharray via DOM (no re-render)
+            const circle = svg.querySelector("circle:last-of-type") as SVGCircleElement | null;
+            if (circle) {
+                const dash = (pct / 100) * circ;
+                circle.setAttribute("stroke-dasharray", `${dash} ${circ}`);
+            }
+        };
+
+        // Throttle with RAF for 60fps
+        let ticking = false;
+        const handleScroll = () => {
+            if (!ticking) {
+                requestAnimationFrame(() => {
+                    updateProgressBar();
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll, { passive: true });
+        updateProgressBar();
+
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, []);
+
+    const handleClick = () => {
+        const pct = percentRef.current;
+        if (pct <= 0) {
+            window.scrollTo({
+                top: document.documentElement.scrollHeight,
+                behavior: "smooth",
+            });
+        } else if (pct >= 100) {
+            window.scrollTo({ top: 0, behavior: "smooth" });
         }
+    };
 
-        window.addEventListener('scroll', update, { passive: true })
-        update()
-        return () => window.removeEventListener('scroll', update)
-    }, [])
-
-    const r = 20
-    const circ = 2 * Math.PI * r
-    const dash = (pct / 100) * circ
-
-    const atTop = pct <= 0
-    const atBottom = pct >= 100
+    const r = 20;
+    const circ = 2 * Math.PI * r;
 
     return (
-        <div onClick={() => {
-            if (atTop) {
-                window.scrollTo({
-                    top: document.documentElement.scrollHeight,
-                    behavior: 'smooth',
-                })
-            } else if (atBottom) {
-                window.scrollTo({ top: 0, behavior: 'smooth' })
-            }
-        }} className="z-50 flex select-none items-center justify-center cursor-none">
+        <div
+            onClick={handleClick}
+            className="z-50 flex select-none items-center justify-center cursor-none"
+            role="button"
+            tabIndex={0}
+            aria-label="Scroll to top or bottom"
+        >
             <svg
+                ref={svgRef}
                 width="42"
                 height="42"
                 viewBox="0 0 52 52"
@@ -64,31 +104,20 @@ export function ProgressBar() {
                     stroke="var(--paper)"
                     strokeWidth="1.5"
                     strokeLinecap="round"
-                    strokeDasharray={`${dash} ${circ}`}
-                    style={{ transition: 'stroke-dasharray 0.1s linear' }}
+                    strokeDasharray={`0 ${circ}`}
+                    style={{ transition: "stroke-dasharray 0.1s linear" }}
                 />
             </svg>
 
             <span
                 className="absolute group font-sans text-[11px] font-medium tabular-nums tracking-wider"
                 style={{
-                    color: 'var(--foreground)',
-                    transition: 'opacity 0.2s ease',
+                    color: "var(--foreground)",
+                    transition: "opacity 0.2s ease",
                 }}
             >
-                {atTop ? (
-                    <ChevronDown
-                        size={16}
-                        className="stroke-3 chevron-down group-hover:animate-chevron-gentle"
-                    />
-                ) : atBottom ? (
-                    <ChevronDown
-                        size={16}
-                        className="rotate-180 stroke-3 chevron-down group-hover:animate-chevron-gentle" />
-                ) : (
-                    String(pct).padStart(2, '0')
-                )}
+                {displayText}
             </span>
         </div>
-    )
+    );
 }
