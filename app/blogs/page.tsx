@@ -25,7 +25,7 @@ export default function BlogPage() {
   }
 
   return (
-    <div className="relative w-full space-y-8 min-h-screen">
+    <div className="relative space-y-8 ">
       <section className="space-y-3 text-center">
         <h1>Blogs</h1>
         <p>
@@ -34,7 +34,7 @@ export default function BlogPage() {
         </p>
       </section>
 
-      <section className="space-y-6 max-w-3xl mx-auto">
+      <section className="space-y-6 ">
         <div className="space-y-6">
           {posts.map((post) => (
             <div data-cursor="blend" key={post.slug} className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md">

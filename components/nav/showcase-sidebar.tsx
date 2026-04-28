@@ -24,8 +24,8 @@ export function ShowcaseSidebar() {
             {/* Desktop Sidebar */}
             <aside className="hidden z-1000 md:block bg-background/80 backdrop-blur
       supports-[backdrop-filter]:bg-background/20 
-       max-w-xs border-r border-border fixed left-0 top-1/2 -translate-y-1/2 h-fit 
-       overflow-y-auto bg-muted rounded-lg p-4 md:p-6 scrollbar-hide">
+       max-w-xs border border-border fixed left-2 top-1/2 -translate-y-1/2 h-fit 
+       overflow-y-auto bg-accent rounded-lg p-4 md:p-6 scrollbar-hide">
                 <ShowcaseSidebarClient items={items} />
             </aside>
 

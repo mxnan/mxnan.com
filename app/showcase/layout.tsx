@@ -4,7 +4,7 @@ import { ShowcaseSidebar } from "@/components/nav/showcase-sidebar";
 export default function ShowcaseLayout({ children }: { children: ReactNode }) {
     return (
         <div className="w-full min-h-screen bg-background ">
-            <div className="relative min-h-screen flex gap-8 pt-32 px-4 lg:px-6">
+            <div className="relative min-h-screen pt-32 px-4 lg:px-6">
                 {/* Sidebar - Left */}
                 <ShowcaseSidebar />
 
