@@ -120,8 +120,9 @@ const TreeClient = React.memo(function TreeClient({
             {tree.map((item, index) => {
                 const isActive = item.url === `#${activeItem}`;
                 return (
-                    <li key={index} data-cursor="blend" className="mt-0 pt-1 sm:pt-2">
+                    <li key={index} className="mt-0 pt-1 sm:pt-2">
                         <a
+
                             href={item.url}
                             onClick={(e) => {
                                 e.preventDefault();
@@ -129,7 +130,7 @@ const TreeClient = React.memo(function TreeClient({
                             }}
 
                             className={cn(
-                                "inline-block relative text-xs sm:text-sm pl-2 sm:pl-3 transition-colors duration-300 ease-in-out truncate w-full",
+                                "inline-block cursor-none relative text-xs sm:text-sm pl-2 sm:pl-3 transition-colors duration-300 ease-in-out truncate w-full",
                                 isActive
                                     ? "text-primary font-medium"
                                     : "text-muted-foreground hover:text-primary"

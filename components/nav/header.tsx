@@ -18,7 +18,7 @@ export default function Header() {
                 className="p-4 w-min rounded-lg border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/20"
                 aria-label="Main navigation"
             >
-                <div data-cursor="blend" className="flex flex-row items-center gap-2">
+                <div className="flex flex-row items-center gap-2">
                     <ProgressBar />
                     <ThemeToggle />
                     {HEADER_NAV.map(({ label, href, icon: Icon, ariaLabel }) => {
@@ -28,13 +28,15 @@ export default function Header() {
                                 key={href}
                                 href={href}
                                 aria-current={isActive ? "page" : undefined}
+
                             >
                                 <Button
                                     variant="default"
                                     size="icon"
-                                    className="group-hover:bg-muted-foreground cursor-none"
+                                    className="hover:bg-muted-foreground cursor-none"
                                     aria-label={ariaLabel}
                                     title={label}
+                                    data-cursor="blend"
                                 >
                                     <Icon size={16} className="stroke-3" />
                                 </Button>

@@ -3,36 +3,39 @@
 import { useEffect, useRef, useMemo } from "react";
 import { motionValue, animate } from "motion";
 
-const SIZE = 8;
+const SIZE = 12;
 const HALF_SIZE = SIZE / 2;
 
 const SPRING_CONFIG = {
     type: "spring" as const,
-    stiffness: 120,
-    damping: 20,
-    mass: 0.55,
+    stiffness: 150,
+    damping: 25,
+    mass: 0.5,
 };
 
 export function Cursor() {
     const ref = useRef<HTMLDivElement>(null);
-    const { x, y } = useMemo(() => ({
-        x: motionValue(-100),
-        y: motionValue(-100),
-    }), []);
+    const isBlendRef = useRef(false);
 
-    const isBlend = useRef(false);
+    const { x, y } = useMemo(
+        () => ({
+            x: motionValue(0),
+            y: motionValue(0),
+        }),
+        []
+    );
 
-    // ─── Apply transform ────────────────────────────────────────────────────
+    // ─── Apply transform from motion values ──────────────────────────────
     useEffect(() => {
         const el = ref.current;
         if (!el) return;
 
-        const unsubX = x.on("change", (lx) => {
-            el.style.transform = `translate(${lx - HALF_SIZE}px, ${y.get() - HALF_SIZE}px)`;
-        });
-        const unsubY = y.on("change", (ly) => {
-            el.style.transform = `translate(${x.get() - HALF_SIZE}px, ${ly - HALF_SIZE}px)`;
-        });
+        const updateTransform = () => {
+            el.style.transform = `translate(${x.get() - HALF_SIZE}px, ${y.get() - HALF_SIZE}px)`;
+        };
+
+        const unsubX = x.on("change", updateTransform);
+        const unsubY = y.on("change", updateTransform);
 
         return () => {
             unsubX();
@@ -40,31 +43,32 @@ export function Cursor() {
         };
     }, [x, y]);
 
-    // ─── Mouse follow ────────────────────────────────────────────────────────
+    // ─── Mouse follow with smooth animation ──────────────────────────────
     useEffect(() => {
-        const move = (e: MouseEvent) => {
+        const handleMouseMove = (e: MouseEvent) => {
             animate(x, e.clientX, SPRING_CONFIG);
             animate(y, e.clientY, SPRING_CONFIG);
 
-            const el = document.elementFromPoint(e.clientX, e.clientY);
-            const blend = !!el?.closest('[data-cursor="blend"]');
+            const target = document.elementFromPoint(e.clientX, e.clientY);
+            const isBlend = !!target?.closest("[data-cursor]");
 
-            if (blend !== isBlend.current) {
-                isBlend.current = blend;
-                const cursor = ref.current;
-                if (cursor) {
-                    cursor.style.mixBlendMode = blend ? "difference" : "normal";
-                    cursor.style.borderColor = blend ? "transparent" : "var(--muted-foreground)";
+            if (isBlend !== isBlendRef.current) {
+                isBlendRef.current = isBlend;
+                const el = ref.current;
+                if (el) {
+                    if (isBlend) {
+                        el.style.backgroundColor = "transparent";
+                        el.style.mixBlendMode = "lighten";
+                        el.style.borderColor = "var(--muted-foreground)";
+                    } else {
+                        el.style.backgroundColor = "var(--foreground)";
+                        el.style.mixBlendMode = "normal";
+                        el.style.borderColor = "var(--foreground)";
+                    }
                 }
             }
         };
 
-        document.addEventListener("mousemove", move, { passive: true });
-        return () => document.removeEventListener("mousemove", move);
-    }, [x, y]);
-
-    // ─── Cursor visibility on blur ─────────────────────────────────────────
-    useEffect(() => {
         const handleBlur = () => {
             const el = ref.current;
             if (el) el.style.opacity = "0";
@@ -75,23 +79,27 @@ export function Cursor() {
             if (el) el.style.opacity = "1";
         };
 
+        document.addEventListener("mousemove", handleMouseMove, { passive: true });
         window.addEventListener("blur", handleBlur);
         window.addEventListener("focus", handleFocus);
 
         return () => {
+            document.removeEventListener("mousemove", handleMouseMove);
             window.removeEventListener("blur", handleBlur);
             window.removeEventListener("focus", handleFocus);
         };
-    }, []);
+    }, [x, y]);
 
     return (
         <div
             ref={ref}
-            className="fixed pointer-events-none z-[9999] rounded-full border border-muted-foreground"
+            className="fixed pointer-events-none z-[9999] rounded-full border-2"
             style={{
                 width: SIZE,
                 height: SIZE,
-                opacity: 1,
+                borderColor: "var(--foreground)",
+                backgroundColor: "var(--foreground)",
+                opacity: 0.8,
                 willChange: "transform",
             }}
         />

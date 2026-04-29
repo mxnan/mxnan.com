@@ -9,6 +9,7 @@ import {
     CollapsibleContent,
     CollapsibleTrigger,
 } from "@/components/ui/collapsible";
+import { ListChevronsDownUp, ListChevronsUpDown } from "lucide-react";
 
 interface CodeBlockProps extends React.HTMLAttributes<HTMLDivElement> {
     expandButtonTitle?: string;
@@ -41,8 +42,8 @@ export function CollapsibleCodeBlock({
                 {!isOpened && (
                     <div className="bg-gradient-to-t from-background via-background/80 to-transparent p-3 sm:p-4 flex items-center justify-center">
                         <CollapsibleTrigger asChild>
-                            <Button variant="default" size="sm" className="text-xs font-semibold">
-                                {expandButtonTitle}
+                            <Button variant="outline" size="default" className="text-xs hover:bg-muted-background font-semibold">
+                                {expandButtonTitle} <ListChevronsUpDown />
                             </Button>
                         </CollapsibleTrigger>
                     </div>
@@ -50,10 +51,10 @@ export function CollapsibleCodeBlock({
 
                 {/* Collapse button - only visible when expanded */}
                 {isOpened && (
-                    <div className="bg-muted/50 p-2 sm:p-3 flex items-center justify-center border-t border-border">
+                    <div className="w-min mx-auto my-8 rounded-lg bg-muted/50 sm:py-3 px-8 flex items-center justify-center border-t border-border">
                         <CollapsibleTrigger asChild>
-                            <Button variant="outline" size="sm" className="text-xs font-semibold">
-                                Collapse Code
+                            <Button variant="outline" size="default" className="text-xs font-semibold">
+                                Collapse Code <ListChevronsDownUp />
                             </Button>
                         </CollapsibleTrigger>
                     </div>
