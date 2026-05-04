@@ -166,7 +166,7 @@ export function ComponentPreview({
         <ComponentErrorBoundary category={category} item={item}>
             <div
                 className={cn(
-                    "border border-border rounded-lg sm:rounded-md p-3 sm:p-4 my-4 w-full",
+                    "border border-border rounded-lg sm:rounded-md p-3 sm:p-4 my-4",
                     "bg-background",
                     "shadow-sm hover:shadow-md transition-shadow overflow-hidden",
                     className
