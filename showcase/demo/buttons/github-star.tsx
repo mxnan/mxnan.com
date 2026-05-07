@@ -64,7 +64,7 @@ export const GithubStarButton = React.forwardRef<
     (
         {
             className,
-            href = "https://github.com/mxnan/nextjs-velite-tailwind-framer",
+            href = "/showcase/primitive/buttons",
             ...props
         },
         ref
@@ -74,8 +74,8 @@ export const GithubStarButton = React.forwardRef<
                 <motion.a
                     ref={ref}
                     href={href}
-                    target="_blank"
-                    rel="noopener noreferrer"
+                    // target="_blank"
+                    // rel="noopener noreferrer"
                     aria-label="Star repository on GitHub"
                     variants={buttonVariants}
                     initial="initial"

@@ -12,6 +12,7 @@
 
 // ─── Buttons ────────────────────────────────────────────────────────────────
 export { GithubStarButton } from "./buttons/github-star";
+export { MagnetButton } from "./buttons/magnet";
 
 // Add more button components here:
 // export { HoverRevealButton } from "./buttons/hover-reveal";

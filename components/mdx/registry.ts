@@ -21,7 +21,10 @@ export const COMPONENT_REGISTRY = {
         () => import("@/showcase/demo").then(mod => ({ default: mod.GithubStarButton })),
         { ssr: false }
     ),
-
+    MagnetButton: dynamic(
+        () => import("@/showcase/demo").then(mod => ({ default: mod.MagnetButton })),
+        { ssr: false }
+    ),
     // Add your components below this line
     // Format:
     // ComponentName: dynamic(
