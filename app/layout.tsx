@@ -18,36 +18,44 @@ const tektur = Tektur({
 });
 
 export const metadata: Metadata = {
-  title: "mxnan | Portfolio",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
+
+  title: {
+    default: "mxnan | Portfolio",
+    template: "%s | mxnan",   // child pages just return the bare title
+  },
+
   description: "Personal portfolio and interactive component library",
+
   openGraph: {
-    title: "mxnan | Portfolio",
-    description: "Personal portfolio and interactive component library",
     type: "website",
-    url: "https://mxnan.com",
+    siteName: "mxnan",
+    images: [{ url: "/og/default.jpg", width: 1200, height: 630 }],
+  },
+
+  twitter: {
+    card: "summary_large_image",
+    images: ["/og/default.jpg"],
   },
 };
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en" suppressHydrationWarning>
       <body
         className={`${spaceGrotesk.variable} ${tektur.variable} antialiased`}
       >
         <Providers>
-          <main className="relative bg-background text-foreground">
+          <main className="relative w-full bg-background text-foreground">
             <Header />
-            <div className="max-w-none mx-auto">
-              {children}
-            </div>
+            <div className="relative w-full h-full">{children}</div>
             <Toaster />
           </main>
         </Providers>
-
       </body>
     </html>
   );

@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 import React, { HTMLAttributes } from "react";
-import Pre from "./pre-with-copy";
+import Pre from "./mdx-ui/pre-with-copy";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -78,7 +78,7 @@ export const BaseComponents = {
     <h1
       id={getHeadingId(children, "h1")}
       className={cn(
-        "mt-14 mb-4 scroll-m-32 font-mono font-bold text-4xl tracking-tight leading-[1.12]",
+        "mt-8 mb-4 scroll-m-32 font-mono font-bold text-2xl sm:text-3xl md:text-4xl tracking-tight leading-[1.12]",
         "first:mt-0",
         className
       )}
@@ -92,7 +92,7 @@ export const BaseComponents = {
     <h2
       id={getHeadingId(children, "h2")}
       className={cn(
-        "mt-12 mb-3 scroll-m-32  font-mono font-bold text-[1.65rem] tracking-tight leading-[1.18]",
+        "mt-8 mb-3 scroll-m-32 font-mono font-bold text-lg sm:text-[1.65rem] tracking-tight leading-[1.18]",
         "first:mt-0",
         className
       )}
@@ -106,7 +106,7 @@ export const BaseComponents = {
     <h3
       id={getHeadingId(children, "h3")}
       className={cn(
-        "mt-10 mb-2 scroll-m-32  font-mono font-bold text-[1.3rem] tracking-tight leading-[1.22]",
+        "mt-6 mb-2 scroll-m-32 font-mono font-bold text-base sm:text-[1.3rem] tracking-tight leading-[1.22]",
         className
       )}
       {...props}
@@ -119,7 +119,7 @@ export const BaseComponents = {
     <h4
       id={getHeadingId(children, "h4")}
       className={cn(
-        "mt-8 mb-2 scroll-m-16  font-mono font-bold text-base tracking-tight",
+        "mt-6 mb-2 scroll-m-16 font-mono font-bold text-sm sm:text-base tracking-tight",
         className
       )}
       {...props}
@@ -136,7 +136,7 @@ export const BaseComponents = {
     if (hasBlockChild(children)) {
       return (
         <div
-          className={cn("leading-7 text-sm md:text-base not-first:mt-6", className)}
+          className={cn("leading-7 text-xs sm:text-sm md:text-base mt-4", className)}
           {...props}
         >
           {children}
@@ -145,7 +145,7 @@ export const BaseComponents = {
     }
     return (
       <p
-        className={cn("leading-7 text-sm md:text-base not-first:mt-6", className)}
+        className={cn("leading-7 text-xs sm:text-sm md:text-base mt-4", className)}
         {...props}
       >
         {children}
@@ -174,7 +174,7 @@ export const BaseComponents = {
   ul: ({ className, ...props }: ComponentsProps) => (
     <ul
       className={cn(
-        "my-5 ml-5 list-disc space-y-1.5 text-sm md:text-base text-muted-foreground",
+        "my-4 ml-4 sm:ml-5 list-disc space-y-1.5 text-xs sm:text-sm md:text-base text-muted-foreground",
         "[&>li]:pl-1",
         className
       )}
@@ -185,7 +185,7 @@ export const BaseComponents = {
   ol: ({ className, ...props }: ComponentsProps) => (
     <ol
       className={cn(
-        "my-5 ml-5 list-decimal space-y-1.5 text-sm md:text-base text-muted-foreground",
+        "my-4 ml-4 sm:ml-5 list-decimal space-y-1.5 text-xs sm:text-sm md:text-base text-muted-foreground",
         "[&>li]:pl-1",
         className
       )}
@@ -195,7 +195,7 @@ export const BaseComponents = {
 
   li: ({ className, ...props }: ComponentsProps) => (
     <li
-      className={cn("text-sm md:text-base leading-relaxed", className)}
+      className={cn("text-xs sm:text-sm md:text-base leading-relaxed", className)}
       {...props}
     />
   ),
@@ -205,8 +205,8 @@ export const BaseComponents = {
   blockquote: ({ className, ...props }: ComponentsProps) => (
     <blockquote
       className={cn(
-        "my-7 border-l-2 border-border pl-6 not-italic",
-        "  text-base text-muted-foreground",
+        "my-4 border-l-2 border-border pl-3 sm:pl-6 not-italic",
+        "text-sm sm:text-base text-muted-foreground",
         "[&>p]:mt-0 [&>p]:leading-relaxed",
         className
       )}
@@ -226,8 +226,8 @@ export const BaseComponents = {
   // ── Table ─────────────────────────────────────────────────────────────────
 
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="my-7 w-full overflow-x-auto rounded-xl border border-border">
-      <table className={cn("w-full text-sm border-collapse", className)} {...props} />
+    <div className="my-4 w-full overflow-x-auto rounded-lg sm:rounded-xl border border-border">
+      <table className={cn("w-full text-xs sm:text-sm border-collapse", className)} {...props} />
     </div>
   ),
 
@@ -249,7 +249,7 @@ export const BaseComponents = {
   th: ({ className, ...props }: ComponentsProps) => (
     <th
       className={cn(
-        "px-4 py-3 text-left text-xs font-semibold   uppercase tracking-widest",
+        "px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold uppercase tracking-widest",
         "text-muted-foreground border-b border-border",
         "[[align=center]]:text-center [[align=right]]:text-right",
         className
@@ -261,7 +261,7 @@ export const BaseComponents = {
   td: ({ className, ...props }: ComponentsProps) => (
     <td
       className={cn(
-        "px-4 py-3 text-left text-sm text-muted-foreground",
+        "px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm text-muted-foreground",
         "[[align=center]]:text-center [[align=right]]:text-right",
         className
       )}
@@ -276,7 +276,7 @@ export const BaseComponents = {
   code: ({ className, ...props }: ComponentsProps) => (
     <code
       className={cn(
-        "relative rounded  px-[0.3rem] py-[0.2rem]  font-mono font-medium !text-sm",
+        "relative rounded px-[0.3rem] py-[0.2rem] font-mono font-medium text-xs sm:text-sm",
         className
       )}
       {...props}
@@ -296,7 +296,7 @@ export const BaseComponents = {
         "text-foreground underline underline-offset-[3px] decoration-border",
         "decoration-[1px] transition-[text-decoration-color] duration-150",
         "hover:decoration-foreground",
-        "text-sm md:text-base",
+        "text-xs sm:text-sm md:text-base",
         className
       )}
       {...props}

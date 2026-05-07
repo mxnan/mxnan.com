@@ -4,6 +4,7 @@ description: "A complete MDX example showcasing typography and a theme-safe colo
 date: "2026-03-16"
 status: "published"
 tags: ["typography", "mdx", "design-system", "tailwind"]
+image: "https://images.unsplash.com/photo-1724786594301-9a00b6ee8704?q=80&w=2095&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
 ---
 
 # Typography & Color System
@@ -14,10 +15,12 @@ This post is an **MDX playground** for your blog styling. It exercises the full 
 
 What "theme-safe" means in practice:
 
+<div className='px-4'>
 - No hardcoded hex colors anywhere in component markup.
 - Use **semantic tokens** (`foreground`, `background`, `muted`, `border`) and their scale variants.
 - Links must be visually interactive — underline, color shift, or both.
 - Code must be legible and scroll safely on small viewports.
+</div>
 
 > If this page looks good in both light and dark, your system is in a great place.
 
@@ -43,20 +46,22 @@ Inline code like `pnpm velite:dev` and `app/blogs/[slug]/page.tsx` uses the `mut
 
 ### Unordered
 
+<div className='px-4'>
 - A short list item with concise copy.
 - A longer item that wraps onto the next line to test vertical rhythm and bullet alignment in the prose layout.
   - Nested item A — indented two levels
   - Nested item B with `inline code`
 - Another item with **bold emphasis** and a [link](#).
+</div>
 
 ### Ordered
-
+<div className='px-4'>
 1. First step
 2. Second step
 3. Third step
    1. Nested sub-step
    2. Another nested sub-step
-
+</div>
 ## Blockquotes
 
 > Great typography is not about making things "pretty" — it's about making reading effortless.
