@@ -3,7 +3,7 @@
 A rebuilt personal portfolio and interactive component library.
 Built with **Next.js 16 (App Router)**, **Velite**, **Tailwind CSS v4**, and **Shadcn UI**.
 
-**Status:** 🚧 In progress  
+**Status:**  [mxnan](https://mxnan.vercel.app/)
 **Old site:** https://mxnan.vercel.app/
 
 ---
