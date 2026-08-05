@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";
 import Header from "@/components/nav/header";
+import Footer from "@/components/nav/footer";
 
 const spaceGrotesk = Space_Grotesk({
   variable: "--font-space-grotesk",
@@ -53,6 +54,7 @@ export default function RootLayout({
           <main className="relative w-full bg-background text-foreground">
             <Header />
             <div className="relative w-full h-full">{children}</div>
+            <Footer />
             <Toaster />
           </main>
         </Providers>

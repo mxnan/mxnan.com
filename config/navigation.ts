@@ -26,16 +26,16 @@ export const HEADER_NAV: NavItem[] = [
     icon: BookText,
     ariaLabel: "View blog posts",
   },
-  {
-    label: "Showcase",
-    href: "/showcase",
-    icon: MonitorSmartphone,
-    ariaLabel: "Browse component showcase",
-  },
-  {
-    label: "Contact",
-    href: "/contact",
-    icon: MailPlus,
-    ariaLabel: "Contact me",
-  },
+  // {
+  //   label: "Showcase",
+  //   href: "/showcase",
+  //   icon: MonitorSmartphone,
+  //   ariaLabel: "Browse component showcase",
+  // },
+  // {
+  //   label: "Contact",
+  //   href: "/contact",
+  //   icon: MailPlus,
+  //   ariaLabel: "Contact me",
+  // },
 ];
