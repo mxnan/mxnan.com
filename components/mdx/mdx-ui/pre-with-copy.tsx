@@ -85,7 +85,7 @@ const Pre: React.FC<PreProps> = ({ children, className, ...props }) => {
                 aria-label="Copy code"
                 aria-live="polite"
                 className={cn(
-                    "absolute top-2 sm:top-3 right-2 sm:right-3 flex items-center justify-center cursor-none",
+                    "absolute top-2 sm:top-3 right-2 sm:right-3 flex items-center justify-center",
                     "h-8 w-8 sm:h-9 sm:w-9 rounded-md sm:rounded-lg border bg-background/70 backdrop-blur",
                     "transition-all duration-200 ease-out",
                     "hover:scale-105 active:scale-95 hover:bg-muted",

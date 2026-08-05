@@ -78,7 +78,7 @@ export const BaseComponents = {
     <h1
       id={getHeadingId(children, "h1")}
       className={cn(
-        "mt-8 mb-4 scroll-m-32 font-mono font-bold text-2xl sm:text-3xl md:text-4xl tracking-tight leading-[1.12]",
+        "mt-8 mb-4 scroll-m-32 font-mono font-bold text-2xl sm:text-3xl md:text-4xl tracking-tight",
         "first:mt-0",
         className
       )}
@@ -92,7 +92,7 @@ export const BaseComponents = {
     <h2
       id={getHeadingId(children, "h2")}
       className={cn(
-        "mt-8 mb-3 scroll-m-32 font-mono font-bold text-lg sm:text-[1.65rem] tracking-tight leading-[1.18]",
+        "mt-8 mb-3 scroll-m-32 font-mono font-bold text-lg sm:text-2xl tracking-tight leading-tight",
         "first:mt-0",
         className
       )}
@@ -106,7 +106,7 @@ export const BaseComponents = {
     <h3
       id={getHeadingId(children, "h3")}
       className={cn(
-        "mt-6 mb-2 scroll-m-32 font-mono font-bold text-base sm:text-[1.3rem] tracking-tight leading-[1.22]",
+        "mt-6 mb-2 scroll-m-32 font-mono font-bold text-base sm:text-xl tracking-tight leading-tight",
         className
       )}
       {...props}
@@ -164,7 +164,7 @@ export const BaseComponents = {
 
   em: ({ className, ...props }: ComponentsProps) => (
     <em
-      className={cn("italic text-muted-foreground", className)}
+      className={cn("not-italic text-muted-foreground", className)}
       {...props}
     />
   ),
@@ -218,7 +218,7 @@ export const BaseComponents = {
 
   hr: (props: React.HTMLAttributes<HTMLHRElement>) => (
     <hr
-      className="my-10 border-none h-px bg-gradient-to-r from-transparent via-border to-transparent"
+      className="my-10 border-none h-px bg-border"
       {...props}
     />
   ),
@@ -276,7 +276,7 @@ export const BaseComponents = {
   code: ({ className, ...props }: ComponentsProps) => (
     <code
       className={cn(
-        "relative rounded px-[0.3rem] py-[0.2rem] font-mono font-medium text-xs sm:text-sm",
+        "relative rounded px-1 py-0.5 font-mono font-medium text-xs sm:text-sm",
         className
       )}
       {...props}

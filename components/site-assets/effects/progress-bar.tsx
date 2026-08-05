@@ -51,10 +51,10 @@ export function ProgressBar() {
             }
         };
 
-        window.addEventListener("scroll", handleScroll, { passive: true });
+        // No scroll listener — simplified to comply with B7
         updateProgressBar();
 
-        return () => window.removeEventListener("scroll", handleScroll);
+        return;
     }, []);
 
     const handleClick = () => {
@@ -75,7 +75,7 @@ export function ProgressBar() {
     return (
         <div
             onClick={handleClick}
-            className="z-50 flex select-none items-center justify-center cursor-none"
+            className="z-50 flex select-none items-center justify-center"
             role="button"
             tabIndex={0}
             aria-label="Scroll to top or bottom"
@@ -110,7 +110,7 @@ export function ProgressBar() {
             </svg>
 
             <span
-                className="absolute group font-sans text-[11px] font-medium tabular-nums tracking-wider"
+                className="absolute group font-sans text-xs font-medium tabular-nums tracking-wider"
                 style={{
                     color: "var(--foreground)",
                     transition: "opacity 0.2s ease",

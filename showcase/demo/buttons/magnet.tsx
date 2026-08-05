@@ -83,7 +83,7 @@ export function MagnetButton() {
     return (
         <div
             ref={ref}
-            className="relative cursor-none z-10 w-40 h-40 rounded-full flex items-center justify-center cursor-pointer overflow-hidden will-change-transform"
+            className="relative z-10 w-40 h-40 rounded-full flex items-center justify-center cursor-pointer overflow-hidden will-change-transform"
         >
             {/* Rotating border */}
             <div

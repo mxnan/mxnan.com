@@ -1,21 +1,15 @@
 import type { Metadata } from "next";
-import { Space_Grotesk, Tektur } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";
 import Header from "@/components/nav/header";
 import Footer from "@/components/nav/footer";
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
   weight: ["300", "400", "500", "600", "700"],
-});
-
-const tektur = Tektur({
-  variable: "--font-tektur",
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
@@ -48,16 +42,19 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${spaceGrotesk.variable} ${tektur.variable} antialiased`}
+            className={`${poppins.variable} antialiased`}
       >
         <Providers>
-          <main className="relative w-full bg-background text-foreground">
-            <Header />
-            <div className="relative w-full h-full">{children}</div>
-            <Footer />
-            <Toaster />
-          </main>
-        </Providers>
+              {/* skip link for keyboard users */}
+              <a href="#content" className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:bg-background focus:text-foreground focus:px-3 focus:py-2 focus:rounded">Skip to content</a>
+
+              <main id="content" className="relative w-full bg-background text-foreground">
+                <Header />
+                <div className="relative w-full h-full">{children}</div>
+                <Footer />
+                <Toaster />
+              </main>
+            </Providers>
       </body>
     </html>
   );

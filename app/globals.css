@@ -52,8 +52,8 @@
   --radius-3xl: calc(var(--radius) * 3);
 
   /* Typography */
-  --font-sans: var(--font-space-grotesk), "Space Grotesk", system-ui, sans-serif;
-  --font-mono: var(--font-tektur), "Tektur", monospace;
+  --font-sans: var(--font-poppins), "Poppins", system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
 }
 
 /* ─── Light Theme ───────────────────────────────────────────── */
@@ -197,11 +197,16 @@
     scrollbar-width:      none;
     -ms-overflow-style:   none;
     /* scroll-behavior:      smooth; */
-    cursor:               none !important;
+    /* keep default cursor for accessibility */
   }
 
   html::-webkit-scrollbar {
     display: none;
+  }
+
+  /* Horizontal rule: use flat hairline, no gradients per B4 */
+  hr {
+    @apply my-10 border-none h-px bg-border;
   }
 
   body {
@@ -214,7 +219,7 @@
   /* Default styles applied globally */
 
   h1 {
-    @apply font-mono font-bold text-4xl tracking-tight leading-[1.12] mt-14 mb-4 scroll-m-32;
+    @apply font-mono font-bold text-4xl tracking-tight mt-14 mb-4 scroll-m-32;
   }
 
   h1:first-child {
@@ -222,7 +227,7 @@
   }
 
   h2 {
-    @apply font-mono font-bold text-[1.65rem] tracking-tight leading-[1.18] mt-12 mb-3 scroll-m-32;
+    @apply font-mono font-bold text-2xl tracking-tight leading-tight mt-12 mb-3 scroll-m-32;
   }
 
   h2:first-child {
@@ -230,7 +235,7 @@
   }
 
   h3 {
-    @apply font-mono font-bold text-[1.3rem] tracking-tight leading-[1.22] mt-10 mb-2 scroll-m-32;
+    @apply font-mono font-bold text-xl tracking-tight leading-tight mt-10 mb-2 scroll-m-32;
   }
 
   h4 {
@@ -252,7 +257,7 @@
   }
 
   em {
-    @apply italic text-muted-foreground;
+    @apply not-italic text-muted-foreground;
   }
 
  
@@ -267,7 +272,7 @@
 
   /* Divider */
   hr {
-    @apply my-10 border-none h-px bg-gradient-to-r from-transparent via-border to-transparent;
+    @apply my-10 border-none h-px bg-border;
   }
 
   /* Focus ring */

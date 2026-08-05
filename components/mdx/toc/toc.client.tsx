@@ -130,7 +130,7 @@ const TreeClient = React.memo(function TreeClient({
                             }}
 
                             className={cn(
-                                "inline-block cursor-none relative text-xs sm:text-sm pl-2 sm:pl-3 transition-colors duration-300 ease-in-out truncate w-full",
+                                "inline-block relative text-xs sm:text-sm pl-2 sm:pl-3 transition-colors duration-300 ease-in-out truncate w-full",
                                 isActive
                                     ? "text-primary font-medium"
                                     : "text-muted-foreground hover:text-primary"

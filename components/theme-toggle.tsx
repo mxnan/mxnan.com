@@ -141,7 +141,7 @@ const ThemeToggle = () => {
             onClick={toggleTheme}
             variant="default"
             size="icon"
-            className="hover:bg-muted-foreground cursor-none"
+            className="hover:bg-muted-foreground"
             aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
         >
             <SolarSwitch isDark={isDark} />
