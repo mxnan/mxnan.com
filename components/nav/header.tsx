@@ -12,7 +12,7 @@ export default function Header() {
     <header className="fixed inset-x-0 top-6 z-50 pointer-events-none">
       <div className="mx-auto w-max pointer-events-auto">
         <nav
-          className="mt-6 p-3 rounded-full border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/20 w-max"
+          className="mt-6 p-3 rounded-full border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/20 w-max transition-all duration-300 ease-in-out motion-reduce:transition-none"
           aria-label="Main navigation"
         >
           <div className="flex items-center gap-2">
@@ -25,7 +25,13 @@ export default function Header() {
                 const isActive = pathname === href;
                 return (
                   <Link key={href} href={href} aria-current={isActive ? "page" : undefined}>
-                    <Button variant={isActive ? "default" : "ghost"} size="icon" title={label} aria-label={ariaLabel}>
+                    <Button
+                      variant={isActive ? "default" : "ghost"}
+                      size="icon"
+                      title={label}
+                      aria-label={ariaLabel}
+                      className="transition-transform duration-200 ease-in-out transform-gpu hover:-translate-y-0.5 hover:scale-105 focus-visible:scale-105"
+                    >
                       <Icon size={16} className="stroke-3" />
                     </Button>
                   </Link>

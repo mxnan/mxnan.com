@@ -2,86 +2,111 @@
 
 import React, { useEffect, useRef, useState } from "react";
 
+const RADIUS = 20;
+const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+
 export default function ProgressRing() {
-  const svgRef = useRef<SVGSVGElement | null>(null);
-  const [percent, setPercent] = useState(0);
+  const circleRef = useRef<SVGCircleElement | null>(null);
+  const rafRef = useRef<number | null>(null);
+  const [isTop, setIsTop] = useState(true);
 
   useEffect(() => {
-    const main = document.getElementById("content");
-    if (!main) return;
+    const circle = circleRef.current;
+    if (!circle) return;
 
-    const sections = Array.from(main.querySelectorAll<HTMLElement>("section"));
-    if (sections.length === 0) return;
+    circle.style.strokeDasharray = String(CIRCUMFERENCE);
 
-    const total = sections.length;
+    const prefersReduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Choose the section with largest intersectionRatio
-        const visible = entries
-          .filter((e) => e.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+    const update = () => {
+      rafRef.current = null;
 
-        let idx = 0;
-        if (visible) {
-          idx = sections.indexOf(visible.target as HTMLElement);
-        } else {
-          // If none intersecting, find first below viewport by bounding rect
-          const rects = sections.map((s) => ({ s, top: s.getBoundingClientRect().top }));
-          const firstVisible = rects.find((r) => r.top >= 0);
-          if (firstVisible) idx = sections.indexOf(firstVisible.s);
-          else idx = sections.length - 1;
-        }
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - doc.clientHeight;
+      const pct = scrollable > 0 ? doc.scrollTop / scrollable : 0;
 
-        const pct = Math.round((idx / Math.max(1, total - 1)) * 100);
-        setPercent(pct);
+      const offset = CIRCUMFERENCE * (1 - pct);
+      circle.style.strokeDashoffset = String(offset);
 
-        // update SVG stroke
-        const svg = svgRef.current;
-        if (!svg) return;
-        const circle = svg.querySelector("circle[data-progress]") as SVGCircleElement | null;
-        if (!circle) return;
-        const r = Number(circle.getAttribute("r")) || 20;
-        const circ = 2 * Math.PI * r;
-        const dash = (pct / 100) * circ;
-        circle.setAttribute("stroke-dasharray", `${dash} ${circ}`);
-      },
-      { root: null, threshold: buildThresholdList() }
-    );
+      setIsTop((prev) => (pct < 0.5) !== prev ? pct < 0.5 : prev);
+    };
 
-    sections.forEach((s) => observer.observe(s));
+    const onScroll = () => {
+      if (rafRef.current !== null) return;
+      rafRef.current = requestAnimationFrame(update);
+    };
 
-    return () => observer.disconnect();
+    circle.style.transition = prefersReduced
+      ? "none"
+      : "stroke-dashoffset 200ms linear";
+
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
+    };
   }, []);
 
+  function handleToggle() {
+    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
+      .matches
+      ? "auto"
+      : "smooth";
+
+    window.scrollTo({
+      top: isTop ? document.documentElement.scrollHeight : 0,
+      behavior,
+    });
+  }
+
   return (
-    <div className="z-50 flex items-center justify-center" role="img" aria-label={`page progress ${percent}%`}>
-      <svg ref={svgRef} width="42" height="42" viewBox="0 0 52 52" className="-rotate-90">
-        <circle cx="26" cy="26" r={20} fill="none" stroke="var(--foreground)" strokeWidth="1.5" />
+    <div className="relative z-50 flex items-center justify-center">
+      <svg width="42" height="42" viewBox="0 0 52 52" className="-rotate-90">
         <circle
-          data-progress
           cx="26"
           cy="26"
-          r={20}
+          r={RADIUS}
           fill="none"
-          stroke="var(--paper)"
+          stroke="var(--muted-foreground)"
           strokeWidth="1.5"
+        />
+        <circle
+          ref={circleRef}
+          cx="26"
+          cy="26"
+          r={RADIUS}
+          fill="none"
+          stroke="var(--primary)"
+          strokeWidth="2.5"
           strokeLinecap="round"
-          strokeDasharray={`0 ${2 * Math.PI * 20}`}
-          style={{ transition: "stroke-dasharray 700ms cubic-bezier(0.32,0.72,0,1)" }}
         />
       </svg>
-      <span className="sr-only">{percent}%</span>
+
+      <button
+        type="button"
+        onClick={handleToggle}
+        aria-label={isTop ? "Scroll to bottom" : "Scroll to top"}
+        className="absolute top-1 left-1 w-8 h-8 rounded-full text-on-primary flex items-center justify-center"
+      >
+        <svg
+          width="14"
+          height="14"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d={isTop ? "M6 9l6 6 6-6" : "M6 15l6-6 6 6"} />
+        </svg>
+      </button>
     </div>
   );
-}
-
-function buildThresholdList() {
-  const numSteps = 20;
-  const thresholds: number[] = [];
-  for (let i = 1.0; i <= numSteps; i++) {
-    thresholds.push(i / numSteps);
-  }
-  thresholds.push(0);
-  return thresholds;
 }
