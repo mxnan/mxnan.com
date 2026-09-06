@@ -333,16 +333,3 @@
 @media (pointer: fine) {
   body { cursor: none; }
 }
-/* ─── Progress Bar Chevron Animation ────────────────────────── */
-
-@keyframes chevron-gentle {
-    0%, 100% { transform: translateY(0); }
-    50%      { transform: translateY(-2.5px); }
-}
-
-.group:hover .chevron-down {
-    animation: chevron-gentle 1.6s infinite ease-in-out;
-}
-
-/* ─── Custom Scrollbar (optional) ────────────────────────────── */
-/* Uncomment to enable custom scrollbar */
