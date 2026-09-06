@@ -9,8 +9,6 @@ import { FigCard } from "./mdx-ui/figcard";
 import { ComponentPreview } from "./component-preview";
 import { CollapsibleCodeBlock } from "./mdx-ui/collapsible-codeblock";
 
-
-
 // ---------------------- Component maps ---------------------
 
 const coreComponents = {
@@ -18,6 +16,7 @@ const coreComponents = {
   Button,
   FigCard,
   a: Link,
+  CollapsibleCodeBlock,
 };
 
 const blogComponents = {
@@ -27,7 +26,6 @@ const blogComponents = {
 const componentComponents = {
   ...coreComponents,
   ComponentPreview,
-  CollapsibleCodeBlock,
 };
 
 // ---------------------- MDX Runtime ---------------------

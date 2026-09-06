@@ -1,4 +1,4 @@
-import { blogs } from "#site/content";
+import { blogs, components } from "#site/content";
 
 export type Post = (typeof blogs)[number] & {
   published: boolean;
@@ -8,6 +8,10 @@ export type Post = (typeof blogs)[number] & {
     minutes: number;
     words: number;
   };
+  body: string;
+};
+
+export type Showcase = (typeof components)[number] & {
   body: string;
 };
 
@@ -48,5 +52,16 @@ export function getPostBySlug(slug: string): Post | null {
     },
   );
   return match ?? null;
+}
+
+export function getShowcase(): Showcase | null {
+  const showcase = components.find(
+    (comp) => comp.category === "_showcase"
+  );
+  if (!showcase) return null;
+  return {
+    ...showcase,
+    body: showcase.content,
+  };
 }
 

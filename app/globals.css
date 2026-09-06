@@ -52,8 +52,7 @@
   --radius-3xl: calc(var(--radius) * 3);
 
   /* Typography */
-  --font-sans: var(--font-poppins), "Poppins", system-ui, sans-serif;
-  --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Courier New", monospace;
+  --font-sans: var(--font-manrope), "Manrope", ui-sans-serif, system-ui;
 }
 
 /* ─── Light Theme ───────────────────────────────────────────── */
@@ -331,50 +330,9 @@
   @apply border-b-2 p-1 shadow-none;
 }
 
-/* ─── Cursor ────────────────────────────────────────────────── */
-
-/* Grain texture overlay for cursor-blend */
-.cursor-grain {
-  position: relative;
-  overflow: hidden;
+@media (pointer: fine) {
+  body { cursor: none; }
 }
-
-.cursor-grain::before {
-  content:     '';
-  position:    absolute;
-  inset:       0;
-  border-radius: 50%;
-  background-image: radial-gradient(
-    circle,
-    oklch(1 0 0 / 10%) 0.8px,
-    transparent 1px
-  );
-  background-size:  4px 4px;
-  mix-blend-mode:   difference;
-  opacity:          0.55;
-  pointer-events:   none;
-  animation:        cursor-grain-shift 0.8s steps(10) infinite;
-}
-
-@keyframes cursor-grain-shift {
-  0%   { transform: translate(0px, 0px);   }
-  10%  { transform: translate(-1px, 1px);  }
-  20%  { transform: translate(1px, -1px);  }
-  30%  { transform: translate(-1px,-1px);  }
-  40%  { transform: translate(1px, 1px);   }
-  50%  { transform: translate(-1px, 0px);  }
-  60%  { transform: translate(0px, 1px);   }
-  70%  { transform: translate(1px, -1px);  }
-  80%  { transform: translate(-1px, 1px);  }
-  90%  { transform: translate(0px, -1px);  }
-  100% { transform: translate(0px, 0px);   }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .cursor-grain::before { animation: none; }
-  html                  { scroll-behavior: auto; }
-}
-
 /* ─── Progress Bar Chevron Animation ────────────────────────── */
 
 @keyframes chevron-gentle {

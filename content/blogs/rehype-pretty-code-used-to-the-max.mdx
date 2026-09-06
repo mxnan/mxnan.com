@@ -1,0 +1,113 @@
+---
+title: Rehype Pretty Code Used to the Max
+description: Fully testing the capabilities of rehype-pretty-code — line numbers, word highlighting, ANSI output, and every meta string it supports.
+date: "2026-08-14"
+status: "published"
+image: https://images.unsplash.com/photo-1724786594301-9a00b6ee8704?q=80&w=2095&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+tags: ["mdx", "rehype", "docs"]
+---
+
+[rehype-pretty-code](https://github.com/atomiks/rehype-pretty-code) is a Rehype plugin powered by the [shiki](https://github.com/shikijs/shiki) syntax highlighter that brings editor-quality code blocks to Markdown and MDX. It runs at build time on the server — no runtime highlighting flash — and can also highlight dynamically on the client when you need it to.
+
+This post pushes the plugin through its full feature set: themes, line numbers, line highlighting, word highlighting, ANSI output, and every meta string it supports.
+
+## Editor-Grade Highlighting
+
+<span className="mix-blend-plus-lighter text-zinc-400/80">
+  Enjoy the accuracy and granularity of VS Code's syntax highlighting engine and
+  the popularity of its themes ecosystem — use any VS Code theme you want!
+</span>
+
+## Line Numbers and Line Highlighting
+
+Draw attention to a particular line of code.
+
+```js {4} showLineNumbers
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```
+
+## Word Highlighting
+
+Draw attention to a particular word or series of characters.
+
+```js /floatingStyles/
+import { useFloating } from "@floating-ui/react";
+
+function MyComponent() {
+  const { refs, floatingStyles } = useFloating();
+
+  return (
+    <>
+      <div ref={refs.setReference} />
+      <div ref={refs.setFloating} style={floatingStyles} />
+    </>
+  );
+}
+```
+
+## ANSI Highlighting
+
+```ansi
+[0;36m  vite v5.0.0[0;32m dev server running at:[0m
+
+  > Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m
+  > Network: [0;2muse `--host` to expose[0m
+
+  [0;36mready in 125ms.[0m
+
+[0;2m8:38:02 PM[0m [0;36;1m[vite][0m [0;32mhmr update [0;2m/src/App.jsx
+```
+
+Inline ANSI: `> Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m{:ansi}`
+
+---
+
+## Kitchen Sink Meta Strings
+
+Combine title, line numbers, line ranges, and word matching in a single fence — and wrap it in a collapsible block for long snippets.
+
+<CollapsibleCodeBlock>
+```js showLineNumbers {2-4} title="isEven.js" /console/
+function isEven(number) {
+  if (number === 1) {
+    return false;
+  } else if (number === 2) {
+    return true;
+  } else if (number === 3) {
+    return false;
+  } else if (number === 4) {
+    return true;
+  } else if (number === 5) {
+    return false;
+  } else if (number === 6) {
+    return true;
+  } else if (number === 7) {
+    return false;
+  } else if (number === 8) {
+    return true;
+  } else if (number === 9) {
+    return false;
+  } else if (number === 10) {
+    return true;
+  } else {
+    return "Number is not between 1 and 10.";
+  }
+}
+
+// Example usage:
+console.log(isEven(3)); // Should return false
+console.log(isEven(4)); // Should return true
+console.log(isEven(11)); // Should return "Number is not between 1 and 10."
+```
+</CollapsibleCodeBlock>

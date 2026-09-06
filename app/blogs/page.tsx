@@ -35,9 +35,9 @@ export default function BlogPage() {
       </section>
 
       <section className="space-y-6 ">
-        <div className="space-y-6">
+        <div className="space-y-0">
           {posts.map((post) => (
-            <div data-cursor="blend" key={post.slug} className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md">
+            <div data-cursor="takeover" key={post.slug} className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md">
               <Link href={post.slug} className="block space-y-2">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="text-lg font-semibold tracking-tight group-hover:text-foreground">

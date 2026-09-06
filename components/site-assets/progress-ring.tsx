@@ -1,14 +1,18 @@
 "use client";
-
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef } from "react";
 
 const RADIUS = 20;
 const CIRCUMFERENCE = 2 * Math.PI * RADIUS;
+const ICON_UP = "M6 9l6 6 6-6";
+const ICON_DOWN = "M6 15l6-6 6 6";
 
-export default function ProgressRing() {
+export function ProgressRing() {
   const circleRef = useRef<SVGCircleElement | null>(null);
+  const pathRef = useRef<SVGPathElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
   const rafRef = useRef<number | null>(null);
-  const [isTop, setIsTop] = useState(true);
+  const isTopRef = useRef(true);
+  const reducedMotionRef = useRef(false);
 
   useEffect(() => {
     const circle = circleRef.current;
@@ -16,21 +20,30 @@ export default function ProgressRing() {
 
     circle.style.strokeDasharray = String(CIRCUMFERENCE);
 
-    const prefersReduced = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const applyMotionPref = () => {
+      reducedMotionRef.current = mq.matches;
+      circle.style.transition = mq.matches ? "none" : "stroke-dashoffset 200ms linear";
+    };
+    applyMotionPref();
+    mq.addEventListener("change", applyMotionPref);
 
     const update = () => {
       rafRef.current = null;
-
       const doc = document.documentElement;
       const scrollable = doc.scrollHeight - doc.clientHeight;
       const pct = scrollable > 0 ? doc.scrollTop / scrollable : 0;
+      circle.style.strokeDashoffset = String(CIRCUMFERENCE * (1 - pct));
 
-      const offset = CIRCUMFERENCE * (1 - pct);
-      circle.style.strokeDashoffset = String(offset);
-
-      setIsTop((prev) => (pct < 0.5) !== prev ? pct < 0.5 : prev);
+      const top = pct < 0.5;
+      if (top !== isTopRef.current) {
+        isTopRef.current = top;
+        pathRef.current?.setAttribute("d", top ? ICON_UP : ICON_DOWN);
+        buttonRef.current?.setAttribute(
+          "aria-label",
+          top ? "Scroll to bottom" : "Scroll to top"
+        );
+      }
     };
 
     const onScroll = () => {
@@ -38,42 +51,33 @@ export default function ProgressRing() {
       rafRef.current = requestAnimationFrame(update);
     };
 
-    circle.style.transition = prefersReduced
-      ? "none"
-      : "stroke-dashoffset 200ms linear";
-
     update();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onScroll, { passive: true });
-
     return () => {
       window.removeEventListener("scroll", onScroll);
       window.removeEventListener("resize", onScroll);
+      mq.removeEventListener("change", applyMotionPref);
       if (rafRef.current !== null) cancelAnimationFrame(rafRef.current);
     };
   }, []);
 
   function handleToggle() {
-    const behavior = window.matchMedia("(prefers-reduced-motion: reduce)")
-      .matches
-      ? "auto"
-      : "smooth";
-
     window.scrollTo({
-      top: isTop ? document.documentElement.scrollHeight : 0,
-      behavior,
+      top: isTopRef.current ? document.documentElement.scrollHeight : 0,
+      behavior: reducedMotionRef.current ? "auto" : "smooth",
     });
   }
 
   return (
-    <div className="relative z-50 flex items-center justify-center">
+    <div className="relative flex items-center justify-center">
       <svg width="42" height="42" viewBox="0 0 52 52" className="-rotate-90">
         <circle
           cx="26"
           cy="26"
           r={RADIUS}
           fill="none"
-          stroke="var(--muted-foreground)"
+          className="stroke-primary/30"
           strokeWidth="1.5"
         />
         <circle
@@ -87,24 +91,24 @@ export default function ProgressRing() {
           strokeLinecap="round"
         />
       </svg>
-
       <button
+        ref={buttonRef}
         type="button"
         onClick={handleToggle}
-        aria-label={isTop ? "Scroll to bottom" : "Scroll to top"}
-        className="absolute top-1 left-1 w-8 h-8 rounded-full text-on-primary flex items-center justify-center"
+        aria-label="Scroll to bottom"
+        className="fixed w-8 h-8 rounded-full text-on-primary flex items-center justify-center"
       >
         <svg
-          width="14"
-          height="14"
+          width="16"
+          height="16"
           viewBox="0 0 24 24"
           fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
+          stroke="var(--primary)"
+          strokeWidth="3"
           strokeLinecap="round"
           strokeLinejoin="round"
         >
-          <path d={isTop ? "M6 9l6 6 6-6" : "M6 15l6-6 6 6"} />
+          <path ref={pathRef} d={ICON_UP} />
         </svg>
       </button>
     </div>
