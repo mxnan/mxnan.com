@@ -12,7 +12,7 @@
     "velite:dev": "velite --watch",
     "clean": "rimraf .next .velite node_modules/.cache && echo Clean complete",
     "type-check": "tsc --noEmit",
-    "preview": "pnpm build && pnpm start"
+    "preview": "pnpm start"
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",

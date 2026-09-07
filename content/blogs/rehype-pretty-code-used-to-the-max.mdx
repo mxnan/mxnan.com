@@ -7,20 +7,21 @@ image: https://images.unsplash.com/photo-1724786594301-9a00b6ee8704?q=80&w=2095&
 tags: ["mdx", "rehype", "docs"]
 ---
 
-[rehype-pretty-code](https://github.com/atomiks/rehype-pretty-code) is a Rehype plugin powered by the [shiki](https://github.com/shikijs/shiki) syntax highlighter that brings editor-quality code blocks to Markdown and MDX. It runs at build time on the server — no runtime highlighting flash — and can also highlight dynamically on the client when you need it to.
+Runtime highlighting flashes. Build-time highlighting doesn't.
 
-This post pushes the plugin through its full feature set: themes, line numbers, line highlighting, word highlighting, ANSI output, and every meta string it supports.
+[rehype-pretty-code](https://github.com/atomiks/rehype-pretty-code) runs [shiki](https://github.com/shikijs/shiki) on the server. Editor-grade syntax, zero flash — and it'll highlight on the client too, when you need it to.
+
+This post pushes every feature. Themes, line numbers, line highlighting, word highlighting, ANSI output, every meta string.
 
 ## Editor-Grade Highlighting
 
 <span className="mix-blend-plus-lighter text-zinc-400/80">
-  Enjoy the accuracy and granularity of VS Code's syntax highlighting engine and
-  the popularity of its themes ecosystem — use any VS Code theme you want!
+  VS Code's engine. VS Code's themes. Any theme you want.
 </span>
 
 ## Line Numbers and Line Highlighting
 
-Draw attention to a particular line of code.
+One line matters more than the rest. Show it.
 
 ```js {4} showLineNumbers
 import { useFloating } from "@floating-ui/react";
@@ -39,7 +40,7 @@ function MyComponent() {
 
 ## Word Highlighting
 
-Draw attention to a particular word or series of characters.
+Lines get attention. Words get precision.
 
 ```js /floatingStyles/
 import { useFloating } from "@floating-ui/react";
@@ -58,6 +59,8 @@ function MyComponent() {
 
 ## ANSI Highlighting
 
+Terminal output, not terminal-shaped output. The real thing.
+
 ```ansi
 [0;36m  vite v5.0.0[0;32m dev server running at:[0m
 
@@ -69,13 +72,13 @@ function MyComponent() {
 [0;2m8:38:02 PM[0m [0;36;1m[vite][0m [0;32mhmr update [0;2m/src/App.jsx
 ```
 
-Inline ANSI: `> Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m{:ansi}`
+Inline works too: `> Local: [0;36mhttp://localhost:[0;36;1m3000[0;36m/[0m{:ansi}`
 
 ---
 
 ## Kitchen Sink Meta Strings
 
-Combine title, line numbers, line ranges, and word matching in a single fence — and wrap it in a collapsible block for long snippets.
+Title. Line numbers. Line ranges. Word matching. One fence, every feature — collapsed, so a long snippet doesn't hijack the page.
 
 <CollapsibleCodeBlock>
 ```js showLineNumbers {2-4} title="isEven.js" /console/
@@ -109,5 +112,6 @@ function isEven(number) {
 console.log(isEven(3)); // Should return false
 console.log(isEven(4)); // Should return true
 console.log(isEven(11)); // Should return "Number is not between 1 and 10."
+
 ```
 </CollapsibleCodeBlock>

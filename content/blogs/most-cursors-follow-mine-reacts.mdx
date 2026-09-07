@@ -1,0 +1,68 @@
+---
+title: Most Cursors Follow. Mine Reacts.
+description: A dot and a ring. Two states. Why less cursor is more cursor.
+date: "2026-09-06"
+status: "published"
+image: https://images.unsplash.com/photo-1550439062-609e1531270e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+tags: ["react", "framer-motion", "lenis", "interaction-design", "cursor"]
+---
+
+#### Most cursors follow.
+
+#### Mine reacts.
+
+A dot for precision. A ring for presence. Two shapes, one job: make the page feel touched, not just clicked.
+
+## Start with everything. Ship with less
+
+The first version did five things. Pointer states. Text labels. Magnetic pull. Blend modes. Takeover shapes.
+
+Five features, zero identity.
+
+**More states impress the builder. Fewer states impress the user.**
+
+So I cut three. Kept two:
+
+**Invert** — the ring flips whatever color sits beneath it. Works on light. Works on dark. Doesn't ask which.
+
+**Takeover** — the ring stops following and becomes the button. Same radius. Same shape. Same edges.
+
+Everything else got deleted.
+
+## Why invert, not tint
+
+A tinted cursor makes assumptions. Light background, dark ring. Dark background, light ring. Guess wrong, cursor disappears.
+
+Invert doesn't guess.
+
+It reads the pixel underneath and flips it — automatically, everywhere, forever.
+
+**One rule beats ten conditionals.**
+
+## Why takeover, not hover
+
+A hover state decorates the button. A takeover _becomes_ it.
+
+The ring doesn't scale up near your subscribe button. It disappears into it — same corners, same fill, same shape — so the click target and the cursor are, for a moment, the same object.
+
+**Decoration fades. Identity sticks.**
+
+## The part nobody sees
+
+Underneath both states: one `mousemove` listener, two motion values, zero layout thrashing.
+
+No `elementFromPoint` on every frame. No polling. The DOM tells you what's under the mouse — you just have to listen instead of asking.
+
+**Performance is a feature. It's just invisible.**
+
+## Why build a custom cursor at all
+
+The OS gives you a cursor for free.
+
+Free things don't remember you.
+
+A cursor that inverts color and takes over shape does one thing a system arrow never will: it tells the visitor _this page was designed, not assembled._
+
+That's the whole pitch.
+
+Two states. No excess. Try it below.

@@ -5,7 +5,6 @@ import { getAllPosts } from "@/lib/content";
 export const metadata: Metadata = {
   title: "Blogs",
   description: "Thoughts, notes, and articles powered by Velite and MDX.",
-
 };
 
 export default function BlogPage() {
@@ -16,9 +15,7 @@ export default function BlogPage() {
       <main className="flex flex-col gap-8">
         <section className="space-y-4">
           <h1>Blogs</h1>
-          <p>
-            No posts have been published yet. Please check back soon.
-          </p>
+          <p>No posts have been published yet. Please check back soon.</p>
         </section>
       </main>
     );
@@ -29,15 +26,19 @@ export default function BlogPage() {
       <section className="space-y-3 text-center">
         <h1>Blogs</h1>
         <p>
-          Long-form notes, experiments, and write-ups about building with Next.js,
-          React, and the modern web.
+          Long-form notes, experiments, and write-ups about building with
+          Next.js, React, and the modern web.
         </p>
       </section>
 
       <section className="space-y-6 ">
-        <div className="space-y-0">
+        <div className="grid grid-cols-1 gap-0 sm:grid-cols-2 lg:grid-cols-3">
           {posts.map((post) => (
-            <div data-cursor="invert" key={post.slug} className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md">
+            <div
+              data-cursor="takeover"
+              key={post.slug}
+              className="group rounded-lg border bg-card/50 p-4 shadow-sm transition hover:-translate-y-0.5 hover:bg-card hover:shadow-md"
+            >
               <Link href={post.slug} className="block space-y-2">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <h2 className="text-lg font-semibold tracking-tight group-hover:text-foreground">
@@ -82,4 +83,3 @@ export default function BlogPage() {
     </div>
   );
 }
-

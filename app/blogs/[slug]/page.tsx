@@ -56,8 +56,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   return (
 
 
-    <div className="relative flex gap-8">
-      <div className="w-full flex flex-col gap-8">
+    <div className="relative flex w-full min-w-0 gap-8">
+      <div className="flex min-w-0 flex-1 flex-col gap-8">
         <Image
           src={post.image ?? "/og/default.png"}
           alt={post.title}

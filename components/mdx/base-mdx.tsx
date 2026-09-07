@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { cn } from "@/lib/utils";
 import React, { HTMLAttributes } from "react";
 import Pre from "./mdx-ui/pre-with-copy";
@@ -21,9 +22,7 @@ function slugify(text: string): string {
 function getHeadingId(children: React.ReactNode, fallback: string): string {
   if (typeof children === "string") return slugify(children);
   if (Array.isArray(children)) {
-    const text = children
-      .map((c) => (typeof c === "string" ? c : ""))
-      .join("");
+    const text = children.map((c) => (typeof c === "string" ? c : "")).join("");
     return text ? slugify(text) : fallback;
   }
   return fallback;
@@ -35,9 +34,26 @@ function getHeadingId(children: React.ReactNode, fallback: string): string {
  * the React "cannot nest <p>" hydration error.
  */
 const BLOCK_TYPES = new Set([
-  "div", "section", "article", "aside", "figure", "figcaption",
-  "ul", "ol", "li", "blockquote", "pre", "table",
-  "h1", "h2", "h3", "h4", "h5", "h6", "hr", "p",
+  "div",
+  "section",
+  "article",
+  "aside",
+  "figure",
+  "figcaption",
+  "ul",
+  "ol",
+  "li",
+  "blockquote",
+  "pre",
+  "table",
+  "h1",
+  "h2",
+  "h3",
+  "h4",
+  "h5",
+  "h6",
+  "hr",
+  "p",
 ]);
 
 function hasBlockChild(children: React.ReactNode): boolean {
@@ -78,9 +94,9 @@ export const BaseComponents = {
     <h1
       id={getHeadingId(children, "h1")}
       className={cn(
-        "mt-8 mb-4 scroll-m-32 font-mono font-bold text-2xl sm:text-3xl md:text-4xl tracking-tight",
+        "mt-8 mb-4 scroll-m-32 font-mono font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide leading-tight",
         "first:mt-0",
-        className
+        className,
       )}
       {...props}
     >
@@ -92,9 +108,9 @@ export const BaseComponents = {
     <h2
       id={getHeadingId(children, "h2")}
       className={cn(
-        "mt-8 mb-3 scroll-m-32 font-mono font-bold text-lg sm:text-2xl tracking-tight leading-tight",
+        "mt-8 mb-3 scroll-m-32 font-mono font-bold text-lg sm:text-2xl md:text-3xl lg:text-4xl tracking-wide leading-tight",
         "first:mt-0",
-        className
+        className,
       )}
       {...props}
     >
@@ -106,8 +122,8 @@ export const BaseComponents = {
     <h3
       id={getHeadingId(children, "h3")}
       className={cn(
-        "mt-6 mb-2 scroll-m-32 font-mono font-bold text-base sm:text-xl tracking-tight leading-tight",
-        className
+        "mt-6 mb-2 scroll-m-32 font-mono font-bold text-base sm:text-xl md:text-2xl lg:text-3xl tracking-wide leading-tight",
+        className,
       )}
       {...props}
     >
@@ -119,8 +135,8 @@ export const BaseComponents = {
     <h4
       id={getHeadingId(children, "h4")}
       className={cn(
-        "mt-6 mb-2 scroll-m-16 font-mono font-bold text-sm sm:text-base tracking-tight",
-        className
+        "mt-6 mb-2 scroll-m-16 font-mono font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide leading-tight",
+        className,
       )}
       {...props}
     >
@@ -136,7 +152,10 @@ export const BaseComponents = {
     if (hasBlockChild(children)) {
       return (
         <div
-          className={cn("leading-7 text-xs sm:text-sm md:text-base mt-4", className)}
+          className={cn(
+            "leading-7 text-xs sm:text-sm md:text-base mt-4",
+            className,
+          )}
           {...props}
         >
           {children}
@@ -145,7 +164,10 @@ export const BaseComponents = {
     }
     return (
       <p
-        className={cn("leading-7 text-xs sm:text-sm md:text-base mt-4", className)}
+        className={cn(
+          "leading-7 text-xs sm:text-sm md:text-base mt-4",
+          className,
+        )}
         {...props}
       >
         {children}
@@ -176,7 +198,7 @@ export const BaseComponents = {
       className={cn(
         "my-4 ml-4 sm:ml-5 list-disc space-y-1.5 text-xs sm:text-sm md:text-base text-muted-foreground",
         "[&>li]:pl-1",
-        className
+        className,
       )}
       {...props}
     />
@@ -187,7 +209,7 @@ export const BaseComponents = {
       className={cn(
         "my-4 ml-4 sm:ml-5 list-decimal space-y-1.5 text-xs sm:text-sm md:text-base text-muted-foreground",
         "[&>li]:pl-1",
-        className
+        className,
       )}
       {...props}
     />
@@ -195,7 +217,10 @@ export const BaseComponents = {
 
   li: ({ className, ...props }: ComponentsProps) => (
     <li
-      className={cn("text-xs sm:text-sm md:text-base leading-relaxed", className)}
+      className={cn(
+        "text-xs sm:text-sm md:text-base leading-relaxed",
+        className,
+      )}
       {...props}
     />
   ),
@@ -208,7 +233,7 @@ export const BaseComponents = {
         "my-4 border-l-2 border-border pl-3 sm:pl-6 not-italic",
         "text-sm sm:text-base text-muted-foreground",
         "[&>p]:mt-0 [&>p]:leading-relaxed",
-        className
+        className,
       )}
       {...props}
     />
@@ -217,31 +242,43 @@ export const BaseComponents = {
   // ── Divider ───────────────────────────────────────────────────────────────
 
   hr: (props: React.HTMLAttributes<HTMLHRElement>) => (
-    <hr
-      className="my-10 border-none h-px bg-border"
-      {...props}
-    />
+    <hr className="my-10 border-none h-px bg-border" {...props} />
   ),
 
   // ── Table ─────────────────────────────────────────────────────────────────
 
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
     <div className="my-4 w-full overflow-x-auto rounded-lg sm:rounded-xl border border-border">
-      <table className={cn("w-full text-xs sm:text-sm border-collapse", className)} {...props} />
+      <table
+        className={cn("w-full text-xs sm:text-sm border-collapse", className)}
+        {...props}
+      />
     </div>
   ),
 
-  thead: ({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
+  thead: ({
+    className,
+    ...props
+  }: React.HTMLAttributes<HTMLTableSectionElement>) => (
     <thead className={cn("bg-muted/50", className)} {...props} />
   ),
 
-  tbody: ({ className, ...props }: React.HTMLAttributes<HTMLTableSectionElement>) => (
-    <tbody className={cn("[&>tr:last-child>td]:border-b-0", className)} {...props} />
+  tbody: ({
+    className,
+    ...props
+  }: React.HTMLAttributes<HTMLTableSectionElement>) => (
+    <tbody
+      className={cn("[&>tr:last-child>td]:border-b-0", className)}
+      {...props}
+    />
   ),
 
   tr: ({ className, ...props }: React.HTMLAttributes<HTMLTableRowElement>) => (
     <tr
-      className={cn("border-b border-border transition-colors hover:bg-muted/30", className)}
+      className={cn(
+        "border-b border-border transition-colors hover:bg-muted/30",
+        className,
+      )}
       {...props}
     />
   ),
@@ -252,7 +289,7 @@ export const BaseComponents = {
         "px-2 sm:px-4 py-2 sm:py-3 text-left text-xs font-semibold uppercase tracking-widest",
         "text-muted-foreground border-b border-border",
         "[[align=center]]:text-center [[align=right]]:text-right",
-        className
+        className,
       )}
       {...props}
     />
@@ -263,7 +300,7 @@ export const BaseComponents = {
       className={cn(
         "px-2 sm:px-4 py-2 sm:py-3 text-left text-xs sm:text-sm text-muted-foreground",
         "[[align=center]]:text-center [[align=right]]:text-right",
-        className
+        className,
       )}
       {...props}
     />
@@ -277,7 +314,7 @@ export const BaseComponents = {
     <code
       className={cn(
         "relative rounded px-1 py-0.5 font-mono font-medium text-xs sm:text-sm",
-        className
+        className,
       )}
       {...props}
     />
@@ -297,7 +334,7 @@ export const BaseComponents = {
         "decoration-[1px] transition-[text-decoration-color] duration-150",
         "hover:decoration-foreground",
         "text-xs sm:text-sm md:text-base",
-        className
+        className,
       )}
       {...props}
     />
@@ -314,7 +351,7 @@ export const BaseComponents = {
         "before:bg-muted before:text-xs before:font-semibold before:text-muted-foreground",
         "before:content-[counter(step)]",
         "[counter-increment:step]",
-        className
+        className,
       )}
       {...props}
     />
@@ -324,7 +361,7 @@ export const BaseComponents = {
     <div
       className={cn(
         "steps my-8 ml-2 space-y-6 border-l border-border pl-8 [counter-reset:step]",
-        className
+        className,
       )}
       {...props}
     />

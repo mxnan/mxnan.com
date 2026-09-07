@@ -1,15 +1,20 @@
 import type { Metadata } from "next";
-import { Manrope } from "next/font/google";
+import { Anybody, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";
 import Header from "@/components/nav/header";
 import Footer from "@/components/nav/footer";
 
-const poppins = Manrope({
-  variable: "--font-manrope",
+const sans = Anybody({
+  variable: "--font-sans",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+});
+
+const mono = Bebas_Neue({
+  variable: "--font-mono",
+  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -41,7 +46,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${poppins.variable} antialiased`}>
+      <body className={`${sans.variable} ${mono.variable} antialiased`}>
         <Providers>
           {/* skip link for keyboard users */}
           <a
@@ -51,10 +56,7 @@ export default function RootLayout({
             Skip to content
           </a>
 
-          <main
-            id="content"
-            className="relative w-full font-sans bg-background text-foreground"
-          >
+          <main id="content" className="relative w-full">
             <Header />
             <div className="relative w-full h-full mt-32">{children}</div>
             <Footer />

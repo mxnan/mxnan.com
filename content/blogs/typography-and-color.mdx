@@ -1,6 +1,6 @@
 ---
 title: "Typography & Color System"
-description: "A complete MDX example showcasing typography and a theme-safe color system."
+description: "A practical guide to the token-based typography, color, and interaction system used by mxnan."
 date: "2026-03-16"
 status: "published"
 tags: ["typography", "mdx", "design-system", "tailwind"]
@@ -9,84 +9,143 @@ image: "https://images.unsplash.com/photo-1724786594301-9a00b6ee8704?q=80&w=2095
 
 # Typography & Color System
 
-This post is an **MDX playground** for your blog styling. It exercises the full Tailwind Typography (`prose`) surface area while staying **theme-safe** (light/dark) through semantic tokens and neutral scales — no hardcoded hex values, no breakage on theme switch.
+Complexity impresses your team. Clarity impresses your users.
 
-## The rules
+This system runs on tokens, not hex codes. Background, foreground, muted, and
+border. Four words carry the entire theme.
 
-What "theme-safe" means in practice:
+Light mode and dark mode are not two systems. They are one system, tested twice.
 
-<div className='px-4'>
-- No hardcoded hex colors anywhere in component markup.
-- Use **semantic tokens** (`foreground`, `background`, `muted`, `border`) and their scale variants.
-- Links must be visually interactive — underline, color shift, or both.
-- Code must be legible and scroll safely on small viewports.
+## The Rules
+
+No hardcoded colors. Ever.
+
+Semantic tokens only: `foreground`, `background`, `muted`, and `border`. Use
+their scale variants for everything else.
+
+Links look like links. Underline, color shift, or both. If it is not obviously
+clickable, it is not a link.
+
+Code stays legible on any screen. Small viewport, same rules.
+
+If it looks right in both themes, the system is right.
+
+<div className="my-8 grid gap-3 sm:grid-cols-2">
+  <div className="rounded-lg border border-border bg-background p-4">
+    <div className="mt-0 text-sm font-semibold text-foreground">
+      Light and dark
+    </div>
+    <div className="mt-2 text-sm text-muted-foreground">
+      Semantic surfaces change with the theme without changing component markup.
+    </div>
+  </div>
+  <div className="rounded-lg border border-border bg-muted/40 p-4">
+    <div className="mt-0 text-sm font-semibold text-foreground">
+      One contract
+    </div>
+    <div className="mt-2 text-sm text-muted-foreground">
+      Components describe intent with tokens instead of choosing color values.
+    </div>
+  </div>
 </div>
 
-> If this page looks good in both light and dark, your system is in a great place.
+## Hierarchy
 
-## Heading hierarchy
+Two font families. One job each.
 
-# H1 — Display heading
+Headings and code use the configured `font-mono` family, Bebas Neue. Body copy
+uses the configured `font-sans` family, Anybody. Both are loaded through
+`next/font/google` in the root layout.
 
-## H2 — Section heading
+Four heading levels. Each one earns its size.
 
-### H3 — Subsection
+<div className="my-8 rounded-lg border border-border bg-muted/40 p-4">
+  <div className="mt-0 font-mono text-2xl font-bold tracking-wide text-foreground">
+    A heading with purpose
+  </div>
+  <div className="mt-2 font-sans text-sm text-muted-foreground">
+    Body copy stays readable while the heading provides a clear visual anchor.
+  </div>
+</div>
 
-#### H4 — Label-level heading
+## Text
 
-Headings use **DM Serif Display** at weight 400 with tight tracking. Body copy uses **Instrument Sans** at 400/500. Monospace uses **DM Mono**.
+68 characters wide. Measure, leading, and size are tuned together, not
+separately.
 
-## Paragraphs, emphasis, and links
+Bold is not decoration. It is emphasis with intent. Inline code sits on a muted
+background, small enough to read as code without shouting as code: `pnpm velite`
+and `app/blogs/[slug]/page.tsx`.
 
-Regular paragraph text should read comfortably at a natural line length (`max-width: 68ch`). Measure, leading, and font size are all tuned together. Here is **bold**, *italic*, and ***bold italic*** used in context. Here is a [link to the blog index](/blogs) — it uses a thin underline that sharpens on hover.
-
-Inline code like `pnpm velite:dev` and `app/blogs/[slug]/page.tsx` uses the `muted` background token with monospace type at 82% scale.
+<div className="my-8 max-w-[68ch] rounded-lg border border-border p-4">
+  <div className="mt-0 text-sm text-foreground">
+    Use <strong>strong emphasis</strong> for meaning, <em>muted emphasis</em>{" "}
+    for tone, and{" "}
+    <code className="rounded bg-muted px-1.5 py-0.5 text-xs">inline code</code>
+    for implementation details.
+  </div>
+  <div className="text-sm text-muted-foreground">
+    Read the <a href="/blogs">blog index</a> to see the same link treatment.
+  </div>
+</div>
 
 ## Lists
 
-### Unordered
+Short items or long items: the rhythm holds either way. Nested lists indent,
+not decorate. Two levels deep, never more.
 
-<div className='px-4'>
-- A short list item with concise copy.
-- A longer item that wraps onto the next line to test vertical rhythm and bullet alignment in the prose layout.
-  - Nested item A — indented two levels
-  - Nested item B with `inline code`
-- Another item with **bold emphasis** and a [link](#).
+<div className="my-8 rounded-lg border border-border bg-muted/40 p-4">
+  <ul className="my-0 list-disc space-y-2 pl-5 text-sm text-muted-foreground">
+    <li>A short list item with concise copy.</li>
+    <li>
+      A longer item that wraps onto the next line to test vertical rhythm.
+      <ul className="mt-2 list-[circle] space-y-1 pl-5">
+        <li>
+          Nested item with <code>inline code</code>.
+        </li>
+        <li>
+          Nested item with <a href="#">a link</a>.
+        </li>
+      </ul>
+    </li>
+  </ul>
 </div>
 
-### Ordered
-<div className='px-4'>
-1. First step
-2. Second step
-3. Third step
-   1. Nested sub-step
-   2. Another nested sub-step
-</div>
+<ol className="my-8 list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
+  <li>First step.</li>
+  <li>Second step.</li>
+  <li>Third step.</li>
+</ol>
+
 ## Blockquotes
 
-> Great typography is not about making things "pretty" — it's about making reading effortless.
+A thin border. A shift in color. A distinct voice.
 
-> The best styles disappear.
+Three signals, one message: this is not body copy. Pay attention.
 
-> Blockquotes use a thin left border in `border-border`, shift to `muted-foreground` for color, and render in the serif display face to give them a distinct editorial voice.
+> Great typography is not about making things pretty. It is about making
+> reading effortless.
 
-## Code blocks
+## Code Blocks
+
+TypeScript, shell, and JSX use the same scroll-safe treatment with different
+syntax highlighting. Monospace needs room to breathe.
 
 ### TypeScript
 
 ```ts
-// theme-tokens.ts
 type ThemeTokens = {
   background: "bg-background";
   foreground: "text-foreground";
-  border:     "border-border";
+  muted: "bg-muted";
+  border: "border-border";
 };
 
 export function formatDate(date: string): string {
   return new Date(date).toLocaleDateString(undefined, {
-    year:  "numeric",
+    year: "numeric",
     month: "short",
-    day:   "2-digit",
+    day: "2-digit",
   });
 }
 ```
@@ -101,170 +160,177 @@ pnpm dev
 
 ### JSX
 
+This is the route shape used by the current App Router and Velite setup:
+
 ```tsx
 // app/blogs/[slug]/page.tsx
-import { getMdxContent } from "@/lib/mdx";
-import { BaseMdx }       from "@/components/base-mdx";
+import { notFound } from "next/navigation";
+import { getPostBySlug } from "@/lib/content";
+import { MDXContent } from "@/components/mdx/mdx";
 
-export default async function BlogPost({ params }: { params: { slug: string } }) {
-  const { content, frontmatter } = await getMdxContent(params.slug);
+interface BlogPostPageProps {
+  params: Promise<{ slug: string }>;
+}
 
-  return (
-    <article className="prose dark:prose-invert mx-auto px-4 py-16">
-      <h1>{frontmatter.title}</h1>
-      <BaseMdx source={content} />
-    </article>
-  );
+export default async function BlogPostPage({ params }: BlogPostPageProps) {
+  const { slug } = await params;
+  const post = getPostBySlug(slug);
+
+  if (!post) notFound();
+
+  return <MDXContent code={post.body} type="blog" />;
 }
 ```
 
----
-
 ## Tables
 
-| Token | Purpose | Notes |
-| --- | --- | --- |
-| `bg-background` | Page background | Switches with theme |
-| `text-foreground` | Primary text | High contrast |
-| `text-muted-foreground` | Secondary text | Medium contrast |
-| `border-border` | Dividers & outlines | Subtle separators |
-| `bg-muted` | Code, chips, tags | Low-emphasis fills |
+Four tokens. Four jobs. No overlap.
 
----
+| Token             | Job                       | Example                     |
+| ----------------- | ------------------------- | --------------------------- |
+| `bg-background`   | Page and primary surfaces | Main article background     |
+| `text-foreground` | Primary text              | Headings and important copy |
+| `bg-muted`        | Quiet fills               | Code and secondary surfaces |
+| `border-border`   | Lines and outlines        | Cards and dividers          |
 
-## Figure / card
-
-<FigCard caption="A custom MDX block using the semantic color system.">
-  This is a **theme-safe** card using only semantic tokens —
-  `border-border`, `bg-muted`, `text-muted-foreground`.
-  No hex values. No breakage on theme switch.
-</FigCard>
----
-
-## Cursor effects
-
-The custom cursor system has three modes, applied via `data-cursor` attributes.
-
-<div className="grid gap-4 my-8">
-
-  {/* Default */}
-  <div className="rounded-xl border border-border bg-muted/40 p-6">
-    <div className="text-sm font-semibold text-foreground mb-1 font-sans">Default dot</div>
-    <div className="text-sm text-muted-foreground font-sans leading-relaxed">
-      A clean, minimal dot that follows the mouse smoothly. This is the default state when
-      no <span className="text-xs bg-muted px-1.5 py-0.5 rounded">data-cursor</span> attribute
-      is present on the element.
-    </div>
-    <div className="mt-4">
-      <span className="inline-flex items-center rounded-full bg-muted px-3 py-1 text-xs font-mono text-muted-foreground">
-        no attribute
-      </span>
-    </div>
-  </div>
-
-  {/* Blend */}
-  <div
-    className="rounded-xl border border-border bg-zinc-950 p-6 text-white"
-    data-cursor="blend"
-  >
-    <div className="text-sm font-semibold text-white mb-1 font-sans">Blend dither</div>
-    <div className="text-sm text-zinc-400 font-sans leading-relaxed">
-      Large cursor with{" "}
-      <span className="text-xs bg-white/10 px-1.5 py-0.5 rounded">mix-blend-mode: difference</span>{" "}
-      and subtle grain. Creates a premium inversion effect on any background.
-    </div>
-    <div className="mt-4">
-      <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-mono">
-        data-cursor="blend"
-      </span>
-    </div>
-  </div>
-
-  {/* Takeover */}
-  <div
-    className="rounded-xl border border-border bg-violet-950/80 p-6 text-white"
-    data-cursor="takeover"
-  >
-    <div className="text-sm font-semibold text-white mb-1 font-sans">Takeover</div>
-    <div className="text-sm text-violet-300 font-sans leading-relaxed">
-      The cursor morphs to the shape and size of the hovered element with a
-      subtle blend. Ideal for cards, CTAs, and interactive hero sections.
-    </div>
-    <div className="mt-4">
-      <span className="inline-flex items-center rounded-full bg-white/10 px-3 py-1 text-xs font-mono">
-        data-cursor="takeover"
-      </span>
-    </div>
-  </div>
-
+<div className="my-8 overflow-x-auto rounded-lg border border-border">
+  <table className="w-full min-w-lg text-left text-sm">
+    <thead className="bg-muted/50">
+      <tr className="border-b border-border">
+        <th className="px-4 py-3 font-semibold text-foreground">Token</th>
+        <th className="px-4 py-3 font-semibold text-foreground">Use it for</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr className="border-b border-border">
+        <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
+          bg-background
+        </td>
+        <td className="px-4 py-3 text-muted-foreground">
+          The page and primary surfaces
+        </td>
+      </tr>
+      <tr>
+        <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
+          border-border
+        </td>
+        <td className="px-4 py-3 text-muted-foreground">
+          Boundaries that need definition
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>
 
+## Cards
+
+A card is just content with edges. `border-border`, `bg-muted`, and
+`text-muted-foreground`: nothing else. No hex. No exceptions.
+
+<FigCard caption="A token-based card example.">
+  This content uses semantic color utilities and stays readable in both themes.
+</FigCard>
+
+## Cursor States
+
+The cursor has three modes: dot, invert, and takeover.
+
+The dot needs no attribute. It is the default, not an afterthought. `invert`
+turns the ring into a difference-blended highlight. `takeover` morphs to the
+shape of the element it is hovering.
+
+<div className="my-8 grid gap-4">
+  <div className="rounded-lg border border-border bg-background p-5">
+    <div className="mt-0 text-sm font-semibold text-foreground">
+      Default dot
+    </div>
+    <div className="mt-2 text-sm text-muted-foreground">
+      No attribute is needed.
+    </div>
+  </div>
+  <div
+    className="rounded-lg border border-border bg-muted p-5 text-foreground"
+    data-cursor="invert"
+  >
+    <div className="mt-0 text-sm font-semibold">Invert</div>
+    <div className="mt-2 text-sm text-muted-foreground">
+      The ring inverts against this surface.
+    </div>
+  </div>
+  <div
+    className="rounded-lg border border-border bg-primary p-5 text-primary-foreground"
+    data-cursor="takeover"
+  >
+    <div className="mt-0 text-sm font-semibold">Takeover</div>
+    <div className="mt-2 text-sm opacity-80">
+      The cursor takes this element's shape and bounds.
+    </div>
+  </div>
+</div>
 
 ### Usage
 
-```html
-<!-- Blend dither -->
-<button data-cursor="blend">Hover for blend</button>
-
-<!-- Takeover -->
-<div data-cursor="takeover" class="px-8 py-5 rounded-2xl border border-white/10">
-  Hover me
+```tsx
+<div className="rounded-lg border border-border bg-background p-5">
+  Default dot: no data attribute is required.
 </div>
 
-<!-- Default dot — no attribute needed -->
-<a href="#">Normal link</a>
+<button
+  type="button"
+  data-cursor="invert"
+  className="rounded-lg border border-border bg-muted px-4 py-2"
+>
+  Hover for invert
+</button>
+
+<div
+  data-cursor="takeover"
+  className="rounded-lg border border-border bg-primary p-5 text-primary-foreground"
+>
+  Hover for takeover
+</div>
 ```
-
----
-
----
 
 ## Callouts
 
-<div className="grid gap-3 my-8">
+Info, success, warning, and destructive are four states with one rule: accent
+fills stay under 12% opacity. Let the text carry contrast, not the background.
 
-  <div className="rounded-xl border border-border bg-muted/40 p-4 font-sans">
-    <div className="text-sm font-semibold text-foreground mb-1">Info</div>
-    <div className="text-sm text-muted-foreground leading-relaxed">
-      Use this style for neutral notes. The background is
-      ***bg-muted/40*** — subtle
-      enough not to compete with body text.
+<div className="my-8 grid gap-3">
+  <div className="rounded-lg border border-border bg-muted/40 p-4">
+    <div className="mt-0 text-sm font-semibold text-foreground">Info</div>
+    <div className="mt-2 text-sm text-muted-foreground">
+      Use muted surfaces for neutral notes.
     </div>
   </div>
-
-  <div className="rounded-xl border border-border bg-emerald-500/8 p-4 font-sans">
-    <div className="text-sm font-semibold text-foreground mb-1">Success</div>
-    <div className="text-sm text-muted-foreground leading-relaxed">
-      Accent backgrounds should use low alpha (8–12%) so the text token controls
-      contrast, not the fill.
+  <div className="rounded-lg border border-border bg-emerald-500/8 p-4">
+    <div className="mt-0 text-sm font-semibold text-foreground">Success</div>
+    <div className="mt-2 text-sm text-muted-foreground">
+      Keep accent fills quiet so text remains in charge.
     </div>
   </div>
-
-  <div className="rounded-xl border border-border bg-amber-500/8 p-4 font-sans">
-    <div className="text-sm font-semibold text-foreground mb-1">Warning</div>
-    <div className="text-sm text-muted-foreground leading-relaxed">
-      Keep contrast high and avoid saturated fills that break dark mode. Use
-      semantic text tokens, never hardcoded colors.
+  <div className="rounded-lg border border-border bg-amber-500/8 p-4">
+    <div className="mt-0 text-sm font-semibold text-foreground">Warning</div>
+    <div className="mt-2 text-sm text-muted-foreground">
+      Use a low-alpha fill with readable text.
     </div>
   </div>
-
-  <div className="rounded-xl border border-border bg-red-500/8 p-4 font-sans">
-    <div className="text-sm font-semibold text-destructive mb-1">Destructive</div>
-    <div className="text-sm text-muted-foreground leading-relaxed">
-      The ***destructive*** token
-      is calibrated in oklch for both themes — it reads as red in both, at the right
-      luminance.
+  <div className="rounded-lg border border-border bg-destructive/10 p-4">
+    <div className="mt-0 text-sm font-semibold text-destructive">
+      Destructive
+    </div>
+    <div className="mt-2 text-sm text-muted-foreground">
+      The destructive token carries the meaning.
     </div>
   </div>
-
 </div>
 
----
+## Rhythm
 
+Spacing before richness.
 
-## Spacing & rhythm sanity check
-
-Typography should keep consistent vertical rhythm across all element types. The items below exercise that rhythm — each should feel evenly spaced without adjustment.
+A heading after a paragraph. A list after a heading. The eye should not notice
+the transitions. It should just keep reading.
 
 A paragraph before a heading.
 
@@ -272,25 +338,24 @@ A paragraph before a heading.
 
 A paragraph after a heading. Then a list:
 
-- Item with a **bold** word
-- Item with *italic* text
-- Item with `inline code`
+- An item with **bold emphasis**.
+- An item with _muted emphasis_.
+- An item with `inline code`.
 
 Then a numbered list:
 
-1. First
-2. Second
-3. Third
+1. First.
+2. Second.
+3. Third.
 
-Then back to prose. The rhythm should feel natural throughout.
+## The Checklist
 
----
+- Does it hold in light mode and dark mode?
+- Do headings carry weight and do quotes carry voice?
+- Do links look like links?
+- Does inline code stay readable on small screens?
+- Do custom MDX blocks sit consistently within the article column?
 
-## Final checklist
+If every answer is yes, the system is done.
 
-- Does the page feel correct in **light** and **dark** modes?
-- Do headings have the right weight and serif face?
-- Does inline code not break layout on small viewports?
-- Do blockquotes read with a distinct editorial voice?
-- Do `not-prose` blocks sit consistently within the prose column?
-- Do links look clearly interactive?
+Systems do not get finished. They get maintained.

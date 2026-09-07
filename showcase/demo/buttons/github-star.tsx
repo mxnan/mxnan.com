@@ -64,7 +64,7 @@ export const GithubStarButton = React.forwardRef<
     (
         {
             className,
-            href = "/showcase/primitive/buttons",
+            href = "/showcase",
             ...props
         },
         ref
@@ -73,9 +73,9 @@ export const GithubStarButton = React.forwardRef<
             <section className="z-10 mx-auto">
                 <motion.a
                     ref={ref}
-                    href={href}
-                    // target="_blank"
-                    // rel="noopener noreferrer"
+                    // href={href}
+                    // // target="_blank"
+                    // // rel="noopener noreferrer"
                     aria-label="Star repository on GitHub"
                     variants={buttonVariants}
                     initial="initial"
