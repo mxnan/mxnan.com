@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anybody, Bebas_Neue } from "next/font/google";
+import { Anybody, Bebas_Neue, Geist_Pixel } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";
@@ -15,6 +15,11 @@ const mono = Bebas_Neue({
   variable: "--font-mono",
   subsets: ["latin"],
   weight: "400",
+});
+
+const serif = Geist_Pixel({
+  variable: "--font-serif",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -46,7 +51,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${sans.variable} ${mono.variable} antialiased`}>
+      <body
+        className={`${sans.variable} ${mono.variable} ${serif.variable} antialiased`}
+      >
         <Providers>
           {/* skip link for keyboard users */}
           <a

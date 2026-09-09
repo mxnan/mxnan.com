@@ -327,15 +327,260 @@ Available MDX components in blog posts:
 
 1. Create `content/components/[category]/component-name.mdx`
 2. Add frontmatter (title, description, tags)
-3. Add `<ComponentPreview componentName="YourComponent" />` to show live preview
-4. Register `YourComponent` in `components/mdx/component-preview.tsx`
-5. Add entry to sidebar config in `config/site.ts`
+3. Add `<ComponentPreview category="category" item="item" />` to show live preview
+4. Register component in `components/mdx/component-preview.tsx`
+5. Export component from `showcase/demo/index.ts`
+6. Add entry to sidebar config in `config/site.ts` (if needed)
 
-### Adding a Showcase Component
+### Adding a Showcase Component (React 19 Safe Method)
 
-1. Create the component in `showcase/_components/your-component.tsx`
-2. Export it from the showcase index
-3. Register it in the MDX component preview map
+This project uses a **module-level component registry** to safely load interactive components without violating React 19's strict rendering rules.
+
+#### Step 1: Create the Showcase Component
+
+Create your component in `showcase/demo/[category]/component-name.tsx`:
+
+```tsx
+// showcase/demo/buttons/my-button.tsx
+"use client";
+
+import React from "react";
+import { cn } from "@/lib/utils";
+
+export function MyButton() {
+  return (
+    <button className={cn(
+      "px-4 py-2 rounded-lg font-semibold",
+      "bg-primary text-primary-foreground",
+      "hover:bg-primary/90 transition-colors"
+    )}>
+      My Button
+    </button>
+  );
+}
+```
+
+**Important:**
+- Always add `"use client"` (if using React hooks or browser APIs)
+- Export as a named export (not default)
+- Component should be self-contained and displayable in a box
+
+#### Step 2: Export from `showcase/demo/index.ts`
+
+Add your component to the central export file:
+
+```ts
+// showcase/demo/index.ts
+
+// ─── Buttons ────────────────────────────────────────────────────────────────
+export { GithubStarButton } from "./buttons/github-star";
+export { MagnetButton } from "./buttons/magnet";
+export { MyButton } from "./buttons/my-button";  // ← ADD HERE
+```
+
+**Why this export matters:**
+- Centralizes all showcase components
+- Enables TypeScript autocomplete
+- Makes dynamic imports possible
+- Helps with code organization
+
+#### Step 3: Register in Component Registry
+
+Add your component to `components/mdx/component-preview.tsx` in the `createComponentRegistry()` function:
+
+```tsx
+// components/mdx/component-preview.tsx
+
+function createComponentRegistry(): Record<string, React.ComponentType<never>> {
+  return {
+    // ─── Buttons ────────────────────────────────────────────────────
+    "buttons/github-star": dynamic(...),
+    "buttons/magnet": dynamic(...),
+    
+    // ADD YOUR COMPONENT HERE:
+    "buttons/my-button": dynamic(
+      () =>
+        import("@/showcase/demo").then((mod) => ({
+          default: mod.MyButton,
+        })),
+      {
+        ssr: false,
+        loading: LoadingFallback,
+      }
+    ),
+    // ─── Add more as needed ──────────────────────────────────────────
+  };
+}
+```
+
+**Registry Entry Breakdown:**
+- `"category/item"` key: Used by `<ComponentPreview>` to find your component
+- `dynamic()`: Lazy-loads component bundle (only when `<ComponentPreview>` renders)
+- `ssr: false`: Client-only rendering (recommended for interactive components)
+- `loading: LoadingFallback`: Shows spinner while component loads
+
+#### Step 4: Use in MDX
+
+Create or edit a component showcase MDX file:
+
+```mdx
+# My Button Component
+
+A modern button component with smooth interactions.
+
+<ComponentPreview category="buttons" item="my-button" />
+
+## Features
+
+- Clean design
+- Smooth hover transitions
+- Accessible
+
+## Usage
+
+\`\`\`tsx
+import { MyButton } from "@/showcase/demo/buttons/my-button";
+
+export function Demo() {
+  return <MyButton />;
+}
+\`\`\`
+```
+
+**ComponentPreview Props:**
+- `category`: Folder under `showcase/demo/` (e.g., "buttons", "loaders")
+- `item`: Component slug, maps to file name without .tsx (e.g., "my-button")
+- `className` (optional): Tailwind classes to size the preview box
+
+```mdx
+<!-- With custom sizing -->
+<ComponentPreview 
+  category="buttons" 
+  item="my-button" 
+  className="h-72 w-full flex items-center justify-center"
+/>
+```
+
+#### Step 5: Add to Sidebar Navigation (Optional)
+
+If you want the component to appear in the sidebar, edit `config/site.ts`:
+
+```ts
+// config/site.ts
+export const componentSidebarLinks = [
+  {
+    category: "buttons",
+    items: [
+      { title: "Github Star", href: "/components/buttons/github-star" },
+      { title: "Magnet", href: "/components/buttons/magnet" },
+      { title: "My Button", href: "/components/buttons/my-button" }, // ← ADD HERE
+    ],
+  },
+  // ... other categories
+];
+```
+
+---
+
+## React 19 Compliance & Component Architecture
+
+This project uses a **React 19-safe component registry pattern** to avoid "Cannot create components during render" errors.
+
+### Why This Matters
+
+In React 19, creating React components during render is forbidden:
+
+```tsx
+// ❌ FORBIDDEN - Creates component during render
+function MyComponent() {
+  const DynamicComponent = dynamic(() => import("./Foo")); // ERROR!
+  return <DynamicComponent />;
+}
+
+// ❌ FORBIDDEN - Even with useMemo!
+function MyComponent() {
+  const DynamicComponent = useMemo(
+    () => dynamic(() => import("./Foo")),
+    []
+  ); // ERROR!
+  return <DynamicComponent />;
+}
+
+// ✅ ALLOWED - Component creation at module scope
+const DynamicComponent = dynamic(() => import("./Foo"));
+
+function MyComponent() {
+  return <DynamicComponent />;
+}
+```
+
+### The Solution: Module-Level Registry
+
+This project uses a registry created at module import time:
+
+```tsx
+// components/mdx/component-preview.tsx
+
+// ✅ Called ONCE at module import, NOT during render
+function createComponentRegistry() {
+  return {
+    "buttons/github-star": dynamic(() => ...),
+    "buttons/my-button": dynamic(() => ...),
+  };
+}
+
+// ✅ Registry exists before ANY component renders
+const componentRegistry = createComponentRegistry();
+
+// ✅ ComponentPreview just looks up components, doesn't create them
+export function ComponentPreview({ category, item }: Props) {
+  const Component = componentRegistry[`${category}/${item}`];
+  return <Component />;
+}
+```
+
+**Same pattern in mdx.tsx for MDX code compilation:**
+
+```tsx
+// ✅ Caches compiled MDX functions to avoid new Function() on every render
+const mdxFunctionCache = new Map();
+const mdxComponentCache = new Map();
+
+function getMDXComponent(code: string) {
+  // Cache hit? Return immediately
+  if (mdxComponentCache.has(code)) {
+    return mdxComponentCache.get(code);
+  }
+  
+  // Compile once, cache forever
+  if (!mdxFunctionCache.has(code)) {
+    mdxFunctionCache.set(code, new Function(code));
+  }
+  
+  // Execute cached function, cache result
+  const component = mdxFunctionCache.get(code)({ ...runtime }).default;
+  mdxComponentCache.set(code, component);
+  
+  return component;
+}
+
+// ✅ Safe to call from useMemo because cache prevents re-creation
+export function MDXContent({ code }: Props) {
+  const Component = useMemo(() => getMDXComponent(code), [code]);
+  return <Component />;
+}
+```
+
+### Summary
+
+When adding showcase components:
+1. ✅ **Do** create components in `showcase/demo/[category]/`
+2. ✅ **Do** export from `showcase/demo/index.ts`
+3. ✅ **Do** add registry entry in `component-preview.tsx`
+4. ✅ **Do** use `<ComponentPreview category="..." item="..." />`
+5. ❌ **Don't** call `dynamic()` inside render functions
+6. ❌ **Don't** call `new Function()` during render
+7. ❌ **Don't** wrap `dynamic()` in `useMemo` as a workaround
 
 ---
 

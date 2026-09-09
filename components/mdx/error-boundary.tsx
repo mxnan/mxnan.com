@@ -5,7 +5,7 @@ class MDXErrorBoundary extends React.Component<
   { children: React.ReactNode; fallback?: React.ComponentType<{ error: Error }> },
   { hasError: boolean; error: Error | null }
 > {
-  constructor(props: any) {
+  constructor(props: { children: React.ReactNode; fallback?: React.ComponentType<{ error: Error }> }) {
     super(props);
     this.state = { hasError: false, error: null };
   }
