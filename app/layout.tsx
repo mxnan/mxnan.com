@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Anybody, Bebas_Neue, Geist_Pixel } from "next/font/google";
+import { Anybody, Bebas_Neue, Fira_Code } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "sonner";
 import { Providers } from "./providers";
@@ -11,14 +11,14 @@ const sans = Anybody({
   subsets: ["latin"],
 });
 
-const mono = Bebas_Neue({
-  variable: "--font-mono",
+const serif = Bebas_Neue({
+  variable: "--font-serif",
   subsets: ["latin"],
   weight: "400",
 });
 
-const serif = Geist_Pixel({
-  variable: "--font-serif",
+const mono = Fira_Code({
+  variable: "--font-mono",
   subsets: ["latin"],
 });
 

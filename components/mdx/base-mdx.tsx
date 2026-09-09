@@ -94,7 +94,7 @@ export const BaseComponents = {
     <h1
       id={getHeadingId(children, "h1")}
       className={cn(
-        "mt-8 mb-4 scroll-m-32 font-mono font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide leading-tight",
+        "mt-8 mb-4 scroll-m-32 font-serif font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-wide leading-tight",
         "first:mt-0",
         className,
       )}
@@ -108,7 +108,7 @@ export const BaseComponents = {
     <h2
       id={getHeadingId(children, "h2")}
       className={cn(
-        "mt-8 mb-3 scroll-m-32 font-mono font-bold text-lg sm:text-2xl md:text-3xl lg:text-4xl tracking-wide leading-tight",
+        "mt-8 mb-3 scroll-m-32 font-serif font-bold text-lg sm:text-2xl md:text-3xl lg:text-4xl tracking-wide leading-tight",
         "first:mt-0",
         className,
       )}
@@ -122,7 +122,7 @@ export const BaseComponents = {
     <h3
       id={getHeadingId(children, "h3")}
       className={cn(
-        "mt-6 mb-2 scroll-m-32 font-mono font-bold text-base sm:text-xl md:text-2xl lg:text-3xl tracking-wide leading-tight",
+        "mt-6 mb-2 scroll-m-32 font-serif font-bold text-base sm:text-xl md:text-2xl lg:text-3xl tracking-wide leading-tight",
         className,
       )}
       {...props}
@@ -135,7 +135,7 @@ export const BaseComponents = {
     <h4
       id={getHeadingId(children, "h4")}
       className={cn(
-        "mt-6 mb-2 scroll-m-16 font-mono font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide leading-tight",
+        "mt-6 mb-2 scroll-m-16 font-serif font-bold text-sm sm:text-base md:text-lg lg:text-xl tracking-wide leading-tight",
         className,
       )}
       {...props}
@@ -248,7 +248,7 @@ export const BaseComponents = {
   // ── Table ─────────────────────────────────────────────────────────────────
 
   table: ({ className, ...props }: React.HTMLAttributes<HTMLTableElement>) => (
-    <div className="my-4 w-full overflow-x-auto rounded-lg sm:rounded-xl border border-border">
+    <div className="my-4 w-full  overflow-x-auto rounded-lg sm:rounded-xl border border-border">
       <table
         className={cn("w-full text-xs sm:text-sm border-collapse", className)}
         {...props}
@@ -313,7 +313,7 @@ export const BaseComponents = {
   code: ({ className, ...props }: ComponentsProps) => (
     <code
       className={cn(
-        "relative rounded px-1 py-0.5 font-mono font-medium text-xs sm:text-sm",
+        "relative rounded px-1 py-0.5 font-mono font-medium text-xs",
         className,
       )}
       {...props}

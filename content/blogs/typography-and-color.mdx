@@ -4,15 +4,14 @@ description: "A practical guide to the token-based typography, color, and intera
 date: "2026-03-16"
 status: "published"
 tags: ["typography", "mdx", "design-system", "tailwind"]
-image: https://images.unsplash.com/photo-1571248818836-2bcd7f01663e?q=80&w=1184&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+image: "https://images.unsplash.com/photo-1571248818836-2bcd7f01663e?q=80&w=1184&auto=format&fit=crop"
 ---
 
 # Typography & Color System
 
 Complexity impresses your team. Clarity impresses your users.
 
-This system runs on tokens, not hex codes. Background, foreground, muted, and
-border. Four words carry the entire theme.
+This system runs on tokens, not hex codes. Background, foreground, muted, and border. Four words carry the entire theme.
 
 Light mode and dark mode are not two systems. They are one system, tested twice.
 
@@ -20,11 +19,9 @@ Light mode and dark mode are not two systems. They are one system, tested twice.
 
 No hardcoded colors. Ever.
 
-Semantic tokens only: `foreground`, `background`, `muted`, and `border`. Use
-their scale variants for everything else.
+Semantic tokens only: `foreground`, `background`, `muted`, and `border`. Use their scale variants for everything else.
 
-Links look like links. Underline, color shift, or both. If it is not obviously
-clickable, it is not a link.
+Links look like links. Underline, color shift, or both. If it is not obviously clickable, it is not a link.
 
 Code stays legible on any screen. Small viewport, same rules.
 
@@ -39,6 +36,7 @@ If it looks right in both themes, the system is right.
       Semantic surfaces change with the theme without changing component markup.
     </div>
   </div>
+
   <div className="rounded-lg border border-border bg-muted/40 p-4">
     <div className="mt-0 text-sm font-semibold text-foreground">
       One contract
@@ -51,43 +49,77 @@ If it looks right in both themes, the system is right.
 
 ## Hierarchy
 
-Two font families. One job each.
+Three font families. One job each.
 
-Headings and code use the configured `font-mono` family, Bebas Neue. Body copy
-uses the configured `font-sans` family, Anybody. Both are loaded through
-`next/font/google` in the root layout.
+**Anybody** handles body copy. It is the primary reading face for paragraphs, descriptions, navigation, and interface text.
 
-Four heading levels. Each one earns its size.
+**Bebas Neue** handles display typography. Headings, large statements, and visual anchors use its condensed character.
+
+**Fira Code** handles code. Technical examples use a monospace face to clearly separate implementation details from prose.
+
+All three are loaded through `next/font/google` in the root layout.
 
 <div className="my-8 rounded-lg border border-border bg-muted/40 p-4">
-  <div className="mt-0 font-mono text-2xl font-bold tracking-wide text-foreground">
+  <div className="mt-0 font-serif text-3xl tracking-wide text-foreground">
     A heading with purpose
   </div>
-  <div className="mt-2 font-sans text-sm text-muted-foreground">
-    Body copy stays readable while the heading provides a clear visual anchor.
+
+<div className="mt-3 font-sans text-sm text-muted-foreground">
+  Body copy stays readable while the display face provides a clear visual
+  anchor.
+</div>
+
+  <div className="mt-3 font-mono text-xs text-muted-foreground">
+    const system = "intent over decoration"
   </div>
 </div>
 
 ## Text
 
-68 characters wide. Measure, leading, and size are tuned together, not
-separately.
+68 characters wide.
 
-Bold is not decoration. It is emphasis with intent. Inline code sits on a muted
-background, small enough to read as code without shouting as code: `pnpm velite`
-and `app/blogs/[slug]/page.tsx`.
+Measure, leading, and size are tuned together, not separately.
+
+Bold is not decoration. It is emphasis with intent.
+
+Inline code sits on a muted background, small enough to read as code without shouting as code: `pnpm velite` and `app/blogs/[slug]/page.tsx`.
 
 <div className="my-8 max-w-[68ch] rounded-lg border border-border p-4">
   <div className="mt-0 text-sm text-foreground">
-    Use <strong>strong emphasis</strong> for meaning, <em>muted emphasis</em>{" "}
-    for tone, and{" "}
-    <code className="rounded bg-muted px-1.5 py-0.5 text-xs">inline code</code>
+    Use <strong>strong emphasis</strong> for meaning,{" "}
+    <em>muted emphasis</em> for tone, and{" "}
+    <code className="rounded bg-muted px-1.5 py-0.5 font-mono text-xs">
+      inline code
+    </code>{" "}
     for implementation details.
   </div>
-  <div className="text-sm text-muted-foreground">
+
+  <div className="mt-3 text-sm text-muted-foreground">
     Read the <a href="/blogs">blog index</a> to see the same link treatment.
   </div>
 </div>
+
+## Font Configuration
+
+The type system is intentionally small. Each family has one defined role.
+
+```tsx
+const sans = Anybody({
+  variable: "--font-sans",
+  subsets: ["latin"],
+});
+
+const serif = Bebas_Neue({
+  variable: "--font-serif",
+  subsets: ["latin"],
+  weight: "400",
+});
+
+const mono = Fira_Code({
+  variable: "--font-mono",
+  subsets: ["latin"],
+});
+```
 
 ## Lists
 
@@ -192,35 +224,6 @@ Four tokens. Four jobs. No overlap.
 | `text-foreground` | Primary text              | Headings and important copy |
 | `bg-muted`        | Quiet fills               | Code and secondary surfaces |
 | `border-border`   | Lines and outlines        | Cards and dividers          |
-
-<div className="my-8 overflow-x-auto rounded-lg border border-border">
-  <table className="w-full min-w-lg text-left text-sm">
-    <thead className="bg-muted/50">
-      <tr className="border-b border-border">
-        <th className="px-4 py-3 font-semibold text-foreground">Token</th>
-        <th className="px-4 py-3 font-semibold text-foreground">Use it for</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr className="border-b border-border">
-        <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
-          bg-background
-        </td>
-        <td className="px-4 py-3 text-muted-foreground">
-          The page and primary surfaces
-        </td>
-      </tr>
-      <tr>
-        <td className="px-4 py-3 font-mono text-xs text-muted-foreground">
-          border-border
-        </td>
-        <td className="px-4 py-3 text-muted-foreground">
-          Boundaries that need definition
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
 
 ## Cards
 

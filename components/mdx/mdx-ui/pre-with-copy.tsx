@@ -63,14 +63,14 @@ const Pre: React.FC<PreProps> = ({ children, className, ...props }) => {
 
         setCopied(true);
         const firstLine = getFirstLine(children);
-        toast.success(`${firstLine} Copied`);
+        toast.success(`Copied ✔ . ${firstLine} `);
     }, []);
 
     return (
         <div className="group relative w-full">
             <pre
                 className={cn(
-                    "mb-4 mt-4 overflow-x-auto text-xs sm:text-sm rounded-lg sm:rounded-xl border",
+                    "mb-4 mt-4 overflow-x-auto text-xs rounded-lg sm:rounded-xl border",
                     "bg-muted/40 backdrop-blur-sm py-3 sm:py-4 px-3 sm:px-4",
                     "transition-colors duration-300",
                     className
