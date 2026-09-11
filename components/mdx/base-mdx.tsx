@@ -2,6 +2,8 @@
 import { cn } from "@/lib/utils";
 import React, { HTMLAttributes } from "react";
 import Pre from "./mdx-ui/pre-with-copy";
+import CustomLink from "./mdx-ui/custom-link";
+import { buttonVariants } from "../ui/button";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -327,12 +329,9 @@ export const BaseComponents = {
     href,
     ...props
   }: React.HTMLAttributes<HTMLAnchorElement> & { href?: string }) => (
-    <a
+    <CustomLink
       href={href}
       className={cn(
-        "text-foreground underline underline-offset-[3px] decoration-border",
-        "decoration-[1px] transition-[text-decoration-color] duration-150",
-        "hover:decoration-foreground",
         "text-xs sm:text-sm md:text-base",
         className,
       )}

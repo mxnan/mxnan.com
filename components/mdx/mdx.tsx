@@ -37,11 +37,11 @@ import * as runtime from "react/jsx-runtime";
 import { useMemo } from "react";
 import { BaseComponents } from "./base-mdx";
 import { Button } from "../ui/button";
-import Link from "next/link";
 import MDXErrorBoundary from "./error-boundary";
-import { FigCard } from "./mdx-ui/figcard";
 import { ComponentPreview } from "./component-preview";
 import { CollapsibleCodeBlock } from "./mdx-ui/collapsible-codeblock";
+import { MDXImage } from "./mdx-ui/mdx-image";
+import { FigCard } from "./mdx-ui/figcard";
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Component Maps
@@ -54,15 +54,15 @@ import { CollapsibleCodeBlock } from "./mdx-ui/collapsible-codeblock";
  * • BaseComponents: headings (h1-h6), paragraphs, lists, tables, blockquotes, code blocks
  * • Button: Shadcn UI button component
  * • FigCard: Custom figure + caption component
- * • a: Next.js Link (for client-side navigation)
  * • CollapsibleCodeBlock: Expandable code sections
  */
 const coreComponents = {
   ...BaseComponents,
   Button,
   FigCard,
-  a: Link,
   CollapsibleCodeBlock,
+  img: MDXImage, // replaces every <img> in MDX
+  Image: MDXImage, // also lets you write <Image ... />
 };
 
 /**

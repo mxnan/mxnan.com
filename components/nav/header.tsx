@@ -4,7 +4,7 @@ import { usePathname } from "next/navigation";
 import ThemeToggle from "../theme-toggle";
 import { Button } from "../ui/button";
 import { HEADER_NAV } from "@/config/navigation";
-import { ProgressRing } from "../site-assets/progress-ring";
+import { ProgressRing } from "../site-assets/effects/progress-ring";
 
 export default function Header() {
   const pathname = usePathname();
