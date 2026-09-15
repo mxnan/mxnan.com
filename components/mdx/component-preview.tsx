@@ -1,15 +1,15 @@
 /**
  * ComponentPreview — Dynamic showcase component renderer
- * 
+ *
  * This module provides a safe way to lazy-load and display interactive components
  * in MDX content without violating React 19's "Cannot create components during render" rule.
- * 
+ *
  * Architecture:
  * • Module-level component registry (createComponentRegistry) — all dynamic() calls
  *   are defined at module scope, NEVER during render
  * • Error boundary (ComponentErrorBoundary) — catches component load/render errors
  * • Fallback UIs (LoadingFallback, ErrorFallback) — user-friendly error states
- * 
+ *
  * React 19 Compliance:
  * ✓ No dynamic() calls inside component functions
  * ✓ No new Function() during render (see mdx.tsx for caching pattern)
@@ -23,7 +23,8 @@
 import dynamic from "next/dynamic";
 import { AlertCircle, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import React, { ReactNode } from "react";
+import React, { ReactNode, useRef } from "react";
+import { ComponentPreviewScrollContext } from "./component-preview-scroll-context";
 
 /**
  * LoadingFallback — Loading spinner UI
@@ -44,15 +45,15 @@ function LoadingFallback() {
 
 /**
  * createComponentRegistry — Build module-level component registry
- * 
+ *
  * This function is called ONCE at module import time, not during render.
  * All dynamic() calls MUST be inside this function to comply with React 19.
- * 
+ *
  * How it works:
  * 1. Each entry key: "category/item" (e.g., "buttons/github-star")
  * 2. Each entry value: next/dynamic() with lazy import + error handling
  * 3. dynamic() wraps the component with ssr:false and LoadingFallback
- * 
+ *
  * To add a new component:
  * 1. Create file: showcase/demo/[category]/component-name.tsx
  * 2. Export it: export { ComponentName } from "./[category]/component-name"
@@ -76,7 +77,7 @@ function createComponentRegistry(): Record<string, React.ComponentType<any>> {
       {
         ssr: false,
         loading: LoadingFallback,
-      }
+      },
     ),
     "buttons/magnet": dynamic(
       () =>
@@ -86,12 +87,20 @@ function createComponentRegistry(): Record<string, React.ComponentType<any>> {
       {
         ssr: false,
         loading: LoadingFallback,
-      }
+      },
     ),
 
-    // ─── Loaders ────────────────────────────────────────────────────
-    // "loaders/bounce": dynamic(...),
-    // "loaders/pulse": dynamic(...),
+    // ─── Blocks ────────────────────────────────────────────────────
+    "blocks/scroll-stack-demo": dynamic(
+      () =>
+        import("@/showcase/demo").then((mod) => ({
+          default: mod.ScrollStackDemo,
+        })),
+      {
+        ssr: false,
+        loading: LoadingFallback,
+      },
+    ),
 
     // ─── Text ───────────────────────────────────────────────────────
     // "text/animated-title": dynamic(...),
@@ -104,22 +113,22 @@ function createComponentRegistry(): Record<string, React.ComponentType<any>> {
 
 /**
  * componentRegistry — Global component registry instance
- * 
+ *
  * Created at module import time, meaning all dynamic() imports are set up
  * before ANY React components render. This is the key to React 19 compliance.
- * 
+ *
  * Never modify this directly. Add entries to createComponentRegistry() instead.
  */
 const componentRegistry = createComponentRegistry();
 
 /**
  * ErrorFallback — Error state UI
- * 
+ *
  * Displayed when:
  * • ComponentPreview receives an unknown category/item combination
  * • Component fails to import from showcase/demo
  * • Component throws an error during render
- * 
+ *
  * Props:
  * • category: The category slug (e.g., "buttons", "loaders")
  * • item: The component slug (e.g., "github-star", "bounce")
@@ -153,17 +162,17 @@ function ErrorFallback({ category, item }: { category: string; item: string }) {
 
 /**
  * ComponentErrorBoundary — React Error Boundary for component errors
- * 
+ *
  * Catches errors that occur during:
  * • Component render
  * • Component lifecycle (if using class components)
  * • Child component errors
- * 
+ *
  * Does NOT catch:
  * • Async errors (use try/catch)
  * • Event handler errors (use try/catch in handlers)
  * • Server-side errors
- * 
+ *
  * When an error is caught, displays ErrorFallback instead of crashing.
  */
 interface ErrorBoundaryProps {
@@ -207,14 +216,14 @@ class ComponentErrorBoundary extends React.Component<
 
 /**
  * ComponentPreviewProps
- * 
+ *
  * category: The component category (e.g., "buttons", "loaders", "text")
  *           Maps to showcase/demo/[category]/ directory
- * 
+ *
  * item: The component slug (e.g., "github-star", "bounce", "animated-title")
  *       Maps to showcase/demo/[category]/[item].tsx
  *       Combined with category to form registry key: "category/item"
- * 
+ *
  * className: Optional Tailwind classes to extend the wrapper div
  *            Useful for sizing: className="h-72 w-full flex items-center justify-center"
  */
@@ -222,29 +231,30 @@ interface ComponentPreviewProps {
   category: string;
   item: string;
   className?: string;
+  scrollable?: boolean;
 }
 
 /**
  * ComponentPreview — Main component
- * 
+ *
  * Safe MDX component for rendering interactive component showcases.
- * 
+ *
  * How it works:
  * 1. Constructs key: `${category}/${item}` (e.g., "buttons/github-star")
  * 2. Looks up key in componentRegistry (created at module scope)
  * 3. If found: wraps in error boundary + suspense, renders with fallbacks
  * 4. If not found: shows ErrorFallback with helpful message
- * 
+ *
  * React 19 Compliance:
  * ✓ Zero component creation during render
  * ✓ All dynamic() imports defined at module scope
  * ✓ Error boundary catches render errors
  * ✓ Suspense + loading fallback for async imports
- * 
+ *
  * Usage in MDX:
  * <ComponentPreview category="buttons" item="github-star" />
  * <ComponentPreview category="loaders" item="bounce" className="h-72" />
- * 
+ *
  * Console Logging:
  * • Registry miss: logs error with available keys and requested key
  * • Error boundary: logs any component render errors to console
@@ -253,7 +263,9 @@ export function ComponentPreview({
   category,
   item,
   className,
+  scrollable = false,
 }: ComponentPreviewProps) {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
   const key = `${category}/${item}`;
   const Component = componentRegistry[key];
 
@@ -264,7 +276,7 @@ export function ComponentPreview({
       {
         available: Object.keys(componentRegistry),
         requested: key,
-      }
+      },
     );
     return <ErrorFallback category={category} item={item} />;
   }
@@ -272,17 +284,29 @@ export function ComponentPreview({
   return (
     <ComponentErrorBoundary category={category} item={item}>
       <div
+        data-cursor="invert"
         className={cn(
-          "border border-border rounded-lg sm:rounded-md p-3 sm:p-4 my-4",
-          "bg-background",
-          "shadow-sm hover:shadow-md transition-shadow overflow-hidden",
-          className
+          "my-4 rounded-lg border border-border bg-background",
+          "shadow-sm transition-shadow hover:shadow-md",
+          !scrollable && "p-3 sm:p-4",
+          scrollable && "p-0",
         )}
       >
-        {/* Suspense for dynamic component loading */}
-        <React.Suspense fallback={<LoadingFallback />}>
-          <Component />
-        </React.Suspense>
+        <div
+          ref={scrollContainerRef}
+          tabIndex={scrollable ? 0 : undefined}
+          className={cn(
+            "min-w-0 min-h-0",
+            scrollable ? "overflow-y-auto p-3 sm:p-4" : "w-full",
+            className,
+          )}
+        >
+          <ComponentPreviewScrollContext.Provider value={scrollContainerRef}>
+            <React.Suspense fallback={<LoadingFallback />}>
+              <Component />
+            </React.Suspense>
+          </ComponentPreviewScrollContext.Provider>
+        </div>
       </div>
     </ComponentErrorBoundary>
   );

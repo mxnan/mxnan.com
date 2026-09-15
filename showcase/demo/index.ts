@@ -9,22 +9,22 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  *
  * Why centralize exports here?
- * 
+ *
  * 1. DYNAMIC IMPORTS
  *    The component-preview.tsx uses dynamic() to lazy-load components.
  *    A centralized export makes dynamic imports reliable and typed.
- *    
+ *
  *    Example:
  *    import("@/showcase/demo").then(mod => mod.MyButton)
- *    
+ *
  * 2. CODE ORGANIZATION
  *    All showcase components in one place = easy discovery, maintenance.
- *    
+ *
  * 3. TYPESCRIPT AUTOCOMPLETE
  *    IDE can autocomplete available components:
  *    mod.GithubStarButton ✓
  *    mod.NonExistentComponent ✗
- *    
+ *
  * 4. REACT 19 COMPLIANCE
  *    Safe for module-level registry pattern that avoids "Cannot create
  *    components during render" errors.
@@ -38,9 +38,9 @@
  * File: showcase/demo/[category]/component-name.tsx
  *
  * Example: showcase/demo/buttons/my-button.tsx
- * 
+ *
  * "use client";
- * 
+ *
  * export function MyButton() {
  *   return <button>Click me</button>;
  * }
@@ -48,7 +48,7 @@
  * Step 2: Export it HERE
  * ─────────────────────────────────────────────────────────────────────────────
  * Add to the corresponding section below:
- * 
+ *
  * export { MyButton } from "./buttons/my-button";
  *
  * Step 3: Register in component registry
@@ -56,7 +56,7 @@
  * Edit: components/mdx/component-preview.tsx
  *
  * In createComponentRegistry():
- * 
+ *
  * "buttons/my-button": dynamic(
  *   () => import("@/showcase/demo").then((mod) => ({
  *     default: mod.MyButton,
@@ -116,7 +116,7 @@
 //
 export { GithubStarButton } from "./buttons/github-star";
 export { MagnetButton } from "./buttons/magnet";
-
+export { ScrollStackDemo } from "./blocks/scroll-stack-demo";
 // Add more button components here:
 // export { HoverRevealButton } from "./buttons/hover-reveal";
 // export { GradientButton } from "./buttons/gradient";

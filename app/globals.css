@@ -195,17 +195,11 @@
       "kern" 1,
       "liga" 1,
       "calt" 1;
-
-    /* Scroll */
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    /* scroll-behavior:      smooth; */
-    /* keep default cursor for accessibility */
   }
 
-  html::-webkit-scrollbar {
+::-webkit-scrollbar {
     display: none;
-  }
+}
 
   /* Horizontal rule: use flat hairline, no gradients per B4 */
   hr {
@@ -217,7 +211,6 @@
     font-size: 1rem;
     line-height: 1.625;
   }
-
 }
 
 /* ─── MDX / Rehype Pretty Code ──────────────────────────────── */
