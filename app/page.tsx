@@ -20,7 +20,7 @@ export default function Home() {
             <Link href="/contact" className="inline-block bg-primary text-primary-foreground px-4 py-2 rounded-md text-base font-semibold">
               Contact me
             </Link>
-            <span className="text-sm text-muted-foreground">Recent case studies below</span>
+            <span className="text-sm text-muted-foreground">Recent writing below</span>
           </div>
         </section>
       </div>
@@ -73,7 +73,7 @@ export default function Home() {
       <section className="py-12">
         <div className="max-w-3xl mx-auto px-4">
           <div className="max-w-[880px] mx-auto">
-            <h3 className="text-2xl font-semibold text-center">Recent work & proof</h3>
+            <h3 className="text-2xl font-semibold text-center">Recent writing</h3>
 
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <article className="p-4 rounded-lg border border-border">
@@ -100,7 +100,7 @@ export default function Home() {
             </div>
 
             <div className="mt-6 text-center">
-              <Link href="/showcase" className="text-sm underline">See case studies</Link>
+              <Link href="/blogs" className="text-sm underline">Read recent writing</Link>
             </div>
           </div>
         </div>

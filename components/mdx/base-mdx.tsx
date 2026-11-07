@@ -3,7 +3,6 @@ import { cn } from "@/lib/utils";
 import React, { HTMLAttributes } from "react";
 import Pre from "./mdx-ui/pre-with-copy";
 import CustomLink from "./mdx-ui/custom-link";
-import { buttonVariants } from "../ui/button";
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
@@ -110,7 +109,7 @@ export const BaseComponents = {
     <h2
       id={getHeadingId(children, "h2")}
       className={cn(
-        "mt-8 mb-3 scroll-m-32 font-serif font-bold text-lg sm:text-2xl md:text-3xl lg:text-4xl tracking-wide leading-tight",
+        "mt-8 mb-3 scroll-m-32 font-serif font-bold text-lg sm:text-2xl md:text-3xl lg:text-4xl tracking- leading-tight",
         "first:mt-0",
         className,
       )}

@@ -12,34 +12,24 @@ const blogs = defineCollection({
   schema: s
     .object({
       slug: s.path(),
-      title: s.string(),
-      description: s.string().optional(),
+      title: s.string().max(99),
+      description: s.string().max(199).optional(),
       date: s.isodate(),
+      updatedAt: s.isodate().optional(),
       status: s.enum(["published", "draft"]).default("draft"),
+      featured: s.boolean().optional(),
       image: s.string().optional(),
       tags: s.string().array().optional(),
       toc: s.toc(),
       content: s.mdx(),
     })
-    .transform(computedFields),
-});
-const components = defineCollection({
-  name: "Components",
-  pattern: "components/**/*.mdx",
-  schema: s
-    .object({
-      slug: s.path(),
-      title: s.string().max(50),
-      description: s.string().max(200),
-      tags: s.string().array().optional(),
-      toc: s.toc(),
-      content: s.mdx(),
-    })
-       .transform((data) => ({
+    .transform((data) => ({
       ...computedFields(data),
-      category: data.slug.split("/")[1], // Extract category from the slug
+      tags: data.tags ?? [],
+      featured: Boolean(data.featured),
     })),
 });
+
 export default defineConfig({
   root: "content",
   output: {
@@ -51,7 +41,6 @@ export default defineConfig({
   },
   collections: {
     blogs,
-    components,
   },
   mdx: {
     rehypePlugins: [rehypePrettyCode],

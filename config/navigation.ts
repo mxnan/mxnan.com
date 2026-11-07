@@ -1,10 +1,4 @@
-import {
-  Home,
-  BookText,
-  MonitorSmartphone,
-  MailPlus,
-  type LucideIcon,
-} from "lucide-react";
+import { Home, BookText, MailPlus, type LucideIcon } from "lucide-react";
 
 export interface NavItem {
   label: string;
@@ -25,12 +19,6 @@ export const HEADER_NAV: NavItem[] = [
     href: "/blogs",
     icon: BookText,
     ariaLabel: "View blog posts",
-  },
-  {
-    label: "Showcase",
-    href: "/showcase",
-    icon: MonitorSmartphone,
-    ariaLabel: "Browse component showcase",
   },
   {
     label: "Contact",

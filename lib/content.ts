@@ -1,4 +1,4 @@
-import { blogs, components } from "#site/content";
+import { blogs } from "#site/content";
 
 export type Post = (typeof blogs)[number] & {
   published: boolean;
@@ -8,10 +8,6 @@ export type Post = (typeof blogs)[number] & {
     minutes: number;
     words: number;
   };
-  body: string;
-};
-
-export type Showcase = (typeof components)[number] & {
   body: string;
 };
 
@@ -42,26 +38,24 @@ export function getAllPosts(): Post[] {
     .toSorted(compareByDateDesc);
 }
 
+export function getFeaturedPosts(): Post[] {
+  return getAllPosts().filter((post) => post.featured === true);
+}
+
+export function getPostsByTag(tag: string): Post[] {
+  const normalizedTag = tag.trim().toLowerCase();
+  return getAllPosts().filter((post) =>
+    post.tags.some((entry) => entry.trim().toLowerCase() === normalizedTag),
+  );
+}
+
 export function getPostBySlug(slug: string): Post | null {
   const normalizedSlug = normalizeSlug(slug);
   const allPosts = getAllPosts();
-  const match = allPosts.find(
-    (post) => {
-      const key = post.slugAsParams ?? post.slug;
-      return normalizeSlug(key) === normalizedSlug;
-    },
-  );
+  const match = allPosts.find((post) => {
+    const key = post.slugAsParams ?? post.slug;
+    return normalizeSlug(key) === normalizedSlug;
+  });
   return match ?? null;
-}
-
-export function getShowcase(): Showcase | null {
-  const showcase = components.find(
-    (comp) => comp.category === "_showcase"
-  );
-  if (!showcase) return null;
-  return {
-    ...showcase,
-    body: showcase.content,
-  };
 }
 

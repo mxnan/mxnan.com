@@ -34,7 +34,8 @@ const CustomLink = ({ href = "", children, ...props }: CustomLinkProps) => {
       target="_blank"
       rel="noopener noreferrer"
       {...props}
-      className={cn(buttonVariants({ variant: "default" }))}
+      data-cursor="invert"
+      className={cn(buttonVariants({ variant: "secondary" }),"px-2 py-0.5")}
     >
       {children}
     </a>

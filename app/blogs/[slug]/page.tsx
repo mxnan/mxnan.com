@@ -65,7 +65,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           className="w-min h-auto aspect-video rounded-lg mb-8"
           priority
         />
-        <MDXContent code={post.body} type="blog" />
+        <MDXContent code={post.body} />
       </div>
       <TableOfContents toc={post.toc} />
     </div>
