@@ -1,3 +1,12 @@
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Terms of Service",
+  description: "Terms for freelance design and front-end engagements.",
+  alternates: { canonical: "/terms" },
+  robots: { index: false, follow: true },
+};
+
 export default function TermsPage() {
   return (
     <main className="min-h-screen flex items-start justify-center pt-28 px-4">

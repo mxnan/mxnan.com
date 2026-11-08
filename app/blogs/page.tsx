@@ -2,10 +2,44 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { getAllPosts } from "@/lib/content";
+import { JsonLd } from "@/components/seo/json-ld";
+import { blogSchema } from "@/lib/seo";
+import {
+  DEFAULT_OG_IMAGE,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
+
+const BLOG_DESCRIPTION =
+  "Essays and case studies on product design, front-end engineering, Next.js, React, and building interfaces people actually use.";
 
 export const metadata: Metadata = {
-  title: "Blogs",
-  description: "Thoughts, notes, and articles powered by Velite and MDX.",
+  title: "Blog",
+  description: BLOG_DESCRIPTION,
+  alternates: { canonical: "/blogs" },
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/blogs`,
+    siteName: SITE_NAME,
+    locale: SITE_LOCALE,
+    title: `Blog | ${SITE_NAME}`,
+    description: BLOG_DESCRIPTION,
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: `Blog | ${SITE_NAME}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Blog | ${SITE_NAME}`,
+    description: BLOG_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
+  },
 };
 
 export default function BlogPage() {
@@ -14,8 +48,9 @@ export default function BlogPage() {
   if (posts.length === 0) {
     return (
       <main className="flex flex-col gap-8">
+        <JsonLd data={blogSchema(posts)} />
         <section className="space-y-4">
-          <h1>Blogs</h1>
+          <h1>Blog</h1>
           <p>No posts have been published yet. Please check back soon.</p>
         </section>
       </main>
@@ -24,8 +59,9 @@ export default function BlogPage() {
 
   return (
     <div className="relative space-y-8 ">
+      <JsonLd data={blogSchema(posts)} />
       <section className="space-y-3 text-center">
-        <h1>Blogs</h1>
+        <h1>Blog</h1>
         <p>
           Long-form notes, experiments, and write-ups about building with
           Next.js, React, and the modern web.

@@ -1,4 +1,42 @@
+import type { Metadata } from "next";
 import ContactForm from "@/components/site-assets/contact-form";
+import {
+  DEFAULT_OG_IMAGE,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_URL,
+} from "@/lib/site";
+
+export const metadata: Metadata = {
+  title: "Contact",
+  description:
+    "Tell mxnan about your product, timeline, and goals. Send a short brief and get a reply within 48 hours.",
+  alternates: { canonical: "/contact" },
+  openGraph: {
+    type: "website",
+    url: `${SITE_URL}/contact`,
+    siteName: SITE_NAME,
+    locale: SITE_LOCALE,
+    title: `Contact | ${SITE_NAME}`,
+    description:
+      "Tell mxnan about your product, timeline, and goals. Send a short brief and get a reply within 48 hours.",
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: `Contact | ${SITE_NAME}`,
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Contact | ${SITE_NAME}`,
+    description:
+      "Tell mxnan about your product, timeline, and goals. Send a short brief and get a reply within 48 hours.",
+    images: [DEFAULT_OG_IMAGE],
+  },
+};
 
 export default function ContactPage() {
   return (

@@ -1,7 +1,12 @@
 
 
+import type { Metadata } from "next";
 import Link from "next/link";
 import TaglineReveal from "@/components/site-assets/tagline-reveal";
+
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 export default function Home() {
   return (
@@ -35,7 +40,7 @@ export default function Home() {
       <section className="py-12">
         <div className="max-w-3xl mx-auto px-4">
           <div className="max-w-[680px] mx-auto text-center">
-            <h3 className="text-2xl font-semibold">How I help</h3>
+            <h2 className="text-2xl font-semibold">How I help</h2>
             <ul className="mt-6 space-y-4 text-left">
               <li>
                 <strong>Clear decisions</strong> — Rapid design iterations that leave you a ship-ready front end and a prioritized roadmap.
@@ -54,7 +59,7 @@ export default function Home() {
       <section className="py-12 bg-transparent">
         <div className="max-w-3xl mx-auto px-4">
           <div className="max-w-[680px] mx-auto text-center">
-            <h3 className="text-2xl font-semibold">How it works</h3>
+            <h2 className="text-2xl font-semibold">How it works</h2>
             <ol className="mt-6 space-y-6 text-left">
               <li>
                 <strong>Tell me about the project</strong> — a short brief or a 15‑minute call is enough to scope the work and agree on a timeline.
@@ -73,7 +78,7 @@ export default function Home() {
       <section className="py-12">
         <div className="max-w-3xl mx-auto px-4">
           <div className="max-w-[880px] mx-auto">
-            <h3 className="text-2xl font-semibold text-center">Recent writing</h3>
+            <h2 className="text-2xl font-semibold text-center">What clients say</h2>
 
             <div className="mt-6 grid grid-cols-1 md:grid-cols-2 gap-6">
               <article className="p-4 rounded-lg border border-border">
@@ -109,7 +114,7 @@ export default function Home() {
       <section className="py-12">
         <div className="max-w-3xl mx-auto px-4">
           <div className="max-w-[880px] mx-auto">
-            <h3 className="text-2xl font-semibold text-center">Frequently asked</h3>
+            <h2 className="text-2xl font-semibold text-center">Frequently asked</h2>
 
             <div className="mt-6 space-y-4">
               <details className="p-4 rounded-lg border border-border">
@@ -149,7 +154,7 @@ export default function Home() {
       <section className="py-12">
         <div className="max-w-3xl mx-auto px-4">
           <div className="max-w-[680px] mx-auto text-center">
-            <h3 className="text-2xl font-semibold">Ready to get started?</h3>
+            <h2 className="text-2xl font-semibold">Ready to get started?</h2>
             <p className="mt-4 text-muted-foreground">If you’ve got a project, I’d love to hear about it. Send a quick brief and I’ll get back with timing and next steps.</p>
             <div className="mt-6">
               <Link href="/contact" className="inline-block bg-primary text-primary-foreground px-4 py-2 rounded-md text-base font-semibold">Contact me</Link>

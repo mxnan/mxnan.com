@@ -5,6 +5,17 @@ import { Toaster } from "sonner";
 import { Providers } from "./providers";
 import Header from "@/components/nav/header";
 import Footer from "@/components/nav/footer";
+import { JsonLd } from "@/components/seo/json-ld";
+import { professionalServiceSchema, websiteSchema } from "@/lib/seo";
+import {
+  DEFAULT_OG_IMAGE,
+  SITE_DESCRIPTION,
+  SITE_KEYWORDS,
+  SITE_LOCALE,
+  SITE_NAME,
+  SITE_TITLE,
+  SITE_URL,
+} from "@/lib/site";
 
 const sans = Anybody({
   variable: "--font-sans",
@@ -23,25 +34,65 @@ const mono = Fira_Code({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_APP_URL!),
+  metadataBase: new URL(SITE_URL),
 
   title: {
-    default: "mxnan | Portfolio",
-    template: "%s | mxnan", // child pages just return the bare title
+    default: SITE_TITLE,
+    template: "%s | mxnan", // child pages return a bare title
   },
 
-  description: "Personal portfolio and interactive component library",
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  authors: [{ name: SITE_NAME, url: SITE_URL }],
+  creator: SITE_NAME,
+  publisher: SITE_NAME,
+  keywords: SITE_KEYWORDS,
+  category: "Design & Development",
 
   openGraph: {
     type: "website",
-    siteName: "mxnan",
-    images: [{ url: "/og/default.jpg", width: 1200, height: 630 }],
+    url: SITE_URL,
+    siteName: SITE_NAME,
+    locale: SITE_LOCALE,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [
+      {
+        url: DEFAULT_OG_IMAGE,
+        width: 1200,
+        height: 630,
+        alt: SITE_TITLE,
+      },
+    ],
   },
 
   twitter: {
     card: "summary_large_image",
-    images: ["/og/default.jpg"],
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    images: [DEFAULT_OG_IMAGE],
   },
+
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+
+  // Set NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION to verify Search Console.
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? {
+        verification: {
+          google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+        },
+      }
+    : {}),
 };
 
 export default function RootLayout({
@@ -55,6 +106,9 @@ export default function RootLayout({
         className={`${sans.variable} ${mono.variable} ${serif.variable} antialiased`}
       >
         <Providers>
+          <JsonLd data={websiteSchema()} />
+          <JsonLd data={professionalServiceSchema()} />
+
           {/* skip link for keyboard users */}
           <a
             href="#content"
