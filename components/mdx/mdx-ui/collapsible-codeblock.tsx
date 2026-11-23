@@ -40,7 +40,7 @@ export function CollapsibleCodeBlock({
 
                 {/* Overlay gradient + button - only visible when collapsed */}
                 {!isOpened && (
-                    <div className="bg-gradient-to-t from-background via-background/80 to-transparent p-3 sm:p-4 flex items-center justify-center">
+                    <div className="bg-linear-to-t from-background via-background/80 to-transparent p-3 sm:p-4 flex items-center justify-center">
                         <CollapsibleTrigger asChild>
                             <Button variant="outline" size="default" className="text-xs hover:bg-muted-background font-semibold">
                                 {expandButtonTitle} <ListChevronsUpDown />

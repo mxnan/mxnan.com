@@ -12,9 +12,14 @@ const CustomLink = ({ href = "", children, ...props }: CustomLinkProps) => {
   // Internal link (Next.js Link)
   if (href.startsWith("/")) {
     return (
-      <Link href={href} {...props}>
+      <Link 
+      href={href} 
+      {...props}    
+      data-cursor="takeover"
+      className={cn(buttonVariants({ variant: "default" }),"px-2 py-0.5")}>
         {children}
       </Link>
+      
     );
   }
 
