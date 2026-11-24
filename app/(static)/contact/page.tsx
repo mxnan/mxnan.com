@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/site-assets/contact-form";
+import { FormSection } from "@/components/site-assets/form-section";
 import {
   DEFAULT_OG_IMAGE,
   SITE_LOCALE,
@@ -47,7 +47,7 @@ export default function ContactPage() {
           <p className="mt-4 text-muted-foreground">Send a short brief or a link to examples. If it’s a good fit I’ll reply with timing and next steps within 48 hours.</p>
 
           <div className="mt-8">
-            <ContactForm />
+            <FormSection />
           </div>
         </section>
       </div>
